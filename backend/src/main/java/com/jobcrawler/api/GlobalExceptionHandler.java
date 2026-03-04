@@ -1,6 +1,8 @@
 package com.jobcrawler.api;
 
 import com.jobcrawler.company.CompanyNotFoundException;
+import com.jobcrawler.profile.SearchProfileNotFoundException;
+import com.jobcrawler.vacancy.VacancyNotFoundException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ProblemDetail;
 import org.springframework.web.bind.MethodArgumentNotValidException;
@@ -12,8 +14,8 @@ import java.util.stream.Collectors;
 @RestControllerAdvice
 public class GlobalExceptionHandler {
 
-    @ExceptionHandler(CompanyNotFoundException.class)
-    public ProblemDetail handleNotFound(CompanyNotFoundException ex) {
+    @ExceptionHandler({CompanyNotFoundException.class, VacancyNotFoundException.class, SearchProfileNotFoundException.class})
+    public ProblemDetail handleNotFound(RuntimeException ex) {
         return ProblemDetail.forStatusAndDetail(HttpStatus.NOT_FOUND, ex.getMessage());
     }
 

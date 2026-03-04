@@ -6,8 +6,8 @@ import com.jobcrawler.adapter.model.RawVacancy;
 import com.jobcrawler.adapter.model.SearchCriteria;
 import com.jobcrawler.crawl.CrawlLog;
 import com.jobcrawler.crawl.CrawlLogRepository;
+import com.jobcrawler.processing.ProcessingPipeline;
 import com.jobcrawler.profile.SearchProfileRepository;
-import com.jobcrawler.source.Source;
 import com.jobcrawler.source.SourceRepository;
 import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
@@ -33,6 +33,7 @@ public class CrawlScheduler {
     private final SearchProfileRepository profileRepository;
     private final SourceRepository sourceRepository;
     private final CrawlLogRepository crawlLogRepository;
+    private final ProcessingPipeline processingPipeline;
 
     @Value("${crawler.enabled:true}")
     private boolean crawlerEnabled;
@@ -89,6 +90,7 @@ public class CrawlScheduler {
             log.debug("[{}] Starting fetch", sourceId);
             List<RawVacancy> vacancies = adapter.fetchJobs(criteria);
             int found = vacancies.size();
+            int saved = processingPipeline.process(vacancies);
 
             // Update last_crawled_at for source
             sourceRepository.findById(sourceId).ifPresent(source -> {
@@ -96,10 +98,10 @@ public class CrawlScheduler {
                 sourceRepository.save(source);
             });
 
-            crawlLog.finish(found, found); // newCount = found for now (dedup in Этап 3)
+            crawlLog.finish(found, saved);
             crawlLogRepository.save(crawlLog);
 
-            log.info("[{}] Fetched {} vacancies", sourceId, found);
+            log.info("[{}] Fetched {}, saved {} new vacancies", sourceId, found, saved);
             return new AdapterResult(sourceId, found);
 
         } catch (Exception e) {
