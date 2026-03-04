@@ -1,0 +1,338 @@
+{
+  "info": {
+    "name": "Job Crawler",
+    "_postman_id": "job-crawler-api-v1",
+    "description": "API коллекция для Job Crawler — агрегатора вакансий",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "http://localhost:8080/api/v1",
+      "type": "string"
+    }
+  ],
+  "item": [
+    {
+      "name": "Profiles",
+      "item": [
+        {
+          "name": "Get all profiles",
+          "request": {
+            "method": "GET",
+            "url": "{{baseUrl}}/profiles",
+            "header": []
+          }
+        },
+        {
+          "name": "Create profile",
+          "request": {
+            "method": "POST",
+            "url": "{{baseUrl}}/profiles",
+            "header": [
+              { "key": "Content-Type", "value": "application/json" }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"Java Backend\",\n  \"mustKeywords\": [\"Java\", \"Spring\"],\n  \"niceKeywords\": [\"Kafka\", \"Docker\", \"Kubernetes\"],\n  \"excludeKeywords\": [\"PHP\", \"1C\", \"Junior\"],\n  \"locations\": [\"remote\", \"Berlin\", \"Amsterdam\"],\n  \"remoteTypes\": [\"FULL_REMOTE\", \"HYBRID\"],\n  \"minScore\": 30\n}"
+            }
+          }
+        },
+        {
+          "name": "Update profile",
+          "request": {
+            "method": "PUT",
+            "url": "{{baseUrl}}/profiles/{{profileId}}",
+            "header": [
+              { "key": "Content-Type", "value": "application/json" }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"Java Backend (updated)\",\n  \"mustKeywords\": [\"Java\", \"Spring Boot\"],\n  \"niceKeywords\": [\"Kafka\", \"Docker\"],\n  \"excludeKeywords\": [\"PHP\", \"1C\"],\n  \"locations\": [\"remote\"],\n  \"remoteTypes\": [\"FULL_REMOTE\"],\n  \"minScore\": 40\n}"
+            }
+          }
+        },
+        {
+          "name": "Delete profile",
+          "request": {
+            "method": "DELETE",
+            "url": "{{baseUrl}}/profiles/{{profileId}}",
+            "header": []
+          }
+        },
+        {
+          "name": "Toggle profile",
+          "request": {
+            "method": "PATCH",
+            "url": "{{baseUrl}}/profiles/{{profileId}}/toggle",
+            "header": []
+          }
+        }
+      ]
+    },
+    {
+      "name": "Sources",
+      "item": [
+        {
+          "name": "Get all sources",
+          "request": {
+            "method": "GET",
+            "url": "{{baseUrl}}/sources",
+            "header": []
+          }
+        },
+        {
+          "name": "Toggle source",
+          "request": {
+            "method": "PATCH",
+            "url": "{{baseUrl}}/sources/{{sourceId}}/toggle",
+            "header": []
+          }
+        }
+      ]
+    },
+    {
+      "name": "Companies",
+      "item": [
+        {
+          "name": "Get all companies",
+          "request": {
+            "method": "GET",
+            "url": "{{baseUrl}}/companies",
+            "header": []
+          }
+        },
+        {
+          "name": "Create company (Greenhouse ATS)",
+          "request": {
+            "method": "POST",
+            "url": "{{baseUrl}}/companies",
+            "header": [
+              { "key": "Content-Type", "value": "application/json" }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"Acme Corp\",\n  \"careerPageUrl\": \"https://boards.greenhouse.io/acmecorp\",\n  \"atsType\": \"greenhouse\",\n  \"atsCompanyId\": \"acmecorp\"\n}"
+            }
+          }
+        },
+        {
+          "name": "Create company (Lever ATS)",
+          "request": {
+            "method": "POST",
+            "url": "{{baseUrl}}/companies",
+            "header": [
+              { "key": "Content-Type", "value": "application/json" }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"Beta Inc\",\n  \"careerPageUrl\": \"https://jobs.lever.co/betainc\",\n  \"atsType\": \"lever\",\n  \"atsCompanyId\": \"betainc\"\n}"
+            }
+          }
+        },
+        {
+          "name": "Create company (custom career page)",
+          "request": {
+            "method": "POST",
+            "url": "{{baseUrl}}/companies",
+            "header": [
+              { "key": "Content-Type", "value": "application/json" }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"Startup XYZ\",\n  \"careerPageUrl\": \"https://startupxyz.com/careers\",\n  \"atsType\": \"custom\"\n}"
+            }
+          }
+        },
+        {
+          "name": "Update company",
+          "request": {
+            "method": "PUT",
+            "url": "{{baseUrl}}/companies/{{companyId}}",
+            "header": [
+              { "key": "Content-Type", "value": "application/json" }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"Acme Corp (updated)\",\n  \"careerPageUrl\": \"https://boards.greenhouse.io/acmecorp\",\n  \"atsType\": \"greenhouse\",\n  \"atsCompanyId\": \"acmecorp\"\n}"
+            }
+          }
+        },
+        {
+          "name": "Delete company",
+          "request": {
+            "method": "DELETE",
+            "url": "{{baseUrl}}/companies/{{companyId}}",
+            "header": []
+          }
+        }
+      ]
+    },
+    {
+      "name": "Vacancies",
+      "item": [
+        {
+          "name": "Get all vacancies",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{baseUrl}}/vacancies?page=0&size=20",
+              "host": ["{{baseUrl}}"],
+              "path": ["vacancies"],
+              "query": [
+                { "key": "page", "value": "0" },
+                { "key": "size", "value": "20" },
+                { "key": "sourceId", "value": "", "disabled": true },
+                { "key": "profileId", "value": "", "disabled": true },
+                { "key": "status", "value": "", "disabled": true },
+                { "key": "minScore", "value": "", "disabled": true }
+              ]
+            },
+            "header": []
+          }
+        },
+        {
+          "name": "Get vacancies — NEW, score >= 50",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{baseUrl}}/vacancies?status=NEW&minScore=50&page=0&size=20",
+              "host": ["{{baseUrl}}"],
+              "path": ["vacancies"],
+              "query": [
+                { "key": "status", "value": "NEW" },
+                { "key": "minScore", "value": "50" },
+                { "key": "page", "value": "0" },
+                { "key": "size", "value": "20" }
+              ]
+            },
+            "header": []
+          }
+        },
+        {
+          "name": "Get vacancy by ID",
+          "request": {
+            "method": "GET",
+            "url": "{{baseUrl}}/vacancies/{{vacancyId}}",
+            "header": []
+          }
+        },
+        {
+          "name": "Update vacancy status → INTERESTED",
+          "request": {
+            "method": "PATCH",
+            "url": "{{baseUrl}}/vacancies/{{vacancyId}}/status",
+            "header": [
+              { "key": "Content-Type", "value": "application/json" }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"status\": \"INTERESTED\"\n}"
+            }
+          }
+        },
+        {
+          "name": "Update vacancy status → APPLIED",
+          "request": {
+            "method": "PATCH",
+            "url": "{{baseUrl}}/vacancies/{{vacancyId}}/status",
+            "header": [
+              { "key": "Content-Type", "value": "application/json" }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"status\": \"APPLIED\"\n}"
+            }
+          }
+        },
+        {
+          "name": "Update vacancy status → INTERVIEW",
+          "request": {
+            "method": "PATCH",
+            "url": "{{baseUrl}}/vacancies/{{vacancyId}}/status",
+            "header": [
+              { "key": "Content-Type", "value": "application/json" }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"status\": \"INTERVIEW\"\n}"
+            }
+          }
+        },
+        {
+          "name": "Update vacancy status → OFFER",
+          "request": {
+            "method": "PATCH",
+            "url": "{{baseUrl}}/vacancies/{{vacancyId}}/status",
+            "header": [
+              { "key": "Content-Type", "value": "application/json" }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"status\": \"OFFER\"\n}"
+            }
+          }
+        },
+        {
+          "name": "Update vacancy status → REJECTED",
+          "request": {
+            "method": "PATCH",
+            "url": "{{baseUrl}}/vacancies/{{vacancyId}}/status",
+            "header": [
+              { "key": "Content-Type", "value": "application/json" }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"status\": \"REJECTED\"\n}"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Crawler",
+      "item": [
+        {
+          "name": "Run crawler (async)",
+          "request": {
+            "method": "POST",
+            "url": "{{baseUrl}}/crawler/run",
+            "header": []
+          }
+        },
+        {
+          "name": "Get crawl logs",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{baseUrl}}/crawler/logs?limit=50",
+              "host": ["{{baseUrl}}"],
+              "path": ["crawler", "logs"],
+              "query": [
+                { "key": "limit", "value": "50" },
+                { "key": "sourceId", "value": "", "disabled": true }
+              ]
+            },
+            "header": []
+          }
+        },
+        {
+          "name": "Get crawl logs by source",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{baseUrl}}/crawler/logs?sourceId={{sourceId}}&limit=20",
+              "host": ["{{baseUrl}}"],
+              "path": ["crawler", "logs"],
+              "query": [
+                { "key": "sourceId", "value": "{{sourceId}}" },
+                { "key": "limit", "value": "20" }
+              ]
+            },
+            "header": []
+          }
+        }
+      ]
+    }
+  ]
+}
