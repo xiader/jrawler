@@ -44,14 +44,25 @@ public class CrawlScheduler {
             log.info("Crawler is disabled, skipping scheduled run");
             return;
         }
-        runAll();
+        runAll(false);
     }
 
     /**
      * Runs all enabled adapters in parallel using Virtual Threads (Java 21).
      * Can be called manually via REST API.
+     * @param force if true, clears all cached ETags to force a full rescan
      */
-    public void runAll() {
+    public void runAll(boolean force) {
+        if (force) {
+            sourceRepository.findAll().forEach(source -> {
+                if (source.getLastEtag() != null) {
+                    source.setLastEtag(null);
+                    sourceRepository.save(source);
+                }
+            });
+            log.info("Force mode: cleared all cached ETags");
+        }
+
         List<JobSearchAdapter> enabled = adapterRegistry.getEnabled();
         if (enabled.isEmpty()) {
             log.info("No enabled adapters found, skipping crawl");

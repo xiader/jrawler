@@ -24,8 +24,9 @@ public class CrawlerController {
      * Returns immediately with 202 Accepted.
      */
     @PostMapping("/run")
-    public ResponseEntity<Map<String, String>> run() {
-        CompletableFuture.runAsync(crawlScheduler::runAll);
+    public ResponseEntity<Map<String, String>> run(
+            @RequestParam(defaultValue = "false") boolean force) {
+        CompletableFuture.runAsync(() -> crawlScheduler.runAll(force));
         return ResponseEntity.accepted().body(Map.of("status", "started"));
     }
 

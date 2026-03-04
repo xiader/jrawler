@@ -12,7 +12,6 @@ import org.springframework.stereotype.Component;
 import java.time.Instant;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
 
 /**
  * RemoteOK public API: https://remoteok.com/api?tags=java
@@ -41,11 +40,9 @@ public class RemoteOkAdapter extends AbstractRestApiAdapter {
         if (criteria == null || criteria.keywords().isEmpty()) {
             return "https://remoteok.com/api";
         }
-        // Use the most specific keywords (first few to avoid overly broad results)
-        String tags = criteria.keywords().stream()
-                .limit(3)
-                .collect(Collectors.joining(","));
-        return "https://remoteok.com/api?tags=" + tags;
+        // RemoteOK API only accepts a single tag; use the primary keyword
+        String tag = criteria.keywords().get(0);
+        return "https://remoteok.com/api?tag=" + tag;
     }
 
     @Override

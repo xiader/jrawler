@@ -41,7 +41,6 @@ public abstract class AbstractRssAdapter implements JobSearchAdapter {
     @Override
     public List<RawVacancy> fetchJobs(SearchCriteria criteria) {
         String url = getRssFeedUrl(criteria);
-        String etagRedisKey = "etag:" + getSourceId();
 
         Optional<Source> sourceOpt = sourceRepository.findById(getSourceId());
         String cachedEtag = sourceOpt.map(Source::getLastEtag).orElse(null);
@@ -64,10 +63,13 @@ public abstract class AbstractRssAdapter implements JobSearchAdapter {
                 return List.of();
             }
 
-            // Cache new ETag in DB (updated by scheduler)
+            // Persist new ETag to DB for next request's If-None-Match header
             String newEtag = response.header("ETag");
             if (newEtag != null) {
-                redisTemplate.opsForValue().set(etagRedisKey, newEtag);
+                sourceOpt.ifPresent(source -> {
+                    source.setLastEtag(newEtag);
+                    sourceRepository.save(source);
+                });
             }
 
             SyndFeed feed = new SyndFeedInput().build(new XmlReader(response.body().byteStream()));
