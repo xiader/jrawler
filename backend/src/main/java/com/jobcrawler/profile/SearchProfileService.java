@@ -58,7 +58,7 @@ public class SearchProfileService {
 
     private void apply(SearchProfile profile, SearchProfileRequest req) {
         profile.setName(req.name());
-        profile.setActive(req.active());
+        if (req.active() != null) profile.setActive(req.active());
         profile.setMustHaveKeywords(req.mustHaveKeywords());
         profile.setNiceToHaveKeywords(req.niceToHaveKeywords());
         profile.setExcludeKeywords(req.excludeKeywords());
