@@ -11,7 +11,7 @@ CREATE EXTENSION IF NOT EXISTS "pgcrypto";
 CREATE TABLE sources (
     id              VARCHAR(64) PRIMARY KEY,
     name            VARCHAR(255) NOT NULL,
-    priority        SMALLINT    NOT NULL DEFAULT 1,  -- 0=P0, 1=P1, 2=P2
+    priority        INTEGER     NOT NULL DEFAULT 1,  -- 0=P0, 1=P1, 2=P2
     is_enabled      BOOLEAN     NOT NULL DEFAULT TRUE,
     last_crawled_at TIMESTAMPTZ,
     last_etag       VARCHAR(255)
@@ -44,7 +44,7 @@ CREATE TABLE search_profiles (
     exclude_keywords     JSONB       NOT NULL DEFAULT '[]',
     locations            JSONB       NOT NULL DEFAULT '[]',
     remote_types         JSONB       NOT NULL DEFAULT '[]',
-    min_relevance_score  SMALLINT    NOT NULL DEFAULT 30,
+    min_relevance_score  INTEGER     NOT NULL DEFAULT 30,
     created_at           TIMESTAMPTZ NOT NULL DEFAULT NOW()
 );
 
@@ -63,7 +63,7 @@ CREATE TABLE vacancies (
     remote_type      VARCHAR(32),          -- REMOTE|HYBRID|ON_SITE
     description      TEXT,
     description_hash VARCHAR(64),
-    relevance_score  SMALLINT    NOT NULL DEFAULT 0,
+    relevance_score  INTEGER     NOT NULL DEFAULT 0,
     matched_keywords JSONB       NOT NULL DEFAULT '[]',
     profile_id       UUID        REFERENCES search_profiles(id),
     status           VARCHAR(32) NOT NULL DEFAULT 'NEW',
