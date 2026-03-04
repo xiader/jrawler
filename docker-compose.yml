@@ -1,7 +1,7 @@
 services:
   postgres:
     image: postgres:18.1
-    container_name: postgres-db
+    container_name: postgres-db_job_crawler
     restart: unless-stopped
 
     environment:
@@ -23,7 +23,7 @@ services:
 
   redis:
     image: redis:8.6-rc1
-    container_name: redis
+    container_name: redis_job_crawler
     restart: unless-stopped
     ports:
       - "6379:6379"
