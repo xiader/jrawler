@@ -13,6 +13,9 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.time.Instant;
 import java.util.List;
+import java.util.Map;
+import java.util.UUID;
+import java.util.stream.Collectors;
 
 /**
  * Orchestrates the full RawVacancy → Vacancy pipeline:
@@ -39,6 +42,8 @@ public class ProcessingPipeline {
     @Transactional
     public int process(List<RawVacancy> rawVacancies) {
         List<SearchProfile> activeProfiles = profileRepository.findByActiveTrue();
+        Map<UUID, Integer> profileMinScores = activeProfiles.stream()
+                .collect(Collectors.toMap(SearchProfile::getId, SearchProfile::getMinRelevanceScore));
         int saved = 0;
 
         for (RawVacancy raw : rawVacancies) {
@@ -50,12 +55,15 @@ public class ProcessingPipeline {
 
                 Vacancy vacancy = toVacancy(raw, activeProfiles);
 
-                // Skip vacancies that don't meet the minimum score for any profile
-                if (activeProfiles.isEmpty() || vacancy.getRelevanceScore() > 0) {
+                // Skip vacancies that don't meet the minimum score of the matched profile
+                int minScore = vacancy.getProfileId() != null
+                        ? profileMinScores.getOrDefault(vacancy.getProfileId(), 1)
+                        : 1;
+                if (activeProfiles.isEmpty() || vacancy.getRelevanceScore() >= minScore) {
                     vacancyRepository.save(vacancy);
                     saved++;
                 } else {
-                    log.debug("[pipeline] Below min score, skipped: {}", raw.title());
+                    log.debug("[pipeline] Below min score ({}<{}), skipped: {}", vacancy.getRelevanceScore(), minScore, raw.title());
                 }
             } catch (Exception e) {
                 log.error("[pipeline] Failed to process vacancy '{}': {}", raw.title(), e.getMessage());
