@@ -63,13 +63,21 @@ public class RelevanceScorer {
             }
         }
 
-        // Remote type match
+        // Remote type match — hard filter if profile specifies remote types
         List<String> profileRemoteTypes = safe(profile.getRemoteTypes());
-        if (!profileRemoteTypes.isEmpty() && vacancy.remoteTypeRaw() != null) {
-            String remoteNorm = vacancy.remoteTypeRaw().toUpperCase(Locale.ROOT);
-            boolean remoteMatch = profileRemoteTypes.stream()
-                    .anyMatch(r -> r.equalsIgnoreCase(remoteNorm));
-            if (remoteMatch) score += 15;
+        if (!profileRemoteTypes.isEmpty()) {
+            if (vacancy.remoteTypeRaw() == null) {
+                score += 5; // unknown remote type — small bonus, not excluded
+            } else {
+                String remoteNorm = vacancy.remoteTypeRaw().toUpperCase(Locale.ROOT);
+                boolean remoteMatch = profileRemoteTypes.stream()
+                        .anyMatch(r -> r.equalsIgnoreCase(remoteNorm));
+                if (remoteMatch) {
+                    score += 15;
+                } else {
+                    return new ScoringResult(0, List.of()); // wrong remote type — hard exclude
+                }
+            }
         }
 
         // Location match
