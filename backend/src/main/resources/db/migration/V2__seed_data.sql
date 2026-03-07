@@ -12,7 +12,7 @@ INSERT INTO sources (id, name, priority, is_enabled) VALUES
     ('remotive',       'Remotive',          0, TRUE),
     ('weworkremotely', 'We Work Remotely',  0, TRUE),
     ('linkedin',       'LinkedIn',          0, TRUE),
-    ('justjoinit',     'JustJoin.it',       0, TRUE),
+    ('justjoinit',     'JustJoin.it',       0, FALSE),   -- /api/offers removed (404)
     ('nofluffjobs',    'NoFluffJobs',       0, TRUE),
     ('theprotocol',    'TheProtocol.it',    0, TRUE),
     ('company_ats',    'Company ATS Pages', 0, TRUE),
@@ -61,7 +61,7 @@ VALUES
         TRUE,
         '["java"]',
         '["spring", "spring boot", "kafka", "postgresql", "microservices", "kubernetes", "docker", "rest api", "hibernate"]',
-        '["php", "clearance", "secret clearance", ".net", "c#", "ruby", "ios", "android", "react", "angular", "vue"]',
+        '["php", "clearance", "secret clearance", ".net", "c#", "ruby", "ios", "android", "react", "angular", "vue", "javascript", "qa", "test automation", "quality assurance"]',
         '["Poland", "Europe", "Remote", "EU", "Worldwide"]',
         '["REMOTE", "HYBRID"]',
         30

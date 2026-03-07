@@ -19,7 +19,8 @@ public record VacancyDto(
         List<String> matchedKeywords,
         UUID profileId,
         VacancyStatus status,
-        Instant foundAt
+        Instant foundAt,
+        Instant createdAt
 ) {
     public static VacancyDto from(Vacancy v) {
         return new VacancyDto(
@@ -27,7 +28,7 @@ public record VacancyDto(
                 v.getTitle(), v.getCompanyName(), v.getUrl(),
                 v.getLocation(), v.getSalaryRaw(), v.getRemoteType(),
                 v.getDescription(), v.getRelevanceScore(), v.getMatchedKeywords(),
-                v.getProfileId(), v.getStatus(), v.getFoundAt()
+                v.getProfileId(), v.getStatus(), v.getFoundAt(), v.getCreatedAt()
         );
     }
 }

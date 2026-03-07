@@ -37,6 +37,11 @@ public class CompanyController {
         return service.update(id, request);
     }
 
+    @PatchMapping("/{id}/toggle")
+    public CompanyDto.Response toggle(@PathVariable UUID id) {
+        return service.toggleActive(id);
+    }
+
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> delete(@PathVariable UUID id) {
         service.delete(id);

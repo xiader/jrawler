@@ -42,6 +42,14 @@ public class CompanyService {
     }
 
     @Transactional
+    public CompanyDto.Response toggleActive(UUID id) {
+        Company company = repository.findById(id)
+                .orElseThrow(() -> new CompanyNotFoundException(id));
+        company.setActive(!company.isActive());
+        return CompanyDto.toResponse(repository.save(company));
+    }
+
+    @Transactional
     public void delete(UUID id) {
         if (!repository.existsById(id)) {
             throw new CompanyNotFoundException(id);

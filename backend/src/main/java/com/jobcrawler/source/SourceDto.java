@@ -1,12 +1,14 @@
 package com.jobcrawler.source;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 import java.time.Instant;
 
 public record SourceDto(
         String id,
         String name,
         int priority,
-        boolean enabled,
+        @JsonProperty("isEnabled") boolean enabled,
         Instant lastCrawledAt
 ) {
     public static SourceDto from(Source s) {

@@ -1,11 +1,11 @@
 import { useState } from 'react';
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
-import { fetchCompanies, createCompany, updateCompany, deleteCompany } from '../api/companies';
+import { fetchCompanies, createCompany, updateCompany, toggleCompany, deleteCompany, type CompanyBody } from '../api/companies';
 import type { Company } from '../types';
 
 const ATS_TYPES = ['greenhouse', 'lever', 'workday', 'smartrecruiters', 'bamboohr', 'custom'];
 
-const empty: Omit<Company, 'id' | 'lastCrawledAt'> = {
+const empty: CompanyBody = {
   name: '',
   careerPageUrl: '',
   atsType: 'greenhouse',
@@ -18,7 +18,7 @@ export default function Companies() {
   const qc = useQueryClient();
   const [editing, setEditing] = useState<Company | null>(null);
   const [creating, setCreating] = useState(false);
-  const [form, setForm] = useState<Omit<Company, 'id' | 'lastCrawledAt'>>(empty);
+  const [form, setForm] = useState<CompanyBody>(empty);
 
   const { data: companies = [], isLoading } = useQuery({
     queryKey: ['companies'],
@@ -31,8 +31,13 @@ export default function Companies() {
   });
 
   const updateMutation = useMutation({
-    mutationFn: ({ id, body }: { id: string; body: Partial<Company> }) => updateCompany(id, body),
+    mutationFn: ({ id, body }: { id: string; body: CompanyBody }) => updateCompany(id, body),
     onSuccess: () => { qc.invalidateQueries({ queryKey: ['companies'] }); setEditing(null); },
+  });
+
+  const toggleMutation = useMutation({
+    mutationFn: toggleCompany,
+    onSuccess: () => qc.invalidateQueries({ queryKey: ['companies'] }),
   });
 
   const deleteMutation = useMutation({
@@ -98,7 +103,7 @@ export default function Companies() {
                 </td>
                 <td className="px-4 py-2.5">
                   <button
-                    onClick={() => updateMutation.mutate({ id: c.id, body: { isActive: !c.isActive } })}
+                    onClick={() => toggleMutation.mutate(c.id)}
                     className={`px-2 py-0.5 rounded text-xs font-medium ${c.isActive ? 'bg-green-900 text-green-300' : 'bg-gray-800 text-gray-500'}`}
                   >
                     {c.isActive ? 'Active' : 'Inactive'}

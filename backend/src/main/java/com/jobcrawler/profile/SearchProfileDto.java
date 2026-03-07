@@ -1,5 +1,7 @@
 package com.jobcrawler.profile;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 import java.time.Instant;
 import java.util.List;
 import java.util.UUID;
@@ -7,7 +9,7 @@ import java.util.UUID;
 public record SearchProfileDto(
         UUID id,
         String name,
-        boolean active,
+        @JsonProperty("isActive") boolean active,
         List<String> mustHaveKeywords,
         List<String> niceToHaveKeywords,
         List<String> excludeKeywords,

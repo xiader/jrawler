@@ -1,5 +1,6 @@
 package com.jobcrawler.company;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
 
@@ -15,7 +16,7 @@ public class CompanyDto {
             @Size(max = 64) String atsType,
             @Size(max = 128) String atsCompanyId,
             Map<String, String> customSelectors,
-            boolean active
+            @JsonProperty("isActive") boolean active
     ) {}
 
     public record Response(
@@ -25,7 +26,7 @@ public class CompanyDto {
             String atsType,
             String atsCompanyId,
             Map<String, String> customSelectors,
-            boolean active,
+            @JsonProperty("isActive") boolean active,
             Instant lastCrawledAt,
             Instant createdAt
     ) {}

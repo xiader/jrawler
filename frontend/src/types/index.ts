@@ -34,7 +34,6 @@ export interface Source {
   priority: number;
   isEnabled: boolean;
   lastCrawledAt: string | null;
-  lastEtag: string | null;
 }
 
 export interface Company {
