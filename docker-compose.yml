@@ -1,12 +1,12 @@
 services:
   postgres:
     image: postgres:18.1
-    container_name: postgres-db_job_crawler
+    container_name: postgres-db_jrawler
     restart: unless-stopped
 
     environment:
-      POSTGRES_DB: ${POSTGRES_DB:-job_crawler_db}
-      POSTGRES_USER: ${POSTGRES_USER:-job_crawler_user}
+      POSTGRES_DB: ${POSTGRES_DB:-jrawler_db}
+      POSTGRES_USER: ${POSTGRES_USER:-jrawler_user}
       POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-supersecret}
 
     ports:
@@ -16,14 +16,14 @@ services:
       - pgdata:/var/lib/postgresql
 
     healthcheck:
-      test: [ "CMD-SHELL", "pg_isready -U ${POSTGRES_USER:-job_crawler_user} -d ${POSTGRES_DB:-job_crawler_db}" ]
+      test: [ "CMD-SHELL", "pg_isready -U ${POSTGRES_USER:-jrawler_user} -d ${POSTGRES_DB:-jrawler_db}" ]
       interval: 10s
       timeout: 5s
       retries: 5
 
   redis:
     image: redis:8.6-rc1
-    container_name: redis_job_crawler
+    container_name: redis_jrawler
     restart: unless-stopped
     ports:
       - "6379:6379"

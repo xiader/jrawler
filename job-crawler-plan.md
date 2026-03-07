@@ -522,11 +522,11 @@ GET    /api/v1/crawler/logs           # последние crawl_logs
 ## Структура проекта
 
 ```
-job-crawler/
+jrawler/
 ├── docker-compose.yml            # локальная разработка: postgres + redis
 ├── .env.example
 ├── backend/
-│   ├── src/main/java/com/jobcrawler/
+│   ├── src/main/java/com/jrawler/
 │   │   ├── config/               # Spring конфигурация, Redis, OkHttp бины
 │   │   ├── adapter/
 │   │   │   ├── JobSearchAdapter.java

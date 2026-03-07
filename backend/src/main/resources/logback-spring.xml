@@ -13,9 +13,9 @@
 
     <!-- Full application log (rolling daily, keep 7 days) -->
     <appender name="FILE" class="ch.qos.logback.core.rolling.RollingFileAppender">
-        <file>${LOG_DIR}/job-crawler.log</file>
+        <file>${LOG_DIR}/jrawler.log</file>
         <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
-            <fileNamePattern>${LOG_DIR}/job-crawler.%d{yyyy-MM-dd}.log</fileNamePattern>
+            <fileNamePattern>${LOG_DIR}/jrawler.%d{yyyy-MM-dd}.log</fileNamePattern>
             <maxHistory>7</maxHistory>
             <totalSizeCap>200MB</totalSizeCap>
         </rollingPolicy>
@@ -37,14 +37,14 @@
         </encoder>
     </appender>
 
-    <!-- Crawler packages → crawler.log + job-crawler.log -->
-    <logger name="com.jobcrawler.scheduler" level="DEBUG" additivity="true">
+    <!-- Crawler packages → crawler.log + jrawler.log -->
+    <logger name="com.jrawler.scheduler" level="DEBUG" additivity="true">
         <appender-ref ref="CRAWLER_FILE"/>
     </logger>
-    <logger name="com.jobcrawler.processing" level="DEBUG" additivity="true">
+    <logger name="com.jrawler.processing" level="DEBUG" additivity="true">
         <appender-ref ref="CRAWLER_FILE"/>
     </logger>
-    <logger name="com.jobcrawler.adapter" level="DEBUG" additivity="true">
+    <logger name="com.jrawler.adapter" level="DEBUG" additivity="true">
         <appender-ref ref="CRAWLER_FILE"/>
     </logger>
 

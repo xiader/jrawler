@@ -11,11 +11,11 @@
         <relativePath/>
     </parent>
 
-    <groupId>com.jobcrawler</groupId>
-    <artifactId>job-crawler-backend</artifactId>
+    <groupId>com.jrawler</groupId>
+    <artifactId>jrawler-backend</artifactId>
     <version>0.0.1-SNAPSHOT</version>
-    <name>job-crawler-backend</name>
-    <description>Job Vacancy Crawler — Spring Boot backend</description>
+    <name>jrawler-backend</name>
+    <description>Jrawler — Spring Boot backend</description>
 
     <properties>
         <java.version>21</java.version>

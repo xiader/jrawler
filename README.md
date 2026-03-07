@@ -1,109 +1,120 @@
-# Job Crawler
+# Jrawler
 
-Персональный агрегатор вакансий: автоматически обходит 38+ источников (job-борды, RSS, ATS компаний), фильтрует по профилям поиска и отправляет релевантные вакансии в Telegram.
+Personal job aggregator that crawls 38+ sources — job boards, RSS feeds, company ATS systems and career pages — scores results against your search profiles, and surfaces the relevant ones in a React dashboard.
 
-## Стек
+## Stack
 
-| Слой | Технологии |
+| Layer | Tech |
 |---|---|
 | Backend | Java 21, Spring Boot 3.4.3 |
-| БД | PostgreSQL 18, Redis 8.6 |
-| Парсинг | OkHttp 4.12, Rome 2.1 (RSS), Jsoup 1.18, Playwright 1.49 |
-| Уведомления | Telegram Bot (longpolling) |
-| Инфра | Docker Compose, Flyway |
+| Database | PostgreSQL 18, Redis 8.6 |
+| Crawling | OkHttp 4.12, Rome 2.1 (RSS), Jsoup 1.18, Playwright 1.49 |
+| Frontend | React 19, TypeScript, Vite 7, Tailwind 4 |
+| Infra | Docker Compose, Flyway |
 
-## Быстрый старт
+## Quick Start
 
-### 1. Переменные окружения
+### 1. Environment variables
 
 ```bash
 cp .env.example .env
 ```
 
-Откройте `.env` и заполните нужные значения. Минимум для запуска — PostgreSQL/Redis уже настроены дефолтами.
+Edit `.env` — PostgreSQL and Redis already have working defaults.
 
 ```env
 # PostgreSQL
-POSTGRES_DB=job_crawler_db
-POSTGRES_USER=job_crawler_user
+POSTGRES_DB=jrawler_db
+POSTGRES_USER=jrawler_user
 POSTGRES_PASSWORD=supersecret
 DB_HOST=localhost
 
 # Redis
 REDIS_HOST=localhost
 
-# Telegram (опционально, для уведомлений)
+# Telegram (optional, for notifications)
 TELEGRAM_BOT_TOKEN=
 TELEGRAM_BOT_USERNAME=
 TELEGRAM_CHAT_ID=
 ```
 
-### 2. Запуск инфраструктуры
+### 2. Start infrastructure
 
 ```bash
 docker compose up -d
 ```
 
-Поднимет PostgreSQL на `:5432` и Redis на `:6379`. Flyway автоматически накатит миграции при старте бэкенда.
+Starts PostgreSQL on `:5432` and Redis on `:6379`. Flyway migrations run automatically on backend startup.
 
-### 3. Запуск бэкенда
+### 3. Start backend
 
 ```bash
 cd backend
 mvn spring-boot:run
 ```
 
-Бэкенд запустится на `http://localhost:8080`.
+Backend runs at `http://localhost:8080`.
+
+### 4. Start frontend
+
+```bash
+cd frontend
+npm install
+npm run dev
+```
+
+Frontend runs at `http://localhost:5173` (proxies `/api` to `:8080`).
 
 ---
 
-## Архитектура
+## Architecture
 
 ```
-job-crawler/
+jrawler/
 ├── docker-compose.yml
 ├── .env.example
-└── backend/src/main/java/com/jobcrawler/
-    ├── adapter/          # Адаптеры источников (RSS, REST API, Web, ATS)
-    ├── company/          # Управление компаниями и карьерными страницами
-    ├── profile/          # Профили поиска (ключевые слова, локации, remote)
-    ├── vacancy/          # Вакансии и их статусы
-    ├── processing/       # Пайплайн: дедупликация → нормализация → скоринг
-    ├── scheduler/        # Планировщик обходов (cron, каждый час)
-    └── notification/     # Telegram-бот
+├── frontend/                     # React dashboard
+└── backend/src/main/java/com/jrawler/
+    ├── adapter/                  # Source adapters (RSS, REST API, Web, ATS)
+    ├── company/                  # Companies and career pages
+    ├── profile/                  # Search profiles (keywords, locations, remote)
+    ├── vacancy/                  # Vacancies and statuses
+    ├── processing/               # Pipeline: dedup -> normalize -> score
+    ├── scheduler/                # Cron crawler (hourly)
+    └── notification/             # Telegram bot
 ```
 
-### Источники вакансий
+### Sources
 
-- **P0 (job-борды):** RemoteOK, Remotive, JustJoinIt, WeWorkRemotely, LinkedIn, NoFluffJobs, TheProtocol
-- **ATS компаний:** Greenhouse, Lever, Workday, SmartRecruiters, BambooHR, Custom
-- **Карьерные страницы:** произвольные URL через Jsoup/Playwright
+- **Job boards:** RemoteOK, Remotive, JustJoinIt, WeWorkRemotely, LinkedIn, NoFluffJobs, TheProtocol
+- **Company ATS:** Greenhouse, Lever, Workday, SmartRecruiters, BambooHR, Custom
+- **Career pages:** arbitrary URLs via Jsoup/Playwright
 
-### Пайплайн обработки
+### Processing pipeline
 
 ```
-RawVacancy → Deduplicator → Normalizer → RelevanceScorer → DB
+RawVacancy -> Deduplicator -> Normalizer -> RelevanceScorer -> DB
 ```
 
-- **Deduplicator** — проверяет по URL и хешу описания (первые 500 символов)
-- **Normalizer** — приводит поля к единому формату
-- **RelevanceScorer** — сравнивает с профилями поиска; формула: +30 must-keyword в заголовке, +10 в описании, +5 nice-to-have, +15 remote match, +10 location match; если hit по exclude — score=0
+- **Deduplicator** — checks by URL and description hash (first 500 chars)
+- **Normalizer** — normalizes fields to a unified format
+- **RelevanceScorer** — matches against search profiles; scoring: +30 must-keyword in title, +10 in description, +5 nice-to-have, +15 remote match, +10 location match; exclude hit sets score to 0
 
 ---
 
 ## API
 
-### Профили поиска
+### Search profiles
 
 ```http
 GET    /api/v1/profiles
 POST   /api/v1/profiles
 PUT    /api/v1/profiles/:id
 DELETE /api/v1/profiles/:id
-PATCH  /api/v1/profiles/:id/toggle   # вкл/выкл профиль
+PATCH  /api/v1/profiles/:id/toggle
 ```
 
-Пример тела профиля:
+Example profile body:
 
 ```json
 {
@@ -117,14 +128,14 @@ PATCH  /api/v1/profiles/:id/toggle   # вкл/выкл профиль
 }
 ```
 
-### Источники
+### Sources
 
 ```http
 GET   /api/v1/sources
-PATCH /api/v1/sources/:id/toggle    # вкл/выкл источник
+PATCH /api/v1/sources/:id/toggle
 ```
 
-### Компании (ATS/карьерные страницы)
+### Companies
 
 ```http
 GET    /api/v1/companies
@@ -133,82 +144,84 @@ PUT    /api/v1/companies/:id
 DELETE /api/v1/companies/:id
 ```
 
-### Вакансии
+### Vacancies
 
 ```http
-GET  /api/v1/vacancies          # список с фильтрами и пагинацией
-GET  /api/v1/vacancies/:id
+GET   /api/v1/vacancies          # list with filters and pagination
+GET   /api/v1/vacancies/:id
 PATCH /api/v1/vacancies/:id/status
 ```
 
-Query-параметры для GET `/vacancies`: `sourceId`, `profileId`, `status`, `minScore`, `page`, `size`.
+Query params for `GET /vacancies`: `sourceId`, `profileId`, `status`, `minScore`, `page`, `size`.
 
-Статусы вакансии: `NEW` → `INTERESTED` → `APPLIED` → `INTERVIEW` → `OFFER` / `REJECTED`
+Vacancy statuses: `NEW` -> `INTERESTED` -> `APPLIED` -> `INTERVIEW` -> `OFFER` / `REJECTED`
 
-### Краулер (ручной запуск)
+### Crawler
 
 ```http
-POST /api/v1/crawler/run          # запускает обход всех активных источников (202 Accepted, async)
-GET  /api/v1/crawler/logs         # история запусков (?sourceId=&limit=)
+POST /api/v1/crawler/run          # trigger crawl of all active sources (202 Accepted, async)
+GET  /api/v1/crawler/logs         # crawl history (?sourceId=&limit=)
 ```
 
 ---
 
-## Конфигурация
+## Configuration
 
-Все параметры задаются через переменные окружения (`.env`). `application.yml` читает их с дефолтами:
+All parameters via environment variables. `application.yml` reads them with defaults:
 
-| Переменная | Дефолт | Описание |
+| Variable | Default | Description |
 |---|---|---|
-| `DB_HOST` | `localhost` | Хост PostgreSQL |
-| `POSTGRES_DB` | `job_crawler_db` | Имя БД |
-| `POSTGRES_USER` | `job_crawler_user` | Пользователь БД |
-| `POSTGRES_PASSWORD` | `supersecret` | Пароль БД |
-| `REDIS_HOST` | `localhost` | Хост Redis |
-| `REDIS_PORT` | `6379` | Порт Redis |
-| `SERVER_PORT` | `8080` | Порт бэкенда |
-| `CRAWLER_ENABLED` | `true` | Включить планировщик |
-| `TELEGRAM_BOT_TOKEN` | — | Токен Telegram-бота |
-| `TELEGRAM_BOT_USERNAME` | — | Username бота |
-| `TELEGRAM_CHAT_ID` | — | ID чата для уведомлений |
+| `DB_HOST` | `localhost` | PostgreSQL host |
+| `POSTGRES_DB` | `jrawler_db` | Database name |
+| `POSTGRES_USER` | `jrawler_user` | Database user |
+| `POSTGRES_PASSWORD` | `supersecret` | Database password |
+| `REDIS_HOST` | `localhost` | Redis host |
+| `REDIS_PORT` | `6379` | Redis port |
+| `SERVER_PORT` | `8080` | Backend port |
+| `CRAWLER_ENABLED` | `true` | Enable scheduler |
+| `TELEGRAM_BOT_TOKEN` | — | Telegram bot token |
+| `TELEGRAM_BOT_USERNAME` | — | Bot username |
+| `TELEGRAM_CHAT_ID` | — | Chat ID for notifications |
 
-Расписание краулера задаётся в `application.yml`:
+Crawler schedule in `application.yml`:
 
 ```yaml
 crawler:
-  schedule-cron: "0 0 * * * *"   # каждый час
+  schedule-cron: "0 0 * * * *"   # every hour
 ```
 
 ---
 
-## Telegram-бот
+## Telegram notifications
 
-Для получения уведомлений о новых вакансиях:
+1. Create a bot via [@BotFather](https://t.me/BotFather), get the token
+2. Get your `chat_id` via [@userinfobot](https://t.me/userinfobot)
+3. Fill in `TELEGRAM_BOT_TOKEN`, `TELEGRAM_BOT_USERNAME`, `TELEGRAM_CHAT_ID` in `.env`
+4. Restart the backend
 
-1. Создайте бота через [@BotFather](https://t.me/BotFather), получите токен
-2. Узнайте свой `chat_id` (например, через [@userinfobot](https://t.me/userinfobot))
-3. Заполните `TELEGRAM_BOT_TOKEN`, `TELEGRAM_BOT_USERNAME`, `TELEGRAM_CHAT_ID` в `.env`
-4. Перезапустите бэкенд
-
-Бот будет присылать новые вакансии с оценкой >= `minScore` из активных профилей.
+The bot sends new vacancies with score >= `minScore` from active profiles.
 
 ---
 
-## Разработка
+## Development
 
 ```bash
-# Только инфраструктура (БД + Redis)
+# Start infrastructure only
 docker compose up -d
 
-# Запуск с перезагрузкой при изменениях
+# Backend (hot reload via Spring DevTools)
 cd backend
 mvn spring-boot:run
 
-# Сборка jar
+# Build jar
 mvn package -DskipTests
 
-# Запуск jar
-java -jar target/job-crawler-*.jar
+# Run jar
+java -jar target/jrawler-*.jar
+
+# Frontend dev server
+cd frontend
+npm run dev
 ```
 
-Логи приложения — уровень DEBUG для `com.jobcrawler`, WARNING для Redis.
+Application logs — DEBUG for `com.jrawler`, WARN for Redis.

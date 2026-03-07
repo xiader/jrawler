@@ -1,7 +1,7 @@
 spring:
   datasource:
-    url: jdbc:postgresql://${DB_HOST:localhost}:${DB_PORT:5432}/${POSTGRES_DB:job_crawler_db}
-    username: ${POSTGRES_USER:job_crawler_user}
+    url: jdbc:postgresql://${DB_HOST:localhost}:${DB_PORT:5432}/${POSTGRES_DB:jrawler_db}
+    username: ${POSTGRES_USER:jrawler_user}
     password: ${POSTGRES_PASSWORD:supersecret}
     driver-class-name: org.postgresql.Driver
 
@@ -46,5 +46,5 @@ crawler:
 
 logging:
   level:
-    com.jobcrawler: DEBUG
+    com.jrawler: DEBUG
     org.springframework.data.redis: WARN
