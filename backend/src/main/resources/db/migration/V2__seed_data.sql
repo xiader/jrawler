@@ -68,7 +68,7 @@ VALUES
     ),
     (
         'Kotlin',
-        TRUE,
+        FALSE,
         '["kotlin"]',
         '["spring", "spring boot", "coroutines", "ktor", "android", "jvm", "microservices", "docker"]',
         '["clearance", "secret clearance", "php", "ruby"]',
