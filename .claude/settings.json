@@ -1,0 +1,27 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(mvn test:*)",
+      "Bash(mvn package:*)",
+      "Bash(mvn compile:*)",
+      "Bash(mvn -q:*)",
+      "Bash(npm run lint:*)",
+      "Bash(npm run build:*)",
+      "Bash(npm install)",
+      "Bash(npx tsc:*)",
+      "Bash(docker compose ps:*)",
+      "Bash(docker compose logs:*)",
+      "Bash(docker compose config:*)",
+      "Bash(git status:*)",
+      "Bash(git diff:*)",
+      "Bash(git log:*)",
+      "Bash(git show:*)",
+      "Bash(curl http://localhost:8080/*)",
+      "Read(//d/Programms/projects/jrawler/**)"
+    ],
+    "deny": [
+      "Read(./.env)",
+      "Read(//d/Programms/projects/jrawler/.env)"
+    ]
+  }
+}

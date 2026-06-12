@@ -33,5 +33,4 @@ services:
 
 volumes:
   pgdata:
-    name: postgres_data
   redis-data:
