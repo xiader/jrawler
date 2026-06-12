@@ -1,6 +1,6 @@
 # Job Sources Status
 
-Last investigated: 2026-03-05
+Last investigated: 2026-06-12
 
 ## Active Sources (working)
 
@@ -12,6 +12,10 @@ Last investigated: 2026-03-05
 | **RemoteOK** | REST API | `https://remoteok.com/api?tag={keyword}` | Single tag only — `tags=` (plural) returns only legal notice |
 | **NoFluffJobs** | REST API (POST) | `POST https://nofluffjobs.com/api/search/posting` | See below |
 | **JustJoin.it** | REST API | `https://api.justjoin.it/v2/user-panel/offers` | Needs `Version: 2` header, see below |
+| **RocketJobs.pl** | REST API | `https://api.rocketjobs.pl/v2/user-panel/offers` | Same platform/API as JustJoin.it (v2, `Version: 2` header). Offer URL: `rocketjobs.pl/oferta-pracy/{slug}`. First run: 93 found |
+| **Bulldogjob.pl** | GraphQL | `POST https://bulldogjob.pl/graphql` | `searchJobs(page, perPage, filters:{skills:[...]})`. Introspection off — schema discovered via error messages. No free-text search, keyword → skills filter. Job URL: `bulldogjob.pl/companies/jobs/{id}` (id is slug). First run: 50 found, 4 saved |
+| **Dice.com** | REST API | `https://job-search-api.svc.dhigroupinc.com/v1/dice/jobs/search` | Frontend's public `x-api-key` (override: `crawler.dice.api-key`). `q`, `page`, `pageSize` (max 100), `filters.postedDate=SEVEN`. Don't pass `fields=` — returns empty objects. First run: 620 found, 3 saved |
+| **Relocate.me** | HTML (Jsoup) | `https://relocate.me/international-jobs?page=N` | Static HTML, 20 jobs/page, no keyword search (filter in pipeline). Cards: `div.jobs-list__job`, title in `.job__title a b`, info cells `.job__info .job__company p` = [country, company]. Mostly onsite-with-relocation → score 0 with REMOTE/HYBRID-only profiles. First run: 32 found |
 
 ### NoFluffJobs POST API
 ```
@@ -54,9 +58,12 @@ Content-Type: application/json
 
 ## Never Implemented (P1/P2, disabled in DB)
 
-- Wellfound, Arc.dev, Glassdoor, Indeed, Dice — HTML scraping, high bot-detection risk
-- StepStone, CWJobs, Reed.co.uk — regional EU boards
-- Pracuj.pl, Bulldogjob, Rocketjobs — Polish boards, need web scraping
+Re-investigated 2026-06-12:
+
+- **Reed.co.uk** — has official Jobseeker API (`https://www.reed.co.uk/api/1.0/search`) but requires free API key (401 without). Easy win if key registered.
+- **Pracuj.pl** — no accessible public API found (`massachusetts.pracuj.pl/api/offers` and `/graphql` both 404); needs Playwright scraping.
+- **Arc.dev** — no public API found (`/api/v1.1/public/remote-jobs` 404); JS-rendered listing.
+- **Wellfound, Glassdoor, Indeed, Hired, StepStone, CWJobs** — bot-protected / JS-heavy HTML, high detection risk, no public API.
 
 ---
 
