@@ -11,6 +11,7 @@ Last investigated: 2026-03-05
 | **WeWorkRemotely** | RSS | `https://weworkremotely.com/categories/remote-programming-jobs.rss` | 25 results, ETag supported |
 | **RemoteOK** | REST API | `https://remoteok.com/api?tag={keyword}` | Single tag only — `tags=` (plural) returns only legal notice |
 | **NoFluffJobs** | REST API (POST) | `POST https://nofluffjobs.com/api/search/posting` | See below |
+| **JustJoin.it** | REST API | `https://api.justjoin.it/v2/user-panel/offers` | Needs `Version: 2` header, see below |
 
 ### NoFluffJobs POST API
 ```
@@ -36,12 +37,14 @@ Content-Type: application/json
 - Rome RSS parser gets a parse exception → 0 results
 - **Future options**: LinkedIn API requires official OAuth approval (restricted program)
 
-### JustJoin.it (`justjoinit`) — DISABLED
-- **Problem**: Old `/api/offers` endpoint removed (HTTP 404)
-- `public.justjoin.it` returns HTTP 403
-- No other public API endpoints found
-- Website is Next.js App Router (no `__NEXT_DATA__`)
-- **Future option**: Playwright scraping of `https://justjoin.it/job-offers/java`
+### JustJoin.it (`justjoinit`) — WORKING (fixed 2026-06-12)
+- **Fixed**: migrated to API v2 — `GET https://api.justjoin.it/v2/user-panel/offers`
+- Requires `Version: 2` header; `perPage` max 100; `page` starts at 1
+- `keywords[]` params combine with AND — adapter runs one paginated query per keyword (max 3 keywords × 5 pages), dedups by `guid`
+- Response: `{data: [...], meta: {totalItems, totalPages, nextPage}}`
+- Job URL: `https://justjoin.it/job-offer/{slug}`
+- Skills in `requiredSkills`/`niceToHaveSkills` arrays; salary in `employmentTypes[].from/to/currency`; remote via `workplaceType`
+- First run: fetched 767, saved 36 Java matches
 
 ### NoFluffJobs RSS (`/feed.xml`) — REPLACED
 - Old RSS feed `https://nofluffjobs.com/feed.xml` now redirects to Angular HTML page

@@ -15,6 +15,7 @@
     <artifactId>jrawler-backend</artifactId>
     <version>0.0.1-SNAPSHOT</version>
     <name>jrawler-backend</name>
+
     <description>Jrawler — Spring Boot backend</description>
 
     <properties>
