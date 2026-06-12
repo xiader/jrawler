@@ -1,0 +1,566 @@
+- generic [ref=e3]:
+  - banner [ref=e4]:
+    - generic [ref=e5]: Job Crawler
+    - navigation [ref=e6]:
+      - link "Vacancies" [ref=e7] [cursor=pointer]:
+        - /url: /vacancies
+      - link "Dashboard" [ref=e8] [cursor=pointer]:
+        - /url: /dashboard
+      - link "Companies" [ref=e9] [cursor=pointer]:
+        - /url: /companies
+      - link "Profiles" [ref=e10] [cursor=pointer]:
+        - /url: /profiles
+      - link "Settings" [ref=e11] [cursor=pointer]:
+        - /url: /settings
+    - button "Run Crawler" [ref=e12]
+  - main [ref=e13]:
+    - generic [ref=e14]:
+      - generic [ref=e15]:
+        - generic [ref=e16]:
+          - generic [ref=e17]: Source
+          - combobox [ref=e18]:
+            - option "All sources"
+            - option "Wellfound"
+            - option "Arc.dev"
+            - option "Glassdoor"
+            - option "Indeed"
+            - option "Dice.com"
+            - option "Hired.com"
+            - option "StepStone"
+            - option "CWJobs"
+            - option "Reed.co.uk"
+            - option "Relocate.me"
+            - option "Bulldogjob.pl"
+            - option "Rocketjobs.pl"
+            - option "Pracuj.pl"
+            - option "Otta"
+            - option "Landing.jobs"
+            - option "Jobspresso"
+            - option "Remote.co"
+            - option "CareerVault"
+            - option "WorkingNomads"
+            - option "4programmers.net"
+            - option "Xing Jobs"
+            - option "EuroJobs"
+            - option "Jobs.cz"
+            - option "Totaljobs"
+            - option "ZipRecruiter"
+            - option "TheLadders"
+            - option "Monster"
+            - option "YC Jobs"
+            - option "Talent.com"
+            - option "Workopolis"
+            - option "Company ATS Pages"
+            - option "Remotive"
+            - option "We Work Remotely"
+            - option "TheProtocol.it"
+            - option "RemoteOK"
+            - option "JustJoin.it" [selected]
+            - option "NoFluffJobs"
+            - option "LinkedIn"
+        - generic [ref=e19]:
+          - generic [ref=e20]: Profile
+          - combobox [ref=e21]:
+            - option "All profiles" [selected]
+            - option "Java Backend"
+            - option "Kotlin"
+            - option "Golang"
+        - generic [ref=e22]:
+          - generic [ref=e23]: Status
+          - combobox [ref=e24]:
+            - option "All statuses" [selected]
+            - option "NEW"
+            - option "INTERESTED"
+            - option "APPLIED"
+            - option "INTERVIEW"
+            - option "OFFER"
+            - option "REJECTED"
+        - generic [ref=e25]:
+          - generic [ref=e26]: Min Score
+          - spinbutton [ref=e27]
+        - generic [ref=e28]: 36 vacancies
+      - table [ref=e30]:
+        - rowgroup [ref=e31]:
+          - row "Score Title Company Location Source Status Found" [ref=e32]:
+            - columnheader "Score" [ref=e33]
+            - columnheader "Title" [ref=e34]
+            - columnheader "Company" [ref=e35]
+            - columnheader "Location" [ref=e36]
+            - columnheader "Source" [ref=e37]
+            - columnheader "Status" [ref=e38]
+            - columnheader "Found" [ref=e39]
+        - rowgroup [ref=e40]:
+          - row "80 Software Engineer (Java) java spring spring boot kubernetes docker rest api Cognizant Technology Solutions Poland (Remote) justjoinit NEW 6/12/2026" [ref=e406] [cursor=pointer]:
+            - cell "80" [ref=e407]
+            - cell "Software Engineer (Java) java spring spring boot kubernetes docker rest api" [ref=e408]:
+              - generic [ref=e409]:
+                - text: Software Engineer (
+                - mark [ref=e410]: Java
+                - text: )
+              - generic [ref=e411]:
+                - generic [ref=e412]: java
+                - generic [ref=e413]: spring
+                - generic [ref=e414]: spring boot
+                - generic [ref=e415]: kubernetes
+                - generic [ref=e416]: docker
+                - generic [ref=e417]: rest api
+            - cell "Cognizant Technology Solutions" [ref=e418]
+            - cell "Poland (Remote)" [ref=e419]
+            - cell "justjoinit" [ref=e420]
+            - cell "NEW" [ref=e421]:
+              - combobox [ref=e422]:
+                - option "NEW" [selected]
+                - option "INTERESTED"
+                - option "APPLIED"
+                - option "INTERVIEW"
+                - option "OFFER"
+                - option "REJECTED"
+            - cell "6/12/2026" [ref=e423]
+          - row "65 Java Software Engineer (e-mobility & energy) java spring spring boot kubernetes docker Spyrosoft Kraków justjoinit NEW 6/12/2026" [ref=e424] [cursor=pointer]:
+            - cell "65" [ref=e425]
+            - cell "Java Software Engineer (e-mobility & energy) java spring spring boot kubernetes docker" [ref=e426]:
+              - generic [ref=e427]:
+                - mark [ref=e428]: Java
+                - text: Software Engineer (e-mobility & energy)
+              - generic [ref=e429]:
+                - generic [ref=e430]: java
+                - generic [ref=e431]: spring
+                - generic [ref=e432]: spring boot
+                - generic [ref=e433]: kubernetes
+                - generic [ref=e434]: docker
+            - cell "Spyrosoft" [ref=e435]
+            - cell "Kraków" [ref=e436]
+            - cell "justjoinit" [ref=e437]
+            - cell "NEW" [ref=e438]:
+              - combobox [ref=e439]:
+                - option "NEW" [selected]
+                - option "INTERESTED"
+                - option "APPLIED"
+                - option "INTERVIEW"
+                - option "OFFER"
+                - option "REJECTED"
+            - cell "6/12/2026" [ref=e440]
+          - row "65 Senior Java Developer (Kafka) java spring spring boot kafka postgresql 7N Gdańsk justjoinit NEW 6/12/2026" [ref=e441] [cursor=pointer]:
+            - cell "65" [ref=e442]
+            - cell "Senior Java Developer (Kafka) java spring spring boot kafka postgresql" [ref=e443]:
+              - generic [ref=e444]:
+                - text: Senior
+                - mark [ref=e445]: Java
+                - text: Developer (
+                - mark [ref=e446]: Kafka
+                - text: )
+              - generic [ref=e447]:
+                - generic [ref=e448]: java
+                - generic [ref=e449]: spring
+                - generic [ref=e450]: spring boot
+                - generic [ref=e451]: kafka
+                - generic [ref=e452]: postgresql
+            - cell "7N" [ref=e453]
+            - cell "Gdańsk" [ref=e454]
+            - cell "justjoinit" [ref=e455]
+            - cell "NEW" [ref=e456]:
+              - combobox [ref=e457]:
+                - option "NEW" [selected]
+                - option "INTERESTED"
+                - option "APPLIED"
+                - option "INTERVIEW"
+                - option "OFFER"
+                - option "REJECTED"
+            - cell "6/12/2026" [ref=e458]
+          - row "65 Programista / Programistka Java java spring spring boot postgresql hibernate Redge Technologies Warszawa justjoinit NEW 6/12/2026" [ref=e459] [cursor=pointer]:
+            - cell "65" [ref=e460]
+            - cell "Programista / Programistka Java java spring spring boot postgresql hibernate" [ref=e461]:
+              - generic [ref=e462]:
+                - text: Programista / Programistka
+                - mark [ref=e463]: Java
+              - generic [ref=e464]:
+                - generic [ref=e465]: java
+                - generic [ref=e466]: spring
+                - generic [ref=e467]: spring boot
+                - generic [ref=e468]: postgresql
+                - generic [ref=e469]: hibernate
+            - cell "Redge Technologies" [ref=e470]
+            - cell "Warszawa" [ref=e471]
+            - cell "justjoinit" [ref=e472]
+            - cell "NEW" [ref=e473]:
+              - combobox [ref=e474]:
+                - option "NEW" [selected]
+                - option "INTERESTED"
+                - option "APPLIED"
+                - option "INTERVIEW"
+                - option "OFFER"
+                - option "REJECTED"
+            - cell "6/12/2026" [ref=e475]
+          - row "65 Java Developer (Java + AWS) java spring spring boot docker hibernate fireup.pro Rybnik justjoinit NEW 6/12/2026" [ref=e476] [cursor=pointer]:
+            - cell "65" [ref=e477]
+            - cell "Java Developer (Java + AWS) java spring spring boot docker hibernate" [ref=e478]:
+              - generic [ref=e479]:
+                - mark [ref=e480]: Java
+                - text: Developer (
+                - mark [ref=e481]: Java
+                - text: + AWS)
+              - generic [ref=e482]:
+                - generic [ref=e483]: java
+                - generic [ref=e484]: spring
+                - generic [ref=e485]: spring boot
+                - generic [ref=e486]: docker
+                - generic [ref=e487]: hibernate
+            - cell "fireup.pro" [ref=e488]
+            - cell "Rybnik" [ref=e489]
+            - cell "justjoinit" [ref=e490]
+            - cell "NEW" [ref=e491]:
+              - combobox [ref=e492]:
+                - option "NEW" [selected]
+                - option "INTERESTED"
+                - option "APPLIED"
+                - option "INTERVIEW"
+                - option "OFFER"
+                - option "REJECTED"
+            - cell "6/12/2026" [ref=e493]
+          - row "60 Java Developer java spring spring boot kafka Eyzee S.A. Warszawa justjoinit NEW 6/12/2026" [ref=e494] [cursor=pointer]:
+            - cell "60" [ref=e495]
+            - cell "Java Developer java spring spring boot kafka" [ref=e496]:
+              - generic [ref=e497]:
+                - mark [ref=e498]: Java
+                - text: Developer
+              - generic [ref=e499]:
+                - generic [ref=e500]: java
+                - generic [ref=e501]: spring
+                - generic [ref=e502]: spring boot
+                - generic [ref=e503]: kafka
+            - cell "Eyzee S.A." [ref=e504]
+            - cell "Warszawa" [ref=e505]
+            - cell "justjoinit" [ref=e506]
+            - cell "NEW" [ref=e507]:
+              - combobox [ref=e508]:
+                - option "NEW" [selected]
+                - option "INTERESTED"
+                - option "APPLIED"
+                - option "INTERVIEW"
+                - option "OFFER"
+                - option "REJECTED"
+            - cell "6/12/2026" [ref=e509]
+          - row "60 👉 Senior Java Developer - Dubai client java spring spring boot hibernate Xebia sp. z o.o. Wrocław justjoinit NEW 6/12/2026" [ref=e510] [cursor=pointer]:
+            - cell "60" [ref=e511]
+            - cell "👉 Senior Java Developer - Dubai client java spring spring boot hibernate" [ref=e512]:
+              - generic [ref=e513]:
+                - text: 👉 Senior
+                - mark [ref=e514]: Java
+                - text: Developer - Dubai client
+              - generic [ref=e515]:
+                - generic [ref=e516]: java
+                - generic [ref=e517]: spring
+                - generic [ref=e518]: spring boot
+                - generic [ref=e519]: hibernate
+            - cell "Xebia sp. z o.o." [ref=e520]
+            - cell "Wrocław" [ref=e521]
+            - cell "justjoinit" [ref=e522]
+            - cell "NEW" [ref=e523]:
+              - combobox [ref=e524]:
+                - option "NEW" [selected]
+                - option "INTERESTED"
+                - option "APPLIED"
+                - option "INTERVIEW"
+                - option "OFFER"
+                - option "REJECTED"
+            - cell "6/12/2026" [ref=e525]
+          - row "60 Senior Java Developer (with German) java spring spring boot hibernate Link Group Warszawa justjoinit NEW 6/12/2026" [ref=e526] [cursor=pointer]:
+            - cell "60" [ref=e527]
+            - cell "Senior Java Developer (with German) java spring spring boot hibernate" [ref=e528]:
+              - generic [ref=e529]:
+                - text: Senior
+                - mark [ref=e530]: Java
+                - text: Developer (with German)
+              - generic [ref=e531]:
+                - generic [ref=e532]: java
+                - generic [ref=e533]: spring
+                - generic [ref=e534]: spring boot
+                - generic [ref=e535]: hibernate
+            - cell "Link Group" [ref=e536]
+            - cell "Warszawa" [ref=e537]
+            - cell "justjoinit" [ref=e538]
+            - cell "NEW" [ref=e539]:
+              - combobox [ref=e540]:
+                - option "NEW" [selected]
+                - option "INTERESTED"
+                - option "APPLIED"
+                - option "INTERVIEW"
+                - option "OFFER"
+                - option "REJECTED"
+            - cell "6/12/2026" [ref=e541]
+          - row "55 Java Developer | FinTech Client | Serious Earning Potential java spring spring boot Caspian One Kraków justjoinit NEW 6/12/2026" [ref=e542] [cursor=pointer]:
+            - cell "55" [ref=e543]
+            - cell "Java Developer | FinTech Client | Serious Earning Potential java spring spring boot" [ref=e544]:
+              - generic [ref=e545]:
+                - mark [ref=e546]: Java
+                - text: Developer | FinTech Client | Serious Earning Potential
+              - generic [ref=e547]:
+                - generic [ref=e548]: java
+                - generic [ref=e549]: spring
+                - generic [ref=e550]: spring boot
+            - cell "Caspian One" [ref=e551]
+            - cell "Kraków" [ref=e552]
+            - cell "justjoinit" [ref=e553]
+            - cell "NEW" [ref=e554]:
+              - combobox [ref=e555]:
+                - option "NEW" [selected]
+                - option "INTERESTED"
+                - option "APPLIED"
+                - option "INTERVIEW"
+                - option "OFFER"
+                - option "REJECTED"
+            - cell "6/12/2026" [ref=e556]
+          - row "55 PL/SQL Developer with Java java spring hibernate Sollers Consulting Sp. z.o.o Gdańsk justjoinit NEW 6/12/2026" [ref=e557] [cursor=pointer]:
+            - cell "55" [ref=e558]
+            - cell "PL/SQL Developer with Java java spring hibernate" [ref=e559]:
+              - generic [ref=e560]:
+                - text: PL/SQL Developer with
+                - mark [ref=e561]: Java
+              - generic [ref=e562]:
+                - generic [ref=e563]: java
+                - generic [ref=e564]: spring
+                - generic [ref=e565]: hibernate
+            - cell "Sollers Consulting Sp. z.o.o" [ref=e566]
+            - cell "Gdańsk" [ref=e567]
+            - cell "justjoinit" [ref=e568]
+            - cell "NEW" [ref=e569]:
+              - combobox [ref=e570]:
+                - option "NEW" [selected]
+                - option "INTERESTED"
+                - option "APPLIED"
+                - option "INTERVIEW"
+                - option "OFFER"
+                - option "REJECTED"
+            - cell "6/12/2026" [ref=e571]
+          - row "55 Senior Java Developer with French or German java spring microservices Sollers Consulting Sp. z.o.o Warszawa justjoinit NEW 6/12/2026" [ref=e572] [cursor=pointer]:
+            - cell "55" [ref=e573]
+            - cell "Senior Java Developer with French or German java spring microservices" [ref=e574]:
+              - generic [ref=e575]:
+                - text: Senior
+                - mark [ref=e576]: Java
+                - text: Developer with French or German
+              - generic [ref=e577]:
+                - generic [ref=e578]: java
+                - generic [ref=e579]: spring
+                - generic [ref=e580]: microservices
+            - cell "Sollers Consulting Sp. z.o.o" [ref=e581]
+            - cell "Warszawa" [ref=e582]
+            - cell "justjoinit" [ref=e583]
+            - cell "NEW" [ref=e584]:
+              - combobox [ref=e585]:
+                - option "NEW" [selected]
+                - option "INTERESTED"
+                - option "APPLIED"
+                - option "INTERVIEW"
+                - option "OFFER"
+                - option "REJECTED"
+            - cell "6/12/2026" [ref=e586]
+          - row "55 Senior Java Developer java spring postgresql SoftNet Kraków justjoinit NEW 6/12/2026" [ref=e587] [cursor=pointer]:
+            - cell "55" [ref=e588]
+            - cell "Senior Java Developer java spring postgresql" [ref=e589]:
+              - generic [ref=e590]:
+                - text: Senior
+                - mark [ref=e591]: Java
+                - text: Developer
+              - generic [ref=e592]:
+                - generic [ref=e593]: java
+                - generic [ref=e594]: spring
+                - generic [ref=e595]: postgresql
+            - cell "SoftNet" [ref=e596]
+            - cell "Kraków" [ref=e597]
+            - cell "justjoinit" [ref=e598]
+            - cell "NEW" [ref=e599]:
+              - combobox [ref=e600]:
+                - option "NEW" [selected]
+                - option "INTERESTED"
+                - option "APPLIED"
+                - option "INTERVIEW"
+                - option "OFFER"
+                - option "REJECTED"
+            - cell "6/12/2026" [ref=e601]
+          - row "55 Senior Java Developer java kafka docker speedapp Warszawa justjoinit NEW 6/12/2026" [ref=e602] [cursor=pointer]:
+            - cell "55" [ref=e603]
+            - cell "Senior Java Developer java kafka docker" [ref=e604]:
+              - generic [ref=e605]:
+                - text: Senior
+                - mark [ref=e606]: Java
+                - text: Developer
+              - generic [ref=e607]:
+                - generic [ref=e608]: java
+                - generic [ref=e609]: kafka
+                - generic [ref=e610]: docker
+            - cell "speedapp" [ref=e611]
+            - cell "Warszawa" [ref=e612]
+            - cell "justjoinit" [ref=e613]
+            - cell "NEW" [ref=e614]:
+              - combobox [ref=e615]:
+                - option "NEW" [selected]
+                - option "INTERESTED"
+                - option "APPLIED"
+                - option "INTERVIEW"
+                - option "OFFER"
+                - option "REJECTED"
+            - cell "6/12/2026" [ref=e616]
+          - row "55 Java Support Engineer java spring spring boot Cloudfide Warszawa justjoinit NEW 6/12/2026" [ref=e617] [cursor=pointer]:
+            - cell "55" [ref=e618]
+            - cell "Java Support Engineer java spring spring boot" [ref=e619]:
+              - generic [ref=e620]:
+                - mark [ref=e621]: Java
+                - text: Support Engineer
+              - generic [ref=e622]:
+                - generic [ref=e623]: java
+                - generic [ref=e624]: spring
+                - generic [ref=e625]: spring boot
+            - cell "Cloudfide" [ref=e626]
+            - cell "Warszawa" [ref=e627]
+            - cell "justjoinit" [ref=e628]
+            - cell "NEW" [ref=e629]:
+              - combobox [ref=e630]:
+                - option "NEW" [selected]
+                - option "INTERESTED"
+                - option "APPLIED"
+                - option "INTERVIEW"
+                - option "OFFER"
+                - option "REJECTED"
+            - cell "6/12/2026" [ref=e631]
+          - row "55 SDET (Software Development Engineer in Test) – Java & Selenium – Hybrid (2/3 Days Onsite in Kraków) java docker rest api Strategicsiq Kraków justjoinit NEW 6/12/2026" [ref=e632] [cursor=pointer]:
+            - cell "55" [ref=e633]
+            - cell "SDET (Software Development Engineer in Test) – Java & Selenium – Hybrid (2/3 Days Onsite in Kraków) java docker rest api" [ref=e634]:
+              - generic [ref=e635]:
+                - text: SDET (Software Development Engineer in Test) –
+                - mark [ref=e636]: Java
+                - text: "& Selenium – Hybrid (2/3 Days Onsite in Kraków)"
+              - generic [ref=e637]:
+                - generic [ref=e638]: java
+                - generic [ref=e639]: docker
+                - generic [ref=e640]: rest api
+            - cell "Strategicsiq" [ref=e641]
+            - cell "Kraków" [ref=e642]
+            - cell "justjoinit" [ref=e643]
+            - cell "NEW" [ref=e644]:
+              - combobox [ref=e645]:
+                - option "NEW" [selected]
+                - option "INTERESTED"
+                - option "APPLIED"
+                - option "INTERVIEW"
+                - option "OFFER"
+                - option "REJECTED"
+            - cell "6/12/2026" [ref=e646]
+          - row "55 Senior Java Developer - Krakow java spring microservices Strategicsiq Kraków justjoinit NEW 6/12/2026" [ref=e647] [cursor=pointer]:
+            - cell "55" [ref=e648]
+            - cell "Senior Java Developer - Krakow java spring microservices" [ref=e649]:
+              - generic [ref=e650]:
+                - text: Senior
+                - mark [ref=e651]: Java
+                - text: Developer - Krakow
+              - generic [ref=e652]:
+                - generic [ref=e653]: java
+                - generic [ref=e654]: spring
+                - generic [ref=e655]: microservices
+            - cell "Strategicsiq" [ref=e656]
+            - cell "Kraków" [ref=e657]
+            - cell "justjoinit" [ref=e658]
+            - cell "NEW" [ref=e659]:
+              - combobox [ref=e660]:
+                - option "NEW" [selected]
+                - option "INTERESTED"
+                - option "APPLIED"
+                - option "INTERVIEW"
+                - option "OFFER"
+                - option "REJECTED"
+            - cell "6/12/2026" [ref=e661]
+          - row "55 Senior Java Backend Engineer (Core Java, Trading Systems) java spring spring boot VISTULO Kraków justjoinit NEW 6/12/2026" [ref=e662] [cursor=pointer]:
+            - cell "55" [ref=e663]
+            - cell "Senior Java Backend Engineer (Core Java, Trading Systems) java spring spring boot" [ref=e664]:
+              - generic [ref=e665]:
+                - text: Senior
+                - mark [ref=e666]: Java
+                - text: Backend Engineer (Core
+                - mark [ref=e667]: Java
+                - text: ", Trading Systems)"
+              - generic [ref=e668]:
+                - generic [ref=e669]: java
+                - generic [ref=e670]: spring
+                - generic [ref=e671]: spring boot
+            - cell "VISTULO" [ref=e672]
+            - cell "Kraków" [ref=e673]
+            - cell "justjoinit" [ref=e674]
+            - cell "NEW" [ref=e675]:
+              - combobox [ref=e676]:
+                - option "NEW" [selected]
+                - option "INTERESTED"
+                - option "APPLIED"
+                - option "INTERVIEW"
+                - option "OFFER"
+                - option "REJECTED"
+            - cell "6/12/2026" [ref=e677]
+          - row "55 Programista Java (Spring) – Sektor Publiczny java spring hibernate Billennium Warszawa justjoinit NEW 6/12/2026" [ref=e678] [cursor=pointer]:
+            - cell "55" [ref=e679]
+            - cell "Programista Java (Spring) – Sektor Publiczny java spring hibernate" [ref=e680]:
+              - generic [ref=e681]:
+                - text: Programista
+                - mark [ref=e682]: Java
+                - text: (
+                - mark [ref=e683]: Spring
+                - text: ) – Sektor Publiczny
+              - generic [ref=e684]:
+                - generic [ref=e685]: java
+                - generic [ref=e686]: spring
+                - generic [ref=e687]: hibernate
+            - cell "Billennium" [ref=e688]
+            - cell "Warszawa" [ref=e689]
+            - cell "justjoinit" [ref=e690]
+            - cell "NEW" [ref=e691]:
+              - combobox [ref=e692]:
+                - option "NEW" [selected]
+                - option "INTERESTED"
+                - option "APPLIED"
+                - option "INTERVIEW"
+                - option "OFFER"
+                - option "REJECTED"
+            - cell "6/12/2026" [ref=e693]
+          - row "50 Java/Kotlin Craftsman java microservices Calamari Białystok justjoinit NEW 6/12/2026" [ref=e694] [cursor=pointer]:
+            - cell "50" [ref=e695]
+            - cell "Java/Kotlin Craftsman java microservices" [ref=e696]:
+              - generic [ref=e697]:
+                - mark [ref=e698]: Java
+                - text: /Kotlin Craftsman
+              - generic [ref=e699]:
+                - generic [ref=e700]: java
+                - generic [ref=e701]: microservices
+            - cell "Calamari" [ref=e702]
+            - cell "Białystok" [ref=e703]
+            - cell "justjoinit" [ref=e704]
+            - cell "NEW" [ref=e705]:
+              - combobox [ref=e706]:
+                - option "NEW" [selected]
+                - option "INTERESTED"
+                - option "APPLIED"
+                - option "INTERVIEW"
+                - option "OFFER"
+                - option "REJECTED"
+            - cell "6/12/2026" [ref=e707]
+          - row "45 Backend Developer (Python/Java) java Craftware Warszawa justjoinit NEW 6/12/2026" [ref=e708] [cursor=pointer]:
+            - cell "45" [ref=e709]
+            - cell "Backend Developer (Python/Java) java" [ref=e710]:
+              - generic [ref=e711]:
+                - text: Backend Developer (Python/
+                - mark [ref=e712]: Java
+                - text: )
+              - generic [ref=e714]: java
+            - cell "Craftware" [ref=e715]
+            - cell "Warszawa" [ref=e716]
+            - cell "justjoinit" [ref=e717]
+            - cell "NEW" [ref=e718]:
+              - combobox [ref=e719]:
+                - option "NEW" [selected]
+                - option "INTERESTED"
+                - option "APPLIED"
+                - option "INTERVIEW"
+                - option "OFFER"
+                - option "REJECTED"
+            - cell "6/12/2026" [ref=e720]
+      - generic [ref=e721]:
+        - button "Prev" [disabled] [ref=e722]
+        - generic [ref=e723]: 1 / 2
+        - button "Next" [ref=e724]

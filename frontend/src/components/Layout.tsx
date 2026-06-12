@@ -1,6 +1,7 @@
 import { NavLink, Outlet } from 'react-router-dom';
-import { useState } from 'react';
-import { runCrawler } from '../api/sources';
+import { useEffect, useRef } from 'react';
+import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
+import { fetchCrawlerStatus, runCrawler } from '../api/sources';
 
 const nav = [
   { to: '/vacancies', label: 'Vacancies' },
@@ -11,16 +12,31 @@ const nav = [
 ];
 
 export default function Layout() {
-  const [running, setRunning] = useState(false);
+  const queryClient = useQueryClient();
 
-  const handleRun = async () => {
-    setRunning(true);
-    try {
-      await runCrawler();
-    } finally {
-      setTimeout(() => setRunning(false), 3000);
+  const { data: status } = useQuery({
+    queryKey: ['crawler-status'],
+    queryFn: fetchCrawlerStatus,
+    refetchInterval: query => (query.state.data?.running ? 2000 : 15000),
+  });
+
+  const runMutation = useMutation({
+    mutationFn: runCrawler,
+    onSettled: () => queryClient.invalidateQueries({ queryKey: ['crawler-status'] }),
+  });
+
+  const running = runMutation.isPending || (status?.running ?? false);
+
+  // Refresh data once a crawl finishes
+  const wasRunning = useRef(false);
+  useEffect(() => {
+    if (wasRunning.current && !running) {
+      queryClient.invalidateQueries();
     }
-  };
+    wasRunning.current = running;
+  }, [running, queryClient]);
+
+  const handleRun = () => runMutation.mutate();
 
   return (
     <div className="min-h-screen bg-gray-950 text-gray-100 flex flex-col">

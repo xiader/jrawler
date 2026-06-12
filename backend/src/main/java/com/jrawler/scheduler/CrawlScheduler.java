@@ -22,6 +22,7 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.Future;
 import java.util.concurrent.TimeUnit;
+import java.util.concurrent.atomic.AtomicBoolean;
 
 @Component
 @RequiredArgsConstructor
@@ -38,6 +39,12 @@ public class CrawlScheduler {
     @Value("${crawler.enabled:true}")
     private boolean crawlerEnabled;
 
+    private final AtomicBoolean running = new AtomicBoolean(false);
+
+    public boolean isRunning() {
+        return running.get();
+    }
+
     @Scheduled(cron = "${crawler.schedule-cron:0 0 * * * *}")
     public void runCrawl() {
         if (!crawlerEnabled) {
@@ -53,6 +60,18 @@ public class CrawlScheduler {
      * @param force if true, clears all cached ETags to force a full rescan
      */
     public void runAll(boolean force) {
+        if (!running.compareAndSet(false, true)) {
+            log.info("Crawl already in progress, skipping");
+            return;
+        }
+        try {
+            doRunAll(force);
+        } finally {
+            running.set(false);
+        }
+    }
+
+    private void doRunAll(boolean force) {
         if (force) {
             sourceRepository.findAll().forEach(source -> {
                 if (source.getLastEtag() != null) {

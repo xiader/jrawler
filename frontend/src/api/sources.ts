@@ -15,6 +15,11 @@ export const runCrawler = async (): Promise<void> => {
   await api.post('/crawler/run');
 };
 
+export const fetchCrawlerStatus = async (): Promise<{ running: boolean }> => {
+  const { data } = await api.get<{ running: boolean }>('/crawler/status');
+  return data;
+};
+
 export const fetchCrawlLogs = async (sourceId?: string, limit = 50): Promise<CrawlLog[]> => {
   const params: Record<string, string | number> = { limit };
   if (sourceId) params.sourceId = sourceId;

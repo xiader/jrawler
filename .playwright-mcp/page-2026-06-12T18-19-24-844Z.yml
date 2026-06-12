@@ -1,0 +1,68 @@
+- generic [ref=e3]:
+  - banner [ref=e4]:
+    - generic [ref=e5]: Job Crawler
+    - navigation [ref=e6]:
+      - link "Vacancies" [ref=e7] [cursor=pointer]:
+        - /url: /vacancies
+      - link "Dashboard" [ref=e8] [cursor=pointer]:
+        - /url: /dashboard
+      - link "Companies" [ref=e9] [cursor=pointer]:
+        - /url: /companies
+      - link "Profiles" [ref=e10] [cursor=pointer]:
+        - /url: /profiles
+      - link "Settings" [ref=e11] [cursor=pointer]:
+        - /url: /settings
+    - button "Run Crawler" [ref=e12]
+  - main [ref=e13]:
+    - generic [ref=e14]:
+      - heading "Dashboard" [level=1] [ref=e15]
+      - generic [ref=e16]:
+        - generic [ref=e17]:
+          - generic [ref=e18]: "0"
+          - generic [ref=e19]: Total Vacancies
+        - generic [ref=e20]:
+          - generic [ref=e21]: "0"
+          - generic [ref=e22]: Avg Score
+        - generic [ref=e23]:
+          - generic [ref=e24]: 0 / 0
+          - generic [ref=e25]: Active Sources
+        - generic [ref=e26]:
+          - generic [ref=e27]: 0 / 0
+          - generic [ref=e28]: Active Profiles
+      - generic [ref=e29]:
+        - generic [ref=e30]:
+          - heading "Status Funnel" [level=2] [ref=e31]
+          - generic [ref=e32]:
+            - generic [ref=e33]: NEW
+            - generic [ref=e35]: "0"
+          - generic [ref=e36]:
+            - generic [ref=e37]: INTERESTED
+            - generic [ref=e39]: "0"
+          - generic [ref=e40]:
+            - generic [ref=e41]: APPLIED
+            - generic [ref=e43]: "0"
+          - generic [ref=e44]:
+            - generic [ref=e45]: INTERVIEW
+            - generic [ref=e47]: "0"
+          - generic [ref=e48]:
+            - generic [ref=e49]: OFFER
+            - generic [ref=e51]: "0"
+          - generic [ref=e52]:
+            - generic [ref=e53]: REJECTED
+            - generic [ref=e55]: "0"
+        - generic [ref=e56]:
+          - heading "Top Sources" [level=2] [ref=e57]
+          - paragraph [ref=e58]: No data yet
+      - generic [ref=e59]:
+        - heading "Recent Crawl Logs" [level=2] [ref=e60]
+        - table [ref=e62]:
+          - rowgroup [ref=e63]:
+            - row "Source Started Found New Status" [ref=e64]:
+              - columnheader "Source" [ref=e65]
+              - columnheader "Started" [ref=e66]
+              - columnheader "Found" [ref=e67]
+              - columnheader "New" [ref=e68]
+              - columnheader "Status" [ref=e69]
+          - rowgroup [ref=e70]:
+            - row "No logs yet" [ref=e71]:
+              - cell "No logs yet" [ref=e72]

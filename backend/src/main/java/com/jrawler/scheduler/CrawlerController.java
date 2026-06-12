@@ -26,8 +26,19 @@ public class CrawlerController {
     @PostMapping("/run")
     public ResponseEntity<Map<String, String>> run(
             @RequestParam(defaultValue = "false") boolean force) {
+        if (crawlScheduler.isRunning()) {
+            return ResponseEntity.status(409).body(Map.of("status", "already_running"));
+        }
         CompletableFuture.runAsync(() -> crawlScheduler.runAll(force));
         return ResponseEntity.accepted().body(Map.of("status", "started"));
+    }
+
+    /**
+     * Returns whether a crawl is currently in progress.
+     */
+    @GetMapping("/status")
+    public Map<String, Boolean> status() {
+        return Map.of("running", crawlScheduler.isRunning());
     }
 
     /**

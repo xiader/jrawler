@@ -1,0 +1,604 @@
+- generic [ref=e3]:
+  - banner [ref=e4]:
+    - generic [ref=e5]: Job Crawler
+    - navigation [ref=e6]:
+      - link "Vacancies" [ref=e7] [cursor=pointer]:
+        - /url: /vacancies
+      - link "Dashboard" [ref=e8] [cursor=pointer]:
+        - /url: /dashboard
+      - link "Companies" [ref=e9] [cursor=pointer]:
+        - /url: /companies
+      - link "Profiles" [ref=e10] [cursor=pointer]:
+        - /url: /profiles
+      - link "Settings" [ref=e11] [cursor=pointer]:
+        - /url: /settings
+    - button "Run Crawler" [ref=e12]
+  - main [ref=e13]:
+    - generic [ref=e14]:
+      - generic [ref=e15]:
+        - generic [ref=e16]:
+          - generic [ref=e17]: Source
+          - combobox [ref=e18]:
+            - option "All sources" [selected]
+            - option "Wellfound"
+            - option "Arc.dev"
+            - option "Glassdoor"
+            - option "Indeed"
+            - option "Dice.com"
+            - option "Hired.com"
+            - option "StepStone"
+            - option "CWJobs"
+            - option "Reed.co.uk"
+            - option "Relocate.me"
+            - option "Bulldogjob.pl"
+            - option "Rocketjobs.pl"
+            - option "Pracuj.pl"
+            - option "Otta"
+            - option "Landing.jobs"
+            - option "Jobspresso"
+            - option "Remote.co"
+            - option "CareerVault"
+            - option "WorkingNomads"
+            - option "4programmers.net"
+            - option "Xing Jobs"
+            - option "EuroJobs"
+            - option "Jobs.cz"
+            - option "Totaljobs"
+            - option "ZipRecruiter"
+            - option "TheLadders"
+            - option "Monster"
+            - option "YC Jobs"
+            - option "Talent.com"
+            - option "Workopolis"
+            - option "Company ATS Pages"
+            - option "Remotive"
+            - option "We Work Remotely"
+            - option "TheProtocol.it"
+            - option "RemoteOK"
+            - option "JustJoin.it"
+            - option "NoFluffJobs"
+            - option "LinkedIn"
+        - generic [ref=e19]:
+          - generic [ref=e20]: Profile
+          - combobox [ref=e21]:
+            - option "All profiles" [selected]
+            - option "Java Backend"
+            - option "Kotlin"
+            - option "Golang"
+        - generic [ref=e22]:
+          - generic [ref=e23]: Status
+          - combobox [ref=e24]:
+            - option "All statuses" [selected]
+            - option "NEW"
+            - option "INTERESTED"
+            - option "APPLIED"
+            - option "INTERVIEW"
+            - option "OFFER"
+            - option "REJECTED"
+        - generic [ref=e25]:
+          - generic [ref=e26]: Min Score
+          - spinbutton [ref=e27]
+        - generic [ref=e28]: 241 vacancies
+      - table [ref=e30]:
+        - rowgroup [ref=e31]:
+          - row "Score Title Company Location Source Status Found" [ref=e32]:
+            - columnheader "Score" [ref=e33]
+            - columnheader "Title" [ref=e34]
+            - columnheader "Company" [ref=e35]
+            - columnheader "Location" [ref=e36]
+            - columnheader "Source" [ref=e37]
+            - columnheader "Status" [ref=e38]
+            - columnheader "Found" [ref=e39]
+        - rowgroup [ref=e40]:
+          - row "90 Professional Java Developer java spring spring boot kafka postgresql kubernetes docker rest api Billennium Poland linkedin NEW 6/10/2026" [ref=e43] [cursor=pointer]:
+            - cell "90" [ref=e44]
+            - cell "Professional Java Developer java spring spring boot kafka postgresql kubernetes docker rest api" [ref=e45]:
+              - generic [ref=e46]:
+                - text: Professional
+                - mark [ref=e47]: Java
+                - text: Developer
+              - generic [ref=e48]:
+                - generic [ref=e49]: java
+                - generic [ref=e50]: spring
+                - generic [ref=e51]: spring boot
+                - generic [ref=e52]: kafka
+                - generic [ref=e53]: postgresql
+                - generic [ref=e54]: kubernetes
+                - generic [ref=e55]: docker
+                - generic [ref=e56]: rest api
+            - cell "Billennium" [ref=e57]
+            - cell "Poland" [ref=e58]
+            - cell "linkedin" [ref=e59]
+            - cell "NEW" [ref=e60]:
+              - combobox [ref=e61]:
+                - option "NEW" [selected]
+                - option "INTERESTED"
+                - option "APPLIED"
+                - option "INTERVIEW"
+                - option "OFFER"
+                - option "REJECTED"
+            - cell "6/10/2026" [ref=e62]
+          - row "85 Backend Java Developer java spring kafka microservices kubernetes docker hibernate Citi Warsaw, Mazowieckie, Poland linkedin NEW 6/5/2026" [ref=e63] [cursor=pointer]:
+            - cell "85" [ref=e64]
+            - cell "Backend Java Developer java spring kafka microservices kubernetes docker hibernate" [ref=e65]:
+              - generic [ref=e66]:
+                - text: Backend
+                - mark [ref=e67]: Java
+                - text: Developer
+              - generic [ref=e68]:
+                - generic [ref=e69]: java
+                - generic [ref=e70]: spring
+                - generic [ref=e71]: kafka
+                - generic [ref=e72]: microservices
+                - generic [ref=e73]: kubernetes
+                - generic [ref=e74]: docker
+                - generic [ref=e75]: hibernate
+            - cell "Citi" [ref=e76]
+            - cell "Warsaw, Mazowieckie, Poland" [ref=e77]
+            - cell "linkedin" [ref=e78]
+            - cell "NEW" [ref=e79]:
+              - combobox [ref=e80]:
+                - option "NEW" [selected]
+                - option "INTERESTED"
+                - option "APPLIED"
+                - option "INTERVIEW"
+                - option "OFFER"
+                - option "REJECTED"
+            - cell "6/5/2026" [ref=e81]
+          - row "80 Software Engineer (Java) java spring spring boot kubernetes docker rest api Cognizant Technology Solutions Poland (Remote) justjoinit NEW 6/12/2026" [ref=e82] [cursor=pointer]:
+            - cell "80" [ref=e83]
+            - cell "Software Engineer (Java) java spring spring boot kubernetes docker rest api" [ref=e84]:
+              - generic [ref=e85]:
+                - text: Software Engineer (
+                - mark [ref=e86]: Java
+                - text: )
+              - generic [ref=e87]:
+                - generic [ref=e88]: java
+                - generic [ref=e89]: spring
+                - generic [ref=e90]: spring boot
+                - generic [ref=e91]: kubernetes
+                - generic [ref=e92]: docker
+                - generic [ref=e93]: rest api
+            - cell "Cognizant Technology Solutions" [ref=e94]
+            - cell "Poland (Remote)" [ref=e95]
+            - cell "justjoinit" [ref=e96]
+            - cell "NEW" [ref=e97]:
+              - combobox [ref=e98]:
+                - option "NEW" [selected]
+                - option "INTERESTED"
+                - option "APPLIED"
+                - option "INTERVIEW"
+                - option "OFFER"
+                - option "REJECTED"
+            - cell "6/12/2026" [ref=e99]
+          - row "80 Senior Java Engineer java spring spring boot kafka postgresql microservices docker hibernate Star Kyiv, Ukraine linkedin NEW 6/8/2026" [ref=e100] [cursor=pointer]:
+            - cell "80" [ref=e101]
+            - cell "Senior Java Engineer java spring spring boot kafka postgresql microservices docker hibernate" [ref=e102]:
+              - generic [ref=e103]:
+                - text: Senior
+                - mark [ref=e104]: Java
+                - text: Engineer
+              - generic [ref=e105]:
+                - generic [ref=e106]: java
+                - generic [ref=e107]: spring
+                - generic [ref=e108]: spring boot
+                - generic [ref=e109]: kafka
+                - generic [ref=e110]: postgresql
+                - generic [ref=e111]: microservices
+                - generic [ref=e112]: docker
+                - generic [ref=e113]: hibernate
+            - cell "Star" [ref=e114]
+            - cell "Kyiv, Ukraine" [ref=e115]
+            - cell "linkedin" [ref=e116]
+            - cell "NEW" [ref=e117]:
+              - combobox [ref=e118]:
+                - option "NEW" [selected]
+                - option "INTERESTED"
+                - option "APPLIED"
+                - option "INTERVIEW"
+                - option "OFFER"
+                - option "REJECTED"
+            - cell "6/8/2026" [ref=e119]
+          - row "75 Java Developer (mid-level) java spring spring boot postgresql microservices kubernetes docker Lenovo Bucharest, Bucharest, Romania linkedin NEW 6/12/2026" [ref=e120] [cursor=pointer]:
+            - cell "75" [ref=e121]
+            - cell "Java Developer (mid-level) java spring spring boot postgresql microservices kubernetes docker" [ref=e122]:
+              - generic [ref=e123]:
+                - mark [ref=e124]: Java
+                - text: Developer (mid-level)
+              - generic [ref=e125]:
+                - generic [ref=e126]: java
+                - generic [ref=e127]: spring
+                - generic [ref=e128]: spring boot
+                - generic [ref=e129]: postgresql
+                - generic [ref=e130]: microservices
+                - generic [ref=e131]: kubernetes
+                - generic [ref=e132]: docker
+            - cell "Lenovo" [ref=e133]
+            - cell "Bucharest, Bucharest, Romania" [ref=e134]
+            - cell "linkedin" [ref=e135]
+            - cell "NEW" [ref=e136]:
+              - combobox [ref=e137]:
+                - option "NEW" [selected]
+                - option "INTERESTED"
+                - option "APPLIED"
+                - option "INTERVIEW"
+                - option "OFFER"
+                - option "REJECTED"
+            - cell "6/12/2026" [ref=e138]
+          - row "75 Senior Java developer java spring spring boot kafka microservices kubernetes docker Tango Kyiv, Kyiv City, Ukraine linkedin NEW 6/9/2026" [ref=e139] [cursor=pointer]:
+            - cell "75" [ref=e140]
+            - cell "Senior Java developer java spring spring boot kafka microservices kubernetes docker" [ref=e141]:
+              - generic [ref=e142]:
+                - text: Senior
+                - mark [ref=e143]: Java
+                - text: developer
+              - generic [ref=e144]:
+                - generic [ref=e145]: java
+                - generic [ref=e146]: spring
+                - generic [ref=e147]: spring boot
+                - generic [ref=e148]: kafka
+                - generic [ref=e149]: microservices
+                - generic [ref=e150]: kubernetes
+                - generic [ref=e151]: docker
+            - cell "Tango" [ref=e152]
+            - cell "Kyiv, Kyiv City, Ukraine" [ref=e153]
+            - cell "linkedin" [ref=e154]
+            - cell "NEW" [ref=e155]:
+              - combobox [ref=e156]:
+                - option "NEW" [selected]
+                - option "INTERESTED"
+                - option "APPLIED"
+                - option "INTERVIEW"
+                - option "OFFER"
+                - option "REJECTED"
+            - cell "6/9/2026" [ref=e157]
+          - row "70 Java Backend Engineer (m/w/d) java spring kafka microservices kubernetes rest api IPPEN.MEDIA Munich, Bavaria, Germany linkedin NEW 6/11/2026" [ref=e158] [cursor=pointer]:
+            - cell "70" [ref=e159]
+            - cell "Java Backend Engineer (m/w/d) java spring kafka microservices kubernetes rest api" [ref=e160]:
+              - generic [ref=e161]:
+                - mark [ref=e162]: Java
+                - text: Backend Engineer (m/w/d)
+              - generic [ref=e163]:
+                - generic [ref=e164]: java
+                - generic [ref=e165]: spring
+                - generic [ref=e166]: kafka
+                - generic [ref=e167]: microservices
+                - generic [ref=e168]: kubernetes
+                - generic [ref=e169]: rest api
+            - cell "IPPEN.MEDIA" [ref=e170]
+            - cell "Munich, Bavaria, Germany" [ref=e171]
+            - cell "linkedin" [ref=e172]
+            - cell "NEW" [ref=e173]:
+              - combobox [ref=e174]:
+                - option "NEW" [selected]
+                - option "INTERESTED"
+                - option "APPLIED"
+                - option "INTERVIEW"
+                - option "OFFER"
+                - option "REJECTED"
+            - cell "6/11/2026" [ref=e175]
+          - row "70 Java Software Engineer java spring kafka kubernetes Capital.com Warsaw, Mazowieckie, Poland linkedin NEW 6/10/2026" [ref=e176] [cursor=pointer]:
+            - cell "70" [ref=e177]
+            - cell "Java Software Engineer java spring kafka kubernetes" [ref=e178]:
+              - generic [ref=e179]:
+                - mark [ref=e180]: Java
+                - text: Software Engineer
+              - generic [ref=e181]:
+                - generic [ref=e182]: java
+                - generic [ref=e183]: spring
+                - generic [ref=e184]: kafka
+                - generic [ref=e185]: kubernetes
+            - cell "Capital.com" [ref=e186]
+            - cell "Warsaw, Mazowieckie, Poland" [ref=e187]
+            - cell "linkedin" [ref=e188]
+            - cell "NEW" [ref=e189]:
+              - combobox [ref=e190]:
+                - option "NEW" [selected]
+                - option "INTERESTED"
+                - option "APPLIED"
+                - option "INTERVIEW"
+                - option "OFFER"
+                - option "REJECTED"
+            - cell "6/10/2026" [ref=e191]
+          - row "70 Java Development Engineer PSS SEPA @ING Hubs Romania java spring spring boot kafka kubernetes docker ING Hubs Romania Bucharest, Bucharest, Romania linkedin NEW 6/10/2026" [ref=e192] [cursor=pointer]:
+            - cell "70" [ref=e193]
+            - cell "Java Development Engineer PSS SEPA @ING Hubs Romania java spring spring boot kafka kubernetes docker" [ref=e194]:
+              - generic [ref=e195]:
+                - mark [ref=e196]: Java
+                - text: Development Engineer PSS SEPA @ING Hubs Romania
+              - generic [ref=e197]:
+                - generic [ref=e198]: java
+                - generic [ref=e199]: spring
+                - generic [ref=e200]: spring boot
+                - generic [ref=e201]: kafka
+                - generic [ref=e202]: kubernetes
+                - generic [ref=e203]: docker
+            - cell "ING Hubs Romania" [ref=e204]
+            - cell "Bucharest, Bucharest, Romania" [ref=e205]
+            - cell "linkedin" [ref=e206]
+            - cell "NEW" [ref=e207]:
+              - combobox [ref=e208]:
+                - option "NEW" [selected]
+                - option "INTERESTED"
+                - option "APPLIED"
+                - option "INTERVIEW"
+                - option "OFFER"
+                - option "REJECTED"
+            - cell "6/10/2026" [ref=e209]
+          - row "70 Middle Back End Software Engineer (Kotlin) java spring spring boot kafka postgresql microservices kubernetes docker Exadel Poland linkedin NEW 6/8/2026" [ref=e210] [cursor=pointer]:
+            - cell "70" [ref=e211]
+            - cell "Middle Back End Software Engineer (Kotlin) java spring spring boot kafka postgresql microservices kubernetes docker" [ref=e212]:
+              - generic [ref=e213]: Middle Back End Software Engineer (Kotlin)
+              - generic [ref=e214]:
+                - generic [ref=e215]: java
+                - generic [ref=e216]: spring
+                - generic [ref=e217]: spring boot
+                - generic [ref=e218]: kafka
+                - generic [ref=e219]: postgresql
+                - generic [ref=e220]: microservices
+                - generic [ref=e221]: kubernetes
+                - generic [ref=e222]: docker
+            - cell "Exadel" [ref=e223]
+            - cell "Poland" [ref=e224]
+            - cell "linkedin" [ref=e225]
+            - cell "NEW" [ref=e226]:
+              - combobox [ref=e227]:
+                - option "NEW" [selected]
+                - option "INTERESTED"
+                - option "APPLIED"
+                - option "INTERVIEW"
+                - option "OFFER"
+                - option "REJECTED"
+            - cell "6/8/2026" [ref=e228]
+          - row "65 Java Software Engineer (e-mobility & energy) java spring spring boot kubernetes docker Spyrosoft Kraków justjoinit NEW 6/12/2026" [ref=e229] [cursor=pointer]:
+            - cell "65" [ref=e230]
+            - cell "Java Software Engineer (e-mobility & energy) java spring spring boot kubernetes docker" [ref=e231]:
+              - generic [ref=e232]:
+                - mark [ref=e233]: Java
+                - text: Software Engineer (e-mobility & energy)
+              - generic [ref=e234]:
+                - generic [ref=e235]: java
+                - generic [ref=e236]: spring
+                - generic [ref=e237]: spring boot
+                - generic [ref=e238]: kubernetes
+                - generic [ref=e239]: docker
+            - cell "Spyrosoft" [ref=e240]
+            - cell "Kraków" [ref=e241]
+            - cell "justjoinit" [ref=e242]
+            - cell "NEW" [ref=e243]:
+              - combobox [ref=e244]:
+                - option "NEW" [selected]
+                - option "INTERESTED"
+                - option "APPLIED"
+                - option "INTERVIEW"
+                - option "OFFER"
+                - option "REJECTED"
+            - cell "6/12/2026" [ref=e245]
+          - row "65 Senior Java Developer (Kafka) java spring spring boot kafka postgresql 7N Gdańsk justjoinit NEW 6/12/2026" [ref=e246] [cursor=pointer]:
+            - cell "65" [ref=e247]
+            - cell "Senior Java Developer (Kafka) java spring spring boot kafka postgresql" [ref=e248]:
+              - generic [ref=e249]:
+                - text: Senior
+                - mark [ref=e250]: Java
+                - text: Developer (
+                - mark [ref=e251]: Kafka
+                - text: )
+              - generic [ref=e252]:
+                - generic [ref=e253]: java
+                - generic [ref=e254]: spring
+                - generic [ref=e255]: spring boot
+                - generic [ref=e256]: kafka
+                - generic [ref=e257]: postgresql
+            - cell "7N" [ref=e258]
+            - cell "Gdańsk" [ref=e259]
+            - cell "justjoinit" [ref=e260]
+            - cell "NEW" [ref=e261]:
+              - combobox [ref=e262]:
+                - option "NEW" [selected]
+                - option "INTERESTED"
+                - option "APPLIED"
+                - option "INTERVIEW"
+                - option "OFFER"
+                - option "REJECTED"
+            - cell "6/12/2026" [ref=e263]
+          - row "65 Programista / Programistka Java java spring spring boot postgresql hibernate Redge Technologies Warszawa justjoinit NEW 6/12/2026" [ref=e264] [cursor=pointer]:
+            - cell "65" [ref=e265]
+            - cell "Programista / Programistka Java java spring spring boot postgresql hibernate" [ref=e266]:
+              - generic [ref=e267]:
+                - text: Programista / Programistka
+                - mark [ref=e268]: Java
+              - generic [ref=e269]:
+                - generic [ref=e270]: java
+                - generic [ref=e271]: spring
+                - generic [ref=e272]: spring boot
+                - generic [ref=e273]: postgresql
+                - generic [ref=e274]: hibernate
+            - cell "Redge Technologies" [ref=e275]
+            - cell "Warszawa" [ref=e276]
+            - cell "justjoinit" [ref=e277]
+            - cell "NEW" [ref=e278]:
+              - combobox [ref=e279]:
+                - option "NEW" [selected]
+                - option "INTERESTED"
+                - option "APPLIED"
+                - option "INTERVIEW"
+                - option "OFFER"
+                - option "REJECTED"
+            - cell "6/12/2026" [ref=e280]
+          - row "65 Java Developer (Java + AWS) java spring spring boot docker hibernate fireup.pro Rybnik justjoinit NEW 6/12/2026" [ref=e281] [cursor=pointer]:
+            - cell "65" [ref=e282]
+            - cell "Java Developer (Java + AWS) java spring spring boot docker hibernate" [ref=e283]:
+              - generic [ref=e284]:
+                - mark [ref=e285]: Java
+                - text: Developer (
+                - mark [ref=e286]: Java
+                - text: + AWS)
+              - generic [ref=e287]:
+                - generic [ref=e288]: java
+                - generic [ref=e289]: spring
+                - generic [ref=e290]: spring boot
+                - generic [ref=e291]: docker
+                - generic [ref=e292]: hibernate
+            - cell "fireup.pro" [ref=e293]
+            - cell "Rybnik" [ref=e294]
+            - cell "justjoinit" [ref=e295]
+            - cell "NEW" [ref=e296]:
+              - combobox [ref=e297]:
+                - option "NEW" [selected]
+                - option "INTERESTED"
+                - option "APPLIED"
+                - option "INTERVIEW"
+                - option "OFFER"
+                - option "REJECTED"
+            - cell "6/12/2026" [ref=e298]
+          - row "65 Microservice Java Developer java spring spring boot kafka microservices Ikano Bank Malmo, Skåne County, Sweden linkedin NEW 6/12/2026" [ref=e299] [cursor=pointer]:
+            - cell "65" [ref=e300]
+            - cell "Microservice Java Developer java spring spring boot kafka microservices" [ref=e301]:
+              - generic [ref=e302]:
+                - text: Microservice
+                - mark [ref=e303]: Java
+                - text: Developer
+              - generic [ref=e304]:
+                - generic [ref=e305]: java
+                - generic [ref=e306]: spring
+                - generic [ref=e307]: spring boot
+                - generic [ref=e308]: kafka
+                - generic [ref=e309]: microservices
+            - cell "Ikano Bank" [ref=e310]
+            - cell "Malmo, Skåne County, Sweden" [ref=e311]
+            - cell "linkedin" [ref=e312]
+            - cell "NEW" [ref=e313]:
+              - combobox [ref=e314]:
+                - option "NEW" [selected]
+                - option "INTERESTED"
+                - option "APPLIED"
+                - option "INTERVIEW"
+                - option "OFFER"
+                - option "REJECTED"
+            - cell "6/12/2026" [ref=e315]
+          - row "65 Senior Java Engineer (90% remoto, Málaga) java spring spring boot kafka postgresql SQUAD Technology Solutions Andalusia, Spain linkedin NEW 6/12/2026" [ref=e316] [cursor=pointer]:
+            - cell "65" [ref=e317]
+            - cell "Senior Java Engineer (90% remoto, Málaga) java spring spring boot kafka postgresql" [ref=e318]:
+              - generic [ref=e319]:
+                - text: Senior
+                - mark [ref=e320]: Java
+                - text: Engineer (90% remoto, Málaga)
+              - generic [ref=e321]:
+                - generic [ref=e322]: java
+                - generic [ref=e323]: spring
+                - generic [ref=e324]: spring boot
+                - generic [ref=e325]: kafka
+                - generic [ref=e326]: postgresql
+            - cell "SQUAD Technology Solutions" [ref=e327]
+            - cell "Andalusia, Spain" [ref=e328]
+            - cell "linkedin" [ref=e329]
+            - cell "NEW" [ref=e330]:
+              - combobox [ref=e331]:
+                - option "NEW" [selected]
+                - option "INTERESTED"
+                - option "APPLIED"
+                - option "INTERVIEW"
+                - option "OFFER"
+                - option "REJECTED"
+            - cell "6/12/2026" [ref=e332]
+          - row "65 Senior Java Software Engineer java spring spring boot kafka microservices mthree Budapest, Hungary linkedin NEW 6/9/2026" [ref=e333] [cursor=pointer]:
+            - cell "65" [ref=e334]
+            - cell "Senior Java Software Engineer java spring spring boot kafka microservices" [ref=e335]:
+              - generic [ref=e336]:
+                - text: Senior
+                - mark [ref=e337]: Java
+                - text: Software Engineer
+              - generic [ref=e338]:
+                - generic [ref=e339]: java
+                - generic [ref=e340]: spring
+                - generic [ref=e341]: spring boot
+                - generic [ref=e342]: kafka
+                - generic [ref=e343]: microservices
+            - cell "mthree" [ref=e344]
+            - cell "Budapest, Hungary" [ref=e345]
+            - cell "linkedin" [ref=e346]
+            - cell "NEW" [ref=e347]:
+              - combobox [ref=e348]:
+                - option "NEW" [selected]
+                - option "INTERESTED"
+                - option "APPLIED"
+                - option "INTERVIEW"
+                - option "OFFER"
+                - option "REJECTED"
+            - cell "6/9/2026" [ref=e349]
+          - row "65 Java Developer / Java programmētājs/-a | SEB, Riga java spring spring boot kafka kubernetes SEB Latvija Riga, Riga, Latvia linkedin NEW 6/8/2026" [ref=e350] [cursor=pointer]:
+            - cell "65" [ref=e351]
+            - cell "Java Developer / Java programmētājs/-a | SEB, Riga java spring spring boot kafka kubernetes" [ref=e352]:
+              - generic [ref=e353]:
+                - mark [ref=e354]: Java
+                - text: Developer /
+                - mark [ref=e355]: Java
+                - text: programmētājs/-a | SEB, Riga
+              - generic [ref=e356]:
+                - generic [ref=e357]: java
+                - generic [ref=e358]: spring
+                - generic [ref=e359]: spring boot
+                - generic [ref=e360]: kafka
+                - generic [ref=e361]: kubernetes
+            - cell "SEB Latvija" [ref=e362]
+            - cell "Riga, Riga, Latvia" [ref=e363]
+            - cell "linkedin" [ref=e364]
+            - cell "NEW" [ref=e365]:
+              - combobox [ref=e366]:
+                - option "NEW" [selected]
+                - option "INTERESTED"
+                - option "APPLIED"
+                - option "INTERVIEW"
+                - option "OFFER"
+                - option "REJECTED"
+            - cell "6/8/2026" [ref=e367]
+          - row "65 Senior Professional DevSecOps Engineer (m/w/d) Java java spring spring boot kafka microservices R+V Versicherung Hamburg, Hamburg, Germany linkedin NEW 6/6/2026" [ref=e368] [cursor=pointer]:
+            - cell "65" [ref=e369]
+            - cell "Senior Professional DevSecOps Engineer (m/w/d) Java java spring spring boot kafka microservices" [ref=e370]:
+              - generic [ref=e371]:
+                - text: Senior Professional DevSecOps Engineer (m/w/d)
+                - mark [ref=e372]: Java
+              - generic [ref=e373]:
+                - generic [ref=e374]: java
+                - generic [ref=e375]: spring
+                - generic [ref=e376]: spring boot
+                - generic [ref=e377]: kafka
+                - generic [ref=e378]: microservices
+            - cell "R+V Versicherung" [ref=e379]
+            - cell "Hamburg, Hamburg, Germany" [ref=e380]
+            - cell "linkedin" [ref=e381]
+            - cell "NEW" [ref=e382]:
+              - combobox [ref=e383]:
+                - option "NEW" [selected]
+                - option "INTERESTED"
+                - option "APPLIED"
+                - option "INTERVIEW"
+                - option "OFFER"
+                - option "REJECTED"
+            - cell "6/6/2026" [ref=e384]
+          - row "65 TEAM LEADER Java java spring spring boot Mindbox Sp. z o.o. Remote nofluffjobs NEW 6/5/2026" [ref=e385] [cursor=pointer]:
+            - cell "65" [ref=e386]
+            - cell "TEAM LEADER Java java spring spring boot" [ref=e387]:
+              - generic [ref=e388]:
+                - text: TEAM LEADER
+                - mark [ref=e389]: Java
+              - generic [ref=e390]:
+                - generic [ref=e391]: java
+                - generic [ref=e392]: spring
+                - generic [ref=e393]: spring boot
+            - cell "Mindbox Sp. z o.o." [ref=e394]
+            - cell "Remote" [ref=e395]
+            - cell "nofluffjobs" [ref=e396]
+            - cell "NEW" [ref=e397]:
+              - combobox [ref=e398]:
+                - option "NEW" [selected]
+                - option "INTERESTED"
+                - option "APPLIED"
+                - option "INTERVIEW"
+                - option "OFFER"
+                - option "REJECTED"
+            - cell "6/5/2026" [ref=e399]
+      - generic [ref=e400]:
+        - button "Prev" [disabled] [ref=e401]
+        - generic [ref=e402]: 1 / 13
+        - button "Next" [ref=e403]

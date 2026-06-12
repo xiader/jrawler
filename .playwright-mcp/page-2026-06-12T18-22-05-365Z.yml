@@ -1,0 +1,125 @@
+- generic [ref=e3]:
+  - banner [ref=e4]:
+    - generic [ref=e5]: Job Crawler
+    - navigation [ref=e6]:
+      - link "Vacancies" [ref=e7] [cursor=pointer]:
+        - /url: /vacancies
+      - link "Dashboard" [ref=e8] [cursor=pointer]:
+        - /url: /dashboard
+      - link "Companies" [ref=e9] [cursor=pointer]:
+        - /url: /companies
+      - link "Profiles" [ref=e10] [cursor=pointer]:
+        - /url: /profiles
+      - link "Settings" [ref=e11] [cursor=pointer]:
+        - /url: /settings
+    - button "Run Crawler" [ref=e12]
+  - main [ref=e13]:
+    - generic [ref=e14]:
+      - generic [ref=e15]:
+        - heading "Search Profiles" [level=1] [ref=e16]
+        - button "+ New Profile" [ref=e17]
+      - generic [ref=e19]:
+        - generic [ref=e20]:
+          - generic [ref=e21]:
+            - generic [ref=e22]: Java Backend
+            - button "Active" [ref=e23]
+          - generic [ref=e24]:
+            - generic [ref=e25]:
+              - generic [ref=e26]: "Must have:"
+              - generic [ref=e27]: java
+            - generic [ref=e28]:
+              - generic [ref=e29]: "Nice to have:"
+              - generic [ref=e30]: spring
+              - generic [ref=e31]: spring boot
+              - generic [ref=e32]: kafka
+              - generic [ref=e33]: postgresql
+              - generic [ref=e34]: microservices
+              - generic [ref=e35]: kubernetes
+              - generic [ref=e36]: docker
+              - generic [ref=e37]: rest api
+              - generic [ref=e38]: hibernate
+            - generic [ref=e39]:
+              - generic [ref=e40]: "Exclude:"
+              - generic [ref=e41]: php
+              - generic [ref=e42]: clearance
+              - generic [ref=e43]: secret clearance
+              - generic [ref=e44]: .net
+              - generic [ref=e45]: c#
+              - generic [ref=e46]: ruby
+              - generic [ref=e47]: ios
+              - generic [ref=e48]: android
+              - generic [ref=e49]: react
+              - generic [ref=e50]: angular
+              - generic [ref=e51]: vue
+              - generic [ref=e52]: javascript
+              - generic [ref=e53]: qa
+              - generic [ref=e54]: test automation
+              - generic [ref=e55]: quality assurance
+          - generic [ref=e56]:
+            - generic [ref=e57]: REMOTE
+            - generic [ref=e58]: HYBRID
+            - generic [ref=e59]: "min score: 30"
+          - generic [ref=e60]:
+            - button "Edit" [ref=e61]
+            - button "Delete" [ref=e62]
+        - generic [ref=e63]:
+          - generic [ref=e64]:
+            - generic [ref=e65]: Kotlin
+            - button "Inactive" [ref=e66]
+          - generic [ref=e67]:
+            - generic [ref=e68]:
+              - generic [ref=e69]: "Must have:"
+              - generic [ref=e70]: kotlin
+            - generic [ref=e71]:
+              - generic [ref=e72]: "Nice to have:"
+              - generic [ref=e73]: spring
+              - generic [ref=e74]: spring boot
+              - generic [ref=e75]: coroutines
+              - generic [ref=e76]: ktor
+              - generic [ref=e77]: android
+              - generic [ref=e78]: jvm
+              - generic [ref=e79]: microservices
+              - generic [ref=e80]: docker
+            - generic [ref=e81]:
+              - generic [ref=e82]: "Exclude:"
+              - generic [ref=e83]: clearance
+              - generic [ref=e84]: secret clearance
+              - generic [ref=e85]: php
+              - generic [ref=e86]: ruby
+          - generic [ref=e87]:
+            - generic [ref=e88]: REMOTE
+            - generic [ref=e89]: HYBRID
+            - generic [ref=e90]: "min score: 30"
+          - generic [ref=e91]:
+            - button "Edit" [ref=e92]
+            - button "Delete" [ref=e93]
+        - generic [ref=e94]:
+          - generic [ref=e95]:
+            - generic [ref=e96]: Golang
+            - button "Inactive" [ref=e97]
+          - generic [ref=e98]:
+            - generic [ref=e99]:
+              - generic [ref=e100]: "Must have:"
+              - generic [ref=e101]: golang
+              - generic [ref=e102]: go
+            - generic [ref=e103]:
+              - generic [ref=e104]: "Nice to have:"
+              - generic [ref=e105]: kubernetes
+              - generic [ref=e106]: docker
+              - generic [ref=e107]: grpc
+              - generic [ref=e108]: microservices
+              - generic [ref=e109]: cloud
+              - generic [ref=e110]: aws
+              - generic [ref=e111]: gcp
+              - generic [ref=e112]: distributed systems
+            - generic [ref=e113]:
+              - generic [ref=e114]: "Exclude:"
+              - generic [ref=e115]: clearance
+              - generic [ref=e116]: secret clearance
+          - generic [ref=e117]:
+            - generic [ref=e118]: REMOTE
+            - generic [ref=e119]: HYBRID
+            - generic [ref=e120]: "min score: 30"
+          - generic [ref=e121]:
+            - button "Edit" [ref=e122]
+            - button "Delete" [ref=e123]

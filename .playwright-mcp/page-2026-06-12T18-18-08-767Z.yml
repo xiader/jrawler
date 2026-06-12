@@ -1,0 +1,173 @@
+- generic [ref=e3]:
+  - banner [ref=e4]:
+    - generic [ref=e5]: Job Crawler
+    - navigation [ref=e6]:
+      - link "Vacancies" [ref=e7] [cursor=pointer]:
+        - /url: /vacancies
+      - link "Dashboard" [ref=e8] [cursor=pointer]:
+        - /url: /dashboard
+      - link "Companies" [ref=e9] [cursor=pointer]:
+        - /url: /companies
+      - link "Profiles" [ref=e10] [cursor=pointer]:
+        - /url: /profiles
+      - link "Settings" [ref=e11] [cursor=pointer]:
+        - /url: /settings
+    - button "Run Crawler" [ref=e12]
+  - main [ref=e13]:
+    - generic [ref=e14]:
+      - generic [ref=e15]:
+        - generic [ref=e16]:
+          - generic [ref=e17]: Source
+          - combobox [ref=e18]:
+            - option "All sources" [selected]
+            - option "Wellfound"
+            - option "Arc.dev"
+            - option "Glassdoor"
+            - option "Indeed"
+            - option "Dice.com"
+            - option "Hired.com"
+            - option "StepStone"
+            - option "CWJobs"
+            - option "Reed.co.uk"
+            - option "Relocate.me"
+            - option "Bulldogjob.pl"
+            - option "Rocketjobs.pl"
+            - option "Pracuj.pl"
+            - option "Otta"
+            - option "Landing.jobs"
+            - option "Jobspresso"
+            - option "Remote.co"
+            - option "CareerVault"
+            - option "WorkingNomads"
+            - option "4programmers.net"
+            - option "Xing Jobs"
+            - option "EuroJobs"
+            - option "Jobs.cz"
+            - option "Totaljobs"
+            - option "ZipRecruiter"
+            - option "TheLadders"
+            - option "Monster"
+            - option "YC Jobs"
+            - option "Talent.com"
+            - option "Workopolis"
+            - option "Company ATS Pages"
+            - option "Remotive"
+            - option "We Work Remotely"
+            - option "TheProtocol.it"
+            - option "RemoteOK"
+            - option "JustJoin.it"
+            - option "NoFluffJobs"
+            - option "LinkedIn"
+        - generic [ref=e19]:
+          - generic [ref=e20]: Profile
+          - combobox [ref=e21]:
+            - option "All profiles" [selected]
+            - option "Java Backend"
+            - option "Kotlin"
+            - option "Golang"
+        - generic [ref=e22]:
+          - generic [ref=e23]: Status
+          - combobox [ref=e24]:
+            - option "All statuses"
+            - option "NEW"
+            - option "INTERESTED" [selected]
+            - option "APPLIED"
+            - option "INTERVIEW"
+            - option "OFFER"
+            - option "REJECTED"
+        - generic [ref=e25]:
+          - generic [ref=e26]: Min Score
+          - spinbutton [ref=e27]: "80"
+        - generic [ref=e28]: 1 vacancies
+      - table [ref=e30]:
+        - rowgroup [ref=e31]:
+          - row "Score Title Company Location Source Status Found" [ref=e32]:
+            - columnheader "Score" [ref=e33]
+            - columnheader "Title" [ref=e34]
+            - columnheader "Company" [ref=e35]
+            - columnheader "Location" [ref=e36]
+            - columnheader "Source" [ref=e37]
+            - columnheader "Status" [ref=e38]
+            - columnheader "Found" [ref=e39]
+        - rowgroup [ref=e40]:
+          - row "90 Professional Java Developer java spring spring boot kafka postgresql kubernetes docker rest api Billennium Poland linkedin INTERESTED 6/10/2026" [ref=e1476] [cursor=pointer]:
+            - cell "90" [ref=e1477]
+            - cell "Professional Java Developer java spring spring boot kafka postgresql kubernetes docker rest api" [ref=e1478]:
+              - generic [ref=e1479]:
+                - text: Professional
+                - mark [ref=e1480]: Java
+                - text: Developer
+              - generic [ref=e1481]:
+                - generic [ref=e1482]: java
+                - generic [ref=e1483]: spring
+                - generic [ref=e1484]: spring boot
+                - generic [ref=e1485]: kafka
+                - generic [ref=e1486]: postgresql
+                - generic [ref=e1487]: kubernetes
+                - generic [ref=e1488]: docker
+                - generic [ref=e1489]: rest api
+            - cell "Billennium" [ref=e1490]
+            - cell "Poland" [ref=e1491]
+            - cell "linkedin" [ref=e1492]
+            - cell "INTERESTED" [ref=e1493]:
+              - combobox [ref=e1494]:
+                - option "NEW"
+                - option "INTERESTED" [selected]
+                - option "APPLIED"
+                - option "INTERVIEW"
+                - option "OFFER"
+                - option "REJECTED"
+            - cell "6/10/2026" [ref=e1495]
+      - generic [ref=e1438]:
+        - generic [ref=e1439]:
+          - heading "Professional Java Developer" [level=2] [ref=e1440]:
+            - text: Professional
+            - mark [ref=e1441]: Java
+            - text: Developer
+          - button "×" [ref=e1442]
+        - generic [ref=e1443]:
+          - generic [ref=e1444]: Billennium
+          - generic [ref=e1445]: ·
+          - generic [ref=e1446]: Poland
+          - generic [ref=e1447]: ·
+          - generic [ref=e1448]: REMOTE
+        - generic [ref=e1449]:
+          - generic [ref=e1450]: NEW
+          - combobox [ref=e1451]:
+            - option "NEW" [selected]
+            - option "INTERESTED"
+            - option "APPLIED"
+            - option "INTERVIEW"
+            - option "OFFER"
+            - option "REJECTED"
+          - link "Open Job" [ref=e1452] [cursor=pointer]:
+            - /url: https://pl.linkedin.com/jobs/view/professional-java-developer-at-billennium-4426735693
+        - generic [ref=e1453]:
+          - generic [ref=e1454]: Matched keywords
+          - generic [ref=e1455]:
+            - generic [ref=e1456]: java
+            - generic [ref=e1457]: spring
+            - generic [ref=e1458]: spring boot
+            - generic [ref=e1459]: kafka
+            - generic [ref=e1460]: postgresql
+            - generic [ref=e1461]: kubernetes
+            - generic [ref=e1462]: docker
+            - generic [ref=e1463]: rest api
+        - generic [ref=e1464]:
+          - generic [ref=e1465]: Description
+          - generic [ref=e1466]:
+            - text: "Kim jesteśmy Billennium to polska firma IT z ponad 20-letnim doświadczeniem, realizująca projekty technologiczne dla klientów z sektora finansowego, ubezpieczeniowego, publicznego i e‑commerce. Tworzymy zespoły ekspertów, którzy rozwijają nowoczesne rozwiązania w oparciu o sprawdzone metodyki i najnowsze technologie. Pracodawca wymaga wizyt w biurze raz na dwa/trzy tygodnie. Biura znajdują się w Warszawie, Krakowie oraz Katowicach. O roli Dołączysz do zespołu rozwijającego Workflow Kredytowy w obszarze Finansowania Biznesu. Będziesz pracować nad backendem nowoczesnego systemu opartego na architekturze mikroserwisowej, w ścisłej współpracy z Product Ownerem i zespołem Scrumowym. Zakres obowiązków: • Projektowanie, rozwój i utrzymanie aplikacji backendowych • Integracje pomiędzy systemami • Optymalizacja wydajności aplikacji • Wsparcie zespołu w zakresie jakości kodu i decyzji technicznych • Praca z architekturą mikroserwisową • Aktywny udział w pracach zespołu Scrumowego (ciągłe wsparcie PO) Wymagania (must have): • Minimum kilkuletnie doświadczenie komercyjne w Javie •"
+            - mark [ref=e1467]: Java
+            - text: 21+ •
+            - mark [ref=e1468]: Spring
+            - text: Boot 3+ • Doświadczenie z architekturą mikroserwisową •
+            - mark [ref=e1469]: Kafka
+            - text: ", MQ •"
+            - mark [ref=e1470]: Docker
+            - text: ", Git •"
+            - mark [ref=e1471]: PostgreSQL
+            - text: ", MongoDB • Maven •"
+            - mark [ref=e1472]: REST API
+            - text: "• Testy jednostkowe (JUnit / Spock) • Znajomość zasad programowania i dobrych praktyk • Znajomość wzorców projektowych Mile widziane (nice to have): • Jenkins lub GitLab CI • OpenShift /"
+            - mark [ref=e1473]: Kubernetes
+            - text: "• Jira, Confluence, Scrum • Camunda BPMS • Narzędzia monitoringu i observability: Grafana, Kibana, Dynatrace Co oferujemy: • Długofalową współpracę przy stabilnych projektach • Pracę w doświadczonym zespole i realny wpływ na rozwiązania techniczne • Elastyczną formę współpracy • Budżet szkoleniowy i dostęp do platform edukacyjnych • Prywatną opiekę medyczną i kartę sportową • Przyjazną, partnerską kulturę organizacyjną Proces rekrutacyjny: • Rozmowa z Rekruterem • Rozmowa techniczna z zespołem • Decyzja i oferta"

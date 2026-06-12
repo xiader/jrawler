@@ -1,11 +1,16 @@
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
-import { fetchSources, toggleSource, runCrawler } from '../api/sources';
+import { fetchSources, toggleSource, runCrawler, fetchCrawlerStatus } from '../api/sources';
 import { useState } from 'react';
 
 export default function Settings() {
   const qc = useQueryClient();
-  const [running, setRunning] = useState(false);
   const [message, setMessage] = useState('');
+
+  const { data: status } = useQuery({
+    queryKey: ['crawler-status'],
+    queryFn: fetchCrawlerStatus,
+    refetchInterval: query => (query.state.data?.running ? 2000 : 15000),
+  });
 
   const { data: sources = [], isLoading } = useQuery({
     queryKey: ['sources'],
@@ -17,18 +22,16 @@ export default function Settings() {
     onSuccess: () => qc.invalidateQueries({ queryKey: ['sources'] }),
   });
 
-  const handleRun = async () => {
-    setRunning(true);
-    setMessage('');
-    try {
-      await runCrawler();
-      setMessage('Crawler started successfully.');
-    } catch {
-      setMessage('Failed to start crawler.');
-    } finally {
-      setRunning(false);
-    }
-  };
+  const runMutation = useMutation({
+    mutationFn: runCrawler,
+    onMutate: () => setMessage(''),
+    onSuccess: () => setMessage('Crawler started.'),
+    onError: () => setMessage('Failed to start crawler.'),
+    onSettled: () => qc.invalidateQueries({ queryKey: ['crawler-status'] }),
+  });
+
+  const running = runMutation.isPending || (status?.running ?? false);
+  const handleRun = () => runMutation.mutate();
 
   const byPriority = [0, 1, 2].map(p => ({
     label: `P${p}`,
@@ -48,7 +51,7 @@ export default function Settings() {
             disabled={running}
             className="px-4 py-1.5 bg-blue-600 hover:bg-blue-500 disabled:bg-gray-700 disabled:text-gray-500 text-white text-sm font-medium rounded transition-colors"
           >
-            {running ? 'Starting...' : 'Run Now'}
+            {running ? 'Running...' : 'Run Now'}
           </button>
           {message && <span className="text-sm text-gray-400">{message}</span>}
         </div>

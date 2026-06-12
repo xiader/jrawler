@@ -1,0 +1,163 @@
+- generic [ref=e3]:
+  - banner [ref=e4]:
+    - generic [ref=e5]: Job Crawler
+    - navigation [ref=e6]:
+      - link "Vacancies" [ref=e7] [cursor=pointer]:
+        - /url: /vacancies
+      - link "Dashboard" [ref=e8] [cursor=pointer]:
+        - /url: /dashboard
+      - link "Companies" [ref=e9] [cursor=pointer]:
+        - /url: /companies
+      - link "Profiles" [ref=e10] [cursor=pointer]:
+        - /url: /profiles
+      - link "Settings" [ref=e11] [cursor=pointer]:
+        - /url: /settings
+    - button "Run Crawler" [ref=e194]
+  - main [ref=e13]:
+    - generic [ref=e14]:
+      - heading "Settings" [level=1] [ref=e15]
+      - generic [ref=e16]:
+        - heading "Crawler" [level=2] [ref=e17]
+        - paragraph [ref=e18]: Crawls run automatically every hour. You can trigger a manual run below.
+        - button "Run Now" [ref=e20]
+      - generic [ref=e21]:
+        - heading "Sources" [level=2] [ref=e22]
+        - generic [ref=e24]:
+          - generic [ref=e25]: P0
+          - generic [ref=e26]:
+            - generic [ref=e27]:
+              - generic [ref=e28]:
+                - generic [ref=e29]: Company ATS Pages
+                - generic [ref=e30]: "Last: 6/12/2026, 8:00:00 PM"
+              - button [ref=e31] [cursor=pointer]
+            - generic [ref=e32]:
+              - generic [ref=e33]:
+                - generic [ref=e34]: Remotive
+                - generic [ref=e35]: "Last: 6/12/2026, 8:00:00 PM"
+              - button [ref=e36] [cursor=pointer]
+            - generic [ref=e37]:
+              - generic [ref=e38]:
+                - generic [ref=e39]: We Work Remotely
+                - generic [ref=e40]: "Last: 6/12/2026, 8:00:00 PM"
+              - button [ref=e41] [cursor=pointer]
+            - generic [ref=e42]:
+              - generic [ref=e43]:
+                - generic [ref=e44]: TheProtocol.it
+                - generic [ref=e45]: "Last: 6/12/2026, 8:00:00 PM"
+              - button [ref=e46] [cursor=pointer]
+            - generic [ref=e47]:
+              - generic [ref=e48]:
+                - generic [ref=e49]: RemoteOK
+                - generic [ref=e50]: "Last: 6/12/2026, 8:00:01 PM"
+              - button [ref=e51] [cursor=pointer]
+            - generic [ref=e52]:
+              - generic [ref=e53]:
+                - generic [ref=e54]: JustJoin.it
+                - generic [ref=e55]: "Last: 6/12/2026, 8:00:03 PM"
+              - button [ref=e56] [cursor=pointer]
+            - generic [ref=e57]:
+              - generic [ref=e58]:
+                - generic [ref=e59]: NoFluffJobs
+                - generic [ref=e60]: "Last: 6/12/2026, 8:00:06 PM"
+              - button [ref=e61] [cursor=pointer]
+            - generic [ref=e62]:
+              - generic [ref=e63]:
+                - generic [ref=e64]: LinkedIn
+                - generic [ref=e65]: "Last: 6/12/2026, 8:01:26 PM"
+              - button [ref=e66] [cursor=pointer]
+        - generic [ref=e67]:
+          - generic [ref=e68]: P1
+          - generic [ref=e69]:
+            - generic [ref=e74]:
+              - generic [ref=e76]: Arc.dev
+              - button [ref=e77] [cursor=pointer]
+            - generic [ref=e78]:
+              - generic [ref=e80]: Glassdoor
+              - button [ref=e81] [cursor=pointer]
+            - generic [ref=e82]:
+              - generic [ref=e84]: Indeed
+              - button [ref=e85] [cursor=pointer]
+            - generic [ref=e86]:
+              - generic [ref=e88]: Dice.com
+              - button [ref=e89] [cursor=pointer]
+            - generic [ref=e90]:
+              - generic [ref=e92]: Hired.com
+              - button [ref=e93] [cursor=pointer]
+            - generic [ref=e94]:
+              - generic [ref=e96]: StepStone
+              - button [ref=e97] [cursor=pointer]
+            - generic [ref=e98]:
+              - generic [ref=e100]: CWJobs
+              - button [ref=e101] [cursor=pointer]
+            - generic [ref=e102]:
+              - generic [ref=e104]: Reed.co.uk
+              - button [ref=e105] [cursor=pointer]
+            - generic [ref=e106]:
+              - generic [ref=e108]: Relocate.me
+              - button [ref=e109] [cursor=pointer]
+            - generic [ref=e110]:
+              - generic [ref=e112]: Bulldogjob.pl
+              - button [ref=e113] [cursor=pointer]
+            - generic [ref=e114]:
+              - generic [ref=e116]: Rocketjobs.pl
+              - button [ref=e117] [cursor=pointer]
+            - generic [ref=e118]:
+              - generic [ref=e120]: Pracuj.pl
+              - button [ref=e121] [cursor=pointer]
+            - generic [ref=e70]:
+              - generic [ref=e72]: Wellfound
+              - button [ref=e73] [cursor=pointer]
+        - generic [ref=e122]:
+          - generic [ref=e123]: P2
+          - generic [ref=e124]:
+            - generic [ref=e125]:
+              - generic [ref=e127]: Otta
+              - button [ref=e128] [cursor=pointer]
+            - generic [ref=e129]:
+              - generic [ref=e131]: Landing.jobs
+              - button [ref=e132] [cursor=pointer]
+            - generic [ref=e133]:
+              - generic [ref=e135]: Jobspresso
+              - button [ref=e136] [cursor=pointer]
+            - generic [ref=e137]:
+              - generic [ref=e139]: Remote.co
+              - button [ref=e140] [cursor=pointer]
+            - generic [ref=e141]:
+              - generic [ref=e143]: CareerVault
+              - button [ref=e144] [cursor=pointer]
+            - generic [ref=e145]:
+              - generic [ref=e147]: WorkingNomads
+              - button [ref=e148] [cursor=pointer]
+            - generic [ref=e149]:
+              - generic [ref=e151]: 4programmers.net
+              - button [ref=e152] [cursor=pointer]
+            - generic [ref=e153]:
+              - generic [ref=e155]: Xing Jobs
+              - button [ref=e156] [cursor=pointer]
+            - generic [ref=e157]:
+              - generic [ref=e159]: EuroJobs
+              - button [ref=e160] [cursor=pointer]
+            - generic [ref=e161]:
+              - generic [ref=e163]: Jobs.cz
+              - button [ref=e164] [cursor=pointer]
+            - generic [ref=e165]:
+              - generic [ref=e167]: Totaljobs
+              - button [ref=e168] [cursor=pointer]
+            - generic [ref=e169]:
+              - generic [ref=e171]: ZipRecruiter
+              - button [ref=e172] [cursor=pointer]
+            - generic [ref=e173]:
+              - generic [ref=e175]: TheLadders
+              - button [ref=e176] [cursor=pointer]
+            - generic [ref=e177]:
+              - generic [ref=e179]: Monster
+              - button [ref=e180] [cursor=pointer]
+            - generic [ref=e181]:
+              - generic [ref=e183]: YC Jobs
+              - button [ref=e184] [cursor=pointer]
+            - generic [ref=e185]:
+              - generic [ref=e187]: Talent.com
+              - button [ref=e188] [cursor=pointer]
+            - generic [ref=e189]:
+              - generic [ref=e191]: Workopolis
+              - button [ref=e192] [cursor=pointer]

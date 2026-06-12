@@ -1,0 +1,30 @@
+- generic [ref=e3]:
+  - banner [ref=e4]:
+    - generic [ref=e5]: Job Crawler
+    - navigation [ref=e6]:
+      - link "Vacancies" [ref=e7] [cursor=pointer]:
+        - /url: /vacancies
+      - link "Dashboard" [ref=e8] [cursor=pointer]:
+        - /url: /dashboard
+      - link "Companies" [ref=e9] [cursor=pointer]:
+        - /url: /companies
+      - link "Profiles" [ref=e10] [cursor=pointer]:
+        - /url: /profiles
+      - link "Settings" [ref=e11] [cursor=pointer]:
+        - /url: /settings
+    - button "Run Crawler" [ref=e12]
+  - main [ref=e13]:
+    - generic [ref=e14]:
+      - generic [ref=e15]:
+        - heading "Companies" [level=1] [ref=e16]
+        - button "+ Add Company" [ref=e17]
+      - table [ref=e19]:
+        - rowgroup [ref=e20]:
+          - row "Company ATS ATS ID Last Crawled Status Actions" [ref=e21]:
+            - columnheader "Company" [ref=e22]
+            - columnheader "ATS" [ref=e23]
+            - columnheader "ATS ID" [ref=e24]
+            - columnheader "Last Crawled" [ref=e25]
+            - columnheader "Status" [ref=e26]
+            - columnheader "Actions" [ref=e27]
+        - rowgroup
