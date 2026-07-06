@@ -3,6 +3,7 @@ package com.jrawler.adapter.base;
 import com.jrawler.adapter.JobSearchAdapter;
 import com.jrawler.adapter.model.RawVacancy;
 import com.jrawler.adapter.model.SearchCriteria;
+import com.jrawler.source.Source;
 import com.jrawler.source.SourceRepository;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
@@ -41,7 +42,7 @@ public abstract class AbstractRestApiAdapter implements JobSearchAdapter {
                         .build();
 
                 try (Response response = httpClient.newCall(request).execute()) {
-                    if (response.isSuccessful() && response.body() != null) {
+                    if (response.isSuccessful()) {
                         return parseResponse(response.body().string());
                     }
                     log.warn("[{}] HTTP {} on attempt {}/{}", getSourceId(), response.code(), attempt, maxRetries);
@@ -62,7 +63,7 @@ public abstract class AbstractRestApiAdapter implements JobSearchAdapter {
     @Override
     public boolean isEnabled() {
         return sourceRepository.findById(getSourceId())
-                .map(s -> s.isEnabled())
+                .map(Source::isEnabled)
                 .orElse(false);
     }
 

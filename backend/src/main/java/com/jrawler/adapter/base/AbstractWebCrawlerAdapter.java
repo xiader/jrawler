@@ -85,7 +85,7 @@ public abstract class AbstractWebCrawlerAdapter implements JobSearchAdapter {
                 .build();
 
         try (Response response = httpClient.newCall(request).execute()) {
-            if (!response.isSuccessful() || response.body() == null) {
+            if (!response.isSuccessful()) {
                 throw new RuntimeException("HTTP " + response.code());
             }
             return Jsoup.parse(response.body().string(), url);

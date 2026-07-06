@@ -157,7 +157,7 @@ public class LinkedInAdapter extends AbstractWebCrawlerAdapter {
             if (!datetime.isBlank()) {
                 try {
                     fetchedAt = LocalDate.parse(datetime).atStartOfDay(ZoneOffset.UTC).toInstant();
-                } catch (Exception ignored) {}
+                } catch (Exception _) {}
             }
         }
 

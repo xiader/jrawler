@@ -1,7 +1,5 @@
 package com.jrawler.adapter.ats;
 
-import com.fasterxml.jackson.databind.JsonNode;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import com.jrawler.adapter.model.RawVacancy;
 import com.jrawler.company.Company;
 import okhttp3.OkHttpClient;
@@ -10,6 +8,8 @@ import okhttp3.Response;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
+import tools.jackson.databind.JsonNode;
+import tools.jackson.databind.ObjectMapper;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -53,7 +53,7 @@ public class SmartRecruitersAdapter implements AtsAdapter {
                     .build();
 
             try (Response response = httpClient.newCall(request).execute()) {
-                if (!response.isSuccessful() || response.body() == null) {
+                if (!response.isSuccessful()) {
                     log.warn("[smartrecruiters] HTTP {} for company {}", response.code(), company.getName());
                     return List.of();
                 }
@@ -63,11 +63,11 @@ public class SmartRecruitersAdapter implements AtsAdapter {
                 if (!content.isArray()) return List.of();
 
                 for (JsonNode posting : content) {
-                    String id = posting.path("id").asText(null);
-                    String title = posting.path("name").asText(null);
-                    String refNumber = posting.path("refNumber").asText(null);
-                    String city = posting.path("location").path("city").asText(null);
-                    String country = posting.path("location").path("country").asText(null);
+                    String id = posting.path("id").asString(null);
+                    String title = posting.path("name").asString(null);
+                    String refNumber = posting.path("refNumber").asString(null);
+                    String city = posting.path("location").path("city").asString(null);
+                    String country = posting.path("location").path("country").asString(null);
                     boolean remote = posting.path("location").path("remote").asBoolean(false);
 
                     String location = city != null && country != null ? city + ", " + country : city != null ? city : country;

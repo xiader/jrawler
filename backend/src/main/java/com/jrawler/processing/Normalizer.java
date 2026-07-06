@@ -14,7 +14,7 @@ public class Normalizer {
         if (raw == null || raw.isBlank()) return null;
         try {
             return RemoteType.fromRaw(raw).name();
-        } catch (Exception e) {
+        } catch (Exception _) {
             return null;
         }
     }

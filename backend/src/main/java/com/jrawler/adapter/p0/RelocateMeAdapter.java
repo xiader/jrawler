@@ -82,7 +82,7 @@ public class RelocateMeAdapter extends AbstractWebCrawlerAdapter {
 
             // info cells: [country, company]
             List<String> infoCells = card.select(".job__info .job__company p").eachText();
-            String country = infoCells.size() > 0 ? infoCells.get(0) : "";
+            String country = !infoCells.isEmpty() ? infoCells.get(0) : "";
             String company = infoCells.size() > 1 ? infoCells.get(1) : null;
 
             String location = city.isEmpty() ? country : city + ", " + country;

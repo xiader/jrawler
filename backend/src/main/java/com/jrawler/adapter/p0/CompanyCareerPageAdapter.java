@@ -6,6 +6,7 @@ import com.jrawler.adapter.model.RawVacancy;
 import com.jrawler.adapter.model.SearchCriteria;
 import com.jrawler.company.Company;
 import com.jrawler.company.CompanyRepository;
+import com.jrawler.source.Source;
 import com.jrawler.source.SourceRepository;
 import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
@@ -47,7 +48,7 @@ public class CompanyCareerPageAdapter implements JobSearchAdapter {
     @Override
     public boolean isEnabled() {
         return sourceRepository.findById(SOURCE_ID)
-                .map(s -> s.isEnabled())
+                .map(Source::isEnabled)
                 .orElse(false);
     }
 

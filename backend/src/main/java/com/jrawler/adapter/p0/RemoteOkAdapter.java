@@ -1,13 +1,13 @@
 package com.jrawler.adapter.p0;
 
-import com.fasterxml.jackson.databind.JsonNode;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import com.jrawler.adapter.base.AbstractRestApiAdapter;
 import com.jrawler.adapter.model.RawVacancy;
 import com.jrawler.adapter.model.SearchCriteria;
 import com.jrawler.source.SourceRepository;
 import okhttp3.OkHttpClient;
 import org.springframework.stereotype.Component;
+import tools.jackson.databind.JsonNode;
+import tools.jackson.databind.ObjectMapper;
 
 import java.time.Instant;
 import java.util.ArrayList;
@@ -41,7 +41,7 @@ public class RemoteOkAdapter extends AbstractRestApiAdapter {
             return "https://remoteok.com/api";
         }
         // RemoteOK API only accepts a single tag; use the primary keyword
-        String tag = criteria.keywords().get(0);
+        String tag = criteria.keywords().getFirst();
         return "https://remoteok.com/api?tag=" + tag;
     }
 
@@ -56,12 +56,12 @@ public class RemoteOkAdapter extends AbstractRestApiAdapter {
                 // Skip the first element (legal notice) and non-job objects
                 if (!node.has("id") || !node.has("position")) continue;
 
-                String id = node.path("id").asText(null);
-                String title = node.path("position").asText(null);
-                String company = node.path("company").asText(null);
-                String url = node.path("url").asText(null);
-                String description = node.path("description").asText(null);
-                String location = node.path("location").asText("Remote");
+                String id = node.path("id").asString(null);
+                String title = node.path("position").asString(null);
+                String company = node.path("company").asString(null);
+                String url = node.path("url").asString(null);
+                String description = node.path("description").asString(null);
+                String location = node.path("location").asString("Remote");
                 String tags = node.path("tags").isArray()
                         ? objectMapper.convertValue(node.path("tags"), List.class).toString()
                         : "";

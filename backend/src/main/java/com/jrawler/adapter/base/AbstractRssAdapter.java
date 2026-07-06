@@ -58,7 +58,7 @@ public abstract class AbstractRssAdapter implements JobSearchAdapter {
                 log.debug("[{}] Feed not modified (304), skipping", getSourceId());
                 return List.of();
             }
-            if (!response.isSuccessful() || response.body() == null) {
+            if (!response.isSuccessful()) {
                 log.warn("[{}] RSS fetch failed: HTTP {}", getSourceId(), response.code());
                 return List.of();
             }

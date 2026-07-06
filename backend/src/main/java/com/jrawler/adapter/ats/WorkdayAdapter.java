@@ -1,7 +1,5 @@
 package com.jrawler.adapter.ats;
 
-import com.fasterxml.jackson.databind.JsonNode;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import com.jrawler.adapter.model.RawVacancy;
 import com.jrawler.company.Company;
 import okhttp3.MediaType;
@@ -12,6 +10,8 @@ import okhttp3.Response;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
+import tools.jackson.databind.JsonNode;
+import tools.jackson.databind.ObjectMapper;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -70,7 +70,7 @@ public class WorkdayAdapter implements AtsAdapter {
                     .build();
 
             try (Response response = httpClient.newCall(request).execute()) {
-                if (!response.isSuccessful() || response.body() == null) {
+                if (!response.isSuccessful()) {
                     log.warn("[workday] HTTP {} for company {}", response.code(), company.getName());
                     return List.of();
                 }
@@ -82,9 +82,9 @@ public class WorkdayAdapter implements AtsAdapter {
                 String baseUrl = extractBaseUrl(careerUrl);
 
                 for (JsonNode posting : jobPostings) {
-                    String title = posting.path("title").asText(null);
-                    String externalPath = posting.path("externalPath").asText(null);
-                    String location = posting.path("locationsText").asText(null);
+                    String title = posting.path("title").asString(null);
+                    String externalPath = posting.path("externalPath").asString(null);
+                    String location = posting.path("locationsText").asString(null);
                     String bulletFields = posting.path("bulletFields").toString();
 
                     String url = baseUrl != null && externalPath != null
@@ -131,7 +131,7 @@ public class WorkdayAdapter implements AtsAdapter {
             if (board == null) return null;
 
             return "https://" + host + "/wday/cxs/" + tenant + "/" + board + "/jobs";
-        } catch (Exception e) {
+        } catch (Exception _) {
             return null;
         }
     }
@@ -140,7 +140,7 @@ public class WorkdayAdapter implements AtsAdapter {
         try {
             java.net.URI uri = new java.net.URI(careerUrl);
             return uri.getScheme() + "://" + uri.getHost();
-        } catch (Exception e) {
+        } catch (Exception _) {
             return null;
         }
     }

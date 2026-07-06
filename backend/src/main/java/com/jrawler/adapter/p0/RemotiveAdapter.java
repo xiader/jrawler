@@ -1,13 +1,13 @@
 package com.jrawler.adapter.p0;
 
-import com.fasterxml.jackson.databind.JsonNode;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import com.jrawler.adapter.base.AbstractRestApiAdapter;
 import com.jrawler.adapter.model.RawVacancy;
 import com.jrawler.adapter.model.SearchCriteria;
 import com.jrawler.source.SourceRepository;
 import okhttp3.OkHttpClient;
 import org.springframework.stereotype.Component;
+import tools.jackson.databind.JsonNode;
+import tools.jackson.databind.ObjectMapper;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -51,15 +51,15 @@ public class RemotiveAdapter extends AbstractRestApiAdapter {
             if (!jobs.isArray()) return result;
 
             for (JsonNode job : jobs) {
-                String id = job.path("id").asText(null);
-                String title = job.path("title").asText(null);
-                String company = job.path("company_name").asText(null);
-                String url = job.path("url").asText(null);
-                String description = job.path("description").asText(null);
-                String location = job.path("candidate_required_location").asText("Remote");
-                String salary = job.path("salary").asText(null);
-                String jobType = job.path("job_type").asText(null);
-                String publishedAt = job.path("publication_date").asText(null);
+                String id = job.path("id").asString(null);
+                String title = job.path("title").asString(null);
+                String company = job.path("company_name").asString(null);
+                String url = job.path("url").asString(null);
+                String description = job.path("description").asString(null);
+                String location = job.path("candidate_required_location").asString("Remote");
+                String salary = job.path("salary").asString(null);
+                String jobType = job.path("job_type").asString(null);
+                String publishedAt = job.path("publication_date").asString(null);
 
                 if (title != null && url != null) {
                     result.add(RawVacancy.builder(SOURCE_ID)

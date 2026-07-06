@@ -1,10 +1,9 @@
 package com.jrawler.adapter.p0;
 
-import com.fasterxml.jackson.databind.JsonNode;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import com.jrawler.adapter.JobSearchAdapter;
 import com.jrawler.adapter.model.RawVacancy;
 import com.jrawler.adapter.model.SearchCriteria;
+import com.jrawler.source.Source;
 import com.jrawler.source.SourceRepository;
 import okhttp3.MediaType;
 import okhttp3.OkHttpClient;
@@ -14,6 +13,8 @@ import okhttp3.Response;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
+import tools.jackson.databind.JsonNode;
+import tools.jackson.databind.ObjectMapper;
 
 import java.time.Instant;
 import java.util.ArrayList;
@@ -55,7 +56,7 @@ public class NoFluffJobsAdapter implements JobSearchAdapter {
 
     @Override
     public boolean isEnabled() {
-        return sourceRepository.findById(SOURCE_ID).map(s -> s.isEnabled()).orElse(false);
+        return sourceRepository.findById(SOURCE_ID).map(Source::isEnabled).orElse(false);
     }
 
     @Override
@@ -93,7 +94,7 @@ public class NoFluffJobsAdapter implements JobSearchAdapter {
                     .build();
 
             try (Response response = httpClient.newCall(request).execute()) {
-                if (!response.isSuccessful() || response.body() == null) {
+                if (!response.isSuccessful()) {
                     log.warn("[{}] HTTP {} for keyword '{}'", SOURCE_ID, response.code(), keyword);
                     return List.of();
                 }
@@ -113,10 +114,10 @@ public class NoFluffJobsAdapter implements JobSearchAdapter {
             if (!postings.isArray()) return result;
 
             for (JsonNode p : postings) {
-                String id = p.path("id").asText(null);
-                String title = p.path("title").asText(null);
-                String company = p.path("name").asText(null);
-                String urlSlug = p.path("url").asText(null);
+                String id = p.path("id").asString(null);
+                String title = p.path("title").asString(null);
+                String company = p.path("name").asString(null);
+                String urlSlug = p.path("url").asString(null);
 
                 if (id == null || title == null || urlSlug == null) continue;
 
@@ -127,14 +128,14 @@ public class NoFluffJobsAdapter implements JobSearchAdapter {
                 String location = null;
                 if (places.isArray()) {
                     for (JsonNode place : places) {
-                        String city = place.path("city").asText(null);
+                        String city = place.path("city").asString(null);
                         if (city != null && !city.equalsIgnoreCase("Remote")) {
                             location = city;
                             break;
                         }
                     }
-                    if (location == null && places.size() > 0) {
-                        location = places.get(0).path("city").asText(null);
+                    if (location == null && !places.isEmpty()) {
+                        location = places.get(0).path("city").asString(null);
                     }
                 }
                 boolean fullyRemote = p.path("fullyRemote").asBoolean(false);
@@ -146,7 +147,7 @@ public class NoFluffJobsAdapter implements JobSearchAdapter {
                 if (!sal.isMissingNode()) {
                     double from = sal.path("from").asDouble(0);
                     double to = sal.path("to").asDouble(0);
-                    String currency = sal.path("currency").asText("PLN");
+                    String currency = sal.path("currency").asString("PLN");
                     if (from > 0 || to > 0) {
                         salary = (int) from + " - " + (int) to + " " + currency;
                     }
@@ -157,7 +158,7 @@ public class NoFluffJobsAdapter implements JobSearchAdapter {
                 JsonNode tiles = p.path("tiles").path("values");
                 if (tiles.isArray()) {
                     for (JsonNode t : tiles) {
-                        String val = t.path("value").asText(null);
+                        String val = t.path("value").asString(null);
                         if (val != null) desc.append(val).append(" ");
                     }
                 }

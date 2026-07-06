@@ -3,7 +3,7 @@ package com.jrawler.adapter.model;
 import com.jrawler.profile.SearchProfile;
 
 import java.util.List;
-import java.util.stream.Collectors;
+import java.util.Objects;
 import java.util.stream.Stream;
 
 public record SearchCriteria(
@@ -23,22 +23,22 @@ public record SearchCriteria(
                 ))
                 .map(String::toLowerCase)
                 .distinct()
-                .collect(Collectors.toList());
+                .toList();
 
         List<String> locations = profiles.stream()
                 .flatMap(p -> p.getLocations().stream())
                 .distinct()
-                .collect(Collectors.toList());
+                .toList();
 
         List<RemoteType> remoteTypes = profiles.stream()
                 .flatMap(p -> p.getRemoteTypes().stream())
                 .map(s -> {
                     try { return RemoteType.valueOf(s.toUpperCase()); }
-                    catch (IllegalArgumentException e) { return null; }
+                    catch (IllegalArgumentException _) { return null; }
                 })
-                .filter(r -> r != null)
+                .filter(Objects::nonNull)
                 .distinct()
-                .collect(Collectors.toList());
+                .toList();
 
         return new SearchCriteria(keywords, locations, remoteTypes);
     }

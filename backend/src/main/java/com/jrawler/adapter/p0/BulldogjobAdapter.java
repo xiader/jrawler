@@ -1,10 +1,9 @@
 package com.jrawler.adapter.p0;
 
-import com.fasterxml.jackson.databind.JsonNode;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import com.jrawler.adapter.JobSearchAdapter;
 import com.jrawler.adapter.model.RawVacancy;
 import com.jrawler.adapter.model.SearchCriteria;
+import com.jrawler.source.Source;
 import com.jrawler.source.SourceRepository;
 import okhttp3.MediaType;
 import okhttp3.OkHttpClient;
@@ -14,6 +13,8 @@ import okhttp3.Response;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
+import tools.jackson.databind.JsonNode;
+import tools.jackson.databind.ObjectMapper;
 
 import java.time.Instant;
 import java.util.ArrayList;
@@ -74,7 +75,7 @@ public class BulldogjobAdapter implements JobSearchAdapter {
 
     @Override
     public boolean isEnabled() {
-        return sourceRepository.findById(SOURCE_ID).map(s -> s.isEnabled()).orElse(false);
+        return sourceRepository.findById(SOURCE_ID).map(Source::isEnabled).orElse(false);
     }
 
     @Override
@@ -108,7 +109,7 @@ public class BulldogjobAdapter implements JobSearchAdapter {
                     .build();
 
             try (Response response = httpClient.newCall(request).execute()) {
-                if (!response.isSuccessful() || response.body() == null) {
+                if (!response.isSuccessful()) {
                     log.warn("[{}] HTTP {} for skill '{}'", SOURCE_ID, response.code(), skill);
                     return List.of();
                 }
@@ -125,9 +126,9 @@ public class BulldogjobAdapter implements JobSearchAdapter {
         try {
             JsonNode root = objectMapper.readTree(body);
             JsonNode errors = root.path("errors");
-            if (errors.isArray() && errors.size() > 0) {
+            if (errors.isArray() && !errors.isEmpty()) {
                 log.warn("[{}] GraphQL error for skill '{}': {}",
-                        SOURCE_ID, skill, errors.get(0).path("message").asText());
+                        SOURCE_ID, skill, errors.get(0).path("message").asString());
                 return result;
             }
 
@@ -135,35 +136,37 @@ public class BulldogjobAdapter implements JobSearchAdapter {
             if (!nodes.isArray()) return result;
 
             for (JsonNode job : nodes) {
-                String id = job.path("id").asText(null);
-                String title = job.path("position").asText(null);
+                String id = job.path("id").asString(null);
+                String title = job.path("position").asString(null);
                 if (id == null || title == null) continue;
 
                 StringBuilder desc = new StringBuilder();
                 JsonNode tags = job.path("technologyTags");
                 if (tags.isArray()) {
                     for (JsonNode tag : tags) {
-                        desc.append(tag.asText("")).append(" ");
+                        desc.append(tag.asString("")).append(" ");
                     }
                 }
-                String experienceLevel = job.path("experienceLevel").asText("");
+                String experienceLevel = job.path("experienceLevel").asString("");
                 if (!experienceLevel.isEmpty()) {
                     desc.append(experienceLevel);
                 }
 
                 Instant fetchedAt = Instant.now();
-                String publishedAt = job.path("publishedAt").asText(null);
+                String publishedAt = job.path("publishedAt").asString(null);
                 if (publishedAt != null) {
-                    try { fetchedAt = java.time.OffsetDateTime.parse(publishedAt).toInstant(); }
-                    catch (Exception ignored) { }
+                    try {
+                        fetchedAt = java.time.OffsetDateTime.parse(publishedAt).toInstant();
+                    } catch (Exception _) {
+                    }
                 }
 
                 result.add(RawVacancy.builder(SOURCE_ID)
                         .externalId(id)
                         .title(title)
-                        .companyName(job.path("company").path("name").asText(null))
+                        .companyName(job.path("company").path("name").asString(null))
                         .url(JOB_BASE_URL + id)
-                        .location(job.path("city").asText(null))
+                        .location(job.path("city").asString(null))
                         .description(desc.toString().trim())
                         .remoteTypeRaw(job.path("remote").asBoolean(false) ? "remote" : "office")
                         .fetchedAt(fetchedAt)

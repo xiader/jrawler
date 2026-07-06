@@ -68,7 +68,7 @@ public class CustomAdapter implements AtsAdapter {
                     .build();
 
             try (Response response = httpClient.newCall(request).execute()) {
-                if (!response.isSuccessful() || response.body() == null) {
+                if (!response.isSuccessful()) {
                     log.warn("[custom] HTTP {} for company {}", response.code(), company.getName());
                     return List.of();
                 }
@@ -78,7 +78,7 @@ public class CustomAdapter implements AtsAdapter {
 
                 for (Element item : items) {
                     String title = selectText(item, selectors.get("title"));
-                    String jobUrl = selectLink(item, selectors.get("link"), careerUrl);
+                    String jobUrl = selectLink(item, selectors.get("link"));
                     String location = selectText(item, selectors.get("location"));
                     String salary = selectText(item, selectors.get("salary"));
                     String description = selectText(item, selectors.get("description"));
@@ -108,7 +108,7 @@ public class CustomAdapter implements AtsAdapter {
         return el != null ? el.text() : null;
     }
 
-    private String selectLink(Element root, String selector, String baseUrl) {
+    private String selectLink(Element root, String selector) {
         if (root == null) return null;
         Element el = selector != null && !selector.isBlank()
                 ? root.selectFirst(selector)

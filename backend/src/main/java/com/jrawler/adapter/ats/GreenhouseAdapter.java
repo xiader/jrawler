@@ -1,7 +1,5 @@
 package com.jrawler.adapter.ats;
 
-import com.fasterxml.jackson.databind.JsonNode;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import com.jrawler.adapter.model.RawVacancy;
 import com.jrawler.company.Company;
 import okhttp3.OkHttpClient;
@@ -10,6 +8,8 @@ import okhttp3.Response;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
+import tools.jackson.databind.JsonNode;
+import tools.jackson.databind.ObjectMapper;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -53,7 +53,7 @@ public class GreenhouseAdapter implements AtsAdapter {
                     .build();
 
             try (Response response = httpClient.newCall(request).execute()) {
-                if (!response.isSuccessful() || response.body() == null) {
+                if (!response.isSuccessful()) {
                     log.warn("[greenhouse] HTTP {} for company {}", response.code(), company.getName());
                     return List.of();
                 }
@@ -63,11 +63,11 @@ public class GreenhouseAdapter implements AtsAdapter {
                 if (!jobs.isArray()) return List.of();
 
                 for (JsonNode job : jobs) {
-                    String id = job.path("id").asText(null);
-                    String title = job.path("title").asText(null);
-                    String jobUrl = job.path("absolute_url").asText(null);
-                    String content = job.path("content").asText(null);
-                    String location = job.path("location").path("name").asText(null);
+                    String id = job.path("id").asString(null);
+                    String title = job.path("title").asString(null);
+                    String jobUrl = job.path("absolute_url").asString(null);
+                    String content = job.path("content").asString(null);
+                    String location = job.path("location").path("name").asString(null);
 
                     if (title != null && jobUrl != null) {
                         result.add(RawVacancy.builder(SOURCE_ID)

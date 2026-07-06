@@ -1,7 +1,5 @@
 package com.jrawler.adapter.p0;
 
-import com.fasterxml.jackson.databind.JsonNode;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import com.jrawler.adapter.base.AbstractRestApiAdapter;
 import com.jrawler.adapter.model.RawVacancy;
 import com.jrawler.adapter.model.SearchCriteria;
@@ -10,6 +8,8 @@ import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;
 import org.springframework.stereotype.Component;
+import tools.jackson.databind.JsonNode;
+import tools.jackson.databind.ObjectMapper;
 
 import java.net.URLEncoder;
 import java.nio.charset.StandardCharsets;
@@ -86,7 +86,7 @@ public class JustJoinItAdapter extends AbstractRestApiAdapter {
                     .build();
 
             try (Response response = httpClient.newCall(request).execute()) {
-                if (response.isSuccessful() && response.body() != null) {
+                if (response.isSuccessful()) {
                     return parseResponse(response.body().string());
                 }
                 log.warn("[{}] HTTP {} for keyword '{}' page {}",
@@ -109,7 +109,7 @@ public class JustJoinItAdapter extends AbstractRestApiAdapter {
 
     private String firstKeyword(SearchCriteria criteria) {
         if (criteria == null || criteria.keywords().isEmpty()) return "java";
-        return criteria.keywords().get(0);
+        return criteria.keywords().getFirst();
     }
 
     @Override
@@ -121,20 +121,20 @@ public class JustJoinItAdapter extends AbstractRestApiAdapter {
             if (!data.isArray()) return result;
 
             for (JsonNode offer : data) {
-                String guid = offer.path("guid").asText(null);
-                String slug = offer.path("slug").asText(null);
-                String title = offer.path("title").asText(null);
+                String guid = offer.path("guid").asString(null);
+                String slug = offer.path("slug").asString(null);
+                String title = offer.path("title").asString(null);
                 if (guid == null || slug == null || title == null) continue;
 
-                String company = offer.path("companyName").asText(null);
-                String city = offer.path("city").asText("");
-                String workplaceType = offer.path("workplaceType").asText("office");
+                String company = offer.path("companyName").asString(null);
+                String city = offer.path("city").asString("");
+                String workplaceType = offer.path("workplaceType").asString("office");
 
                 // requiredSkills + niceToHaveSkills as description
                 StringBuilder descBuilder = new StringBuilder();
                 appendSkills(descBuilder, offer.path("requiredSkills"));
                 appendSkills(descBuilder, offer.path("niceToHaveSkills"));
-                String experienceLevel = offer.path("experienceLevel").asText("");
+                String experienceLevel = offer.path("experienceLevel").asString("");
                 if (!experienceLevel.isEmpty()) {
                     descBuilder.append(experienceLevel).append(" ");
                 }
@@ -142,11 +142,11 @@ public class JustJoinItAdapter extends AbstractRestApiAdapter {
                 // salary from first employment type
                 String salary = null;
                 JsonNode employmentTypes = offer.path("employmentTypes");
-                if (employmentTypes.isArray() && employmentTypes.size() > 0) {
+                if (employmentTypes.isArray() && !employmentTypes.isEmpty()) {
                     JsonNode first = employmentTypes.get(0);
                     int from = first.path("from").asInt(0);
                     int to = first.path("to").asInt(0);
-                    String currency = first.path("currency").asText("pln").toUpperCase();
+                    String currency = first.path("currency").asString("pln").toUpperCase();
                     if (from > 0 || to > 0) {
                         salary = from + " - " + to + " " + currency;
                     }
@@ -172,7 +172,7 @@ public class JustJoinItAdapter extends AbstractRestApiAdapter {
     private void appendSkills(StringBuilder sb, JsonNode skills) {
         if (skills.isArray()) {
             for (JsonNode skill : skills) {
-                sb.append(skill.asText("")).append(" ");
+                sb.append(skill.asString("")).append(" ");
             }
         }
     }

@@ -1,7 +1,5 @@
 package com.jrawler.adapter.ats;
 
-import com.fasterxml.jackson.databind.JsonNode;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import com.jrawler.adapter.model.RawVacancy;
 import com.jrawler.company.Company;
 import okhttp3.OkHttpClient;
@@ -10,6 +8,8 @@ import okhttp3.Response;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
+import tools.jackson.databind.JsonNode;
+import tools.jackson.databind.ObjectMapper;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -62,19 +62,19 @@ public class LeverAdapter implements AtsAdapter {
                 if (!root.isArray()) return List.of();
 
                 for (JsonNode posting : root) {
-                    String id = posting.path("id").asText(null);
-                    String title = posting.path("text").asText(null);
-                    String hostedUrl = posting.path("hostedUrl").asText(null);
-                    String location = posting.path("categories").path("location").asText(null);
-                    String workplaceType = posting.path("categories").path("workplaceType").asText(null);
+                    String id = posting.path("id").asString(null);
+                    String title = posting.path("text").asString(null);
+                    String hostedUrl = posting.path("hostedUrl").asString(null);
+                    String location = posting.path("categories").path("location").asString(null);
+                    String workplaceType = posting.path("categories").path("workplaceType").asString(null);
 
                     // Build description from content lists
                     StringBuilder desc = new StringBuilder();
                     JsonNode lists = posting.path("lists");
                     if (lists.isArray()) {
                         for (JsonNode section : lists) {
-                            desc.append(section.path("text").asText("")).append("\n");
-                            desc.append(section.path("content").asText("")).append("\n");
+                            desc.append(section.path("text").asString("")).append("\n");
+                            desc.append(section.path("content").asString("")).append("\n");
                         }
                     }
 

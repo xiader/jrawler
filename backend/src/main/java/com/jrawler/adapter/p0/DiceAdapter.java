@@ -1,7 +1,5 @@
 package com.jrawler.adapter.p0;
 
-import com.fasterxml.jackson.databind.JsonNode;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import com.jrawler.adapter.base.AbstractRestApiAdapter;
 import com.jrawler.adapter.model.RawVacancy;
 import com.jrawler.adapter.model.SearchCriteria;
@@ -11,6 +9,8 @@ import okhttp3.Request;
 import okhttp3.Response;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
+import tools.jackson.databind.JsonNode;
+import tools.jackson.databind.ObjectMapper;
 
 import java.net.URLEncoder;
 import java.nio.charset.StandardCharsets;
@@ -55,7 +55,7 @@ public class DiceAdapter extends AbstractRestApiAdapter {
     @Override
     protected String buildRequestUrl(SearchCriteria criteria) {
         String keyword = criteria == null || criteria.keywords().isEmpty()
-                ? "java" : criteria.keywords().get(0);
+                ? "java" : criteria.keywords().getFirst();
         return buildPageUrl(keyword, 1);
     }
 
@@ -123,30 +123,30 @@ public class DiceAdapter extends AbstractRestApiAdapter {
             if (!data.isArray()) return result;
 
             for (JsonNode job : data) {
-                String id = job.path("id").asText(null);
-                String title = job.path("title").asText(null);
-                String url = job.path("detailsPageUrl").asText(null);
+                String id = job.path("id").asString(null);
+                String title = job.path("title").asString(null);
+                String url = job.path("detailsPageUrl").asString(null);
                 if (id == null || title == null || url == null) continue;
 
-                String location = job.path("jobLocation").path("displayName").asText(null);
+                String location = job.path("jobLocation").path("displayName").asString(null);
                 String remoteType = "TRUE".equalsIgnoreCase(
-                        job.path("workFromHomeAvailability").asText("")) || job.path("isRemote").asBoolean(false)
+                        job.path("workFromHomeAvailability").asString("")) || job.path("isRemote").asBoolean(false)
                         ? "remote" : "office";
 
-                String posted = job.path("postedDate").asText(null);
+                String posted = job.path("postedDate").asString(null);
                 Instant fetchedAt = Instant.now();
                 if (posted != null) {
-                    try { fetchedAt = Instant.parse(posted); } catch (Exception ignored) { }
+                    try { fetchedAt = Instant.parse(posted); } catch (Exception _) { }
                 }
 
                 result.add(RawVacancy.builder(SOURCE_ID)
                         .externalId(id)
                         .title(title)
-                        .companyName(job.path("companyName").asText(null))
+                        .companyName(job.path("companyName").asString(null))
                         .url(url)
                         .location(location)
-                        .description(job.path("summary").asText(""))
-                        .salaryRaw(job.path("salary").asText(null))
+                        .description(job.path("summary").asString(""))
+                        .salaryRaw(job.path("salary").asString(null))
                         .remoteTypeRaw(remoteType)
                         .fetchedAt(fetchedAt)
                         .build());
