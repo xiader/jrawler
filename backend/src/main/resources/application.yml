@@ -19,6 +19,11 @@ spring:
     locations: classpath:db/migration
     baseline-on-migrate: false
 
+  servlet:
+    multipart:
+      max-file-size: 2MB
+      max-request-size: 3MB
+
   data:
     redis:
       host: ${REDIS_HOST:localhost}
@@ -43,6 +48,11 @@ telegram:
 crawler:
   schedule-cron: "0 0 * * * *"   # каждый час
   enabled: ${CRAWLER_ENABLED:true}
+
+adaptation:
+  api-key: ${ANTHROPIC_API_KEY:}
+  model: ${ADAPTATION_MODEL:claude-opus-4-8}
+  fetch-timeout-seconds: 30
 
 logging:
   level:
