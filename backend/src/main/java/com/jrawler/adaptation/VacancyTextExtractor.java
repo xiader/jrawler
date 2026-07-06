@@ -15,6 +15,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Component;
 import org.springframework.web.server.ResponseStatusException;
 
+import java.time.Duration;
+
 @Component
 public class VacancyTextExtractor {
 
@@ -25,9 +27,11 @@ public class VacancyTextExtractor {
     private static final Logger log = LoggerFactory.getLogger(VacancyTextExtractor.class);
 
     private final OkHttpClient httpClient;
+    private final AdaptationProperties props;
 
-    public VacancyTextExtractor(OkHttpClient httpClient) {
+    public VacancyTextExtractor(OkHttpClient httpClient, AdaptationProperties props) {
         this.httpClient = httpClient;
+        this.props = props;
     }
 
     public String extract(String url) {
@@ -61,7 +65,10 @@ public class VacancyTextExtractor {
                 .header("User-Agent", USER_AGENT)
                 .header("Accept", "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8")
                 .build();
-        try (Response response = httpClient.newCall(request).execute()) {
+        OkHttpClient client = httpClient.newBuilder()
+                .callTimeout(Duration.ofSeconds(props.fetchTimeoutSeconds()))
+                .build();
+        try (Response response = client.newCall(request).execute()) {
             if (!response.isSuccessful()) {
                 throw new RuntimeException("HTTP " + response.code());
             }
@@ -70,13 +77,15 @@ public class VacancyTextExtractor {
     }
 
     private Document fetchWithPlaywright(String url) {
+        double timeoutMs = props.fetchTimeoutSeconds() * 1000.0;
         try (Playwright playwright = Playwright.create()) {
             BrowserType.LaunchOptions opts = new BrowserType.LaunchOptions().setHeadless(true);
             try (Browser browser = playwright.chromium().launch(opts)) {
                 Page page = browser.newPage();
                 page.setExtraHTTPHeaders(java.util.Map.of("User-Agent", USER_AGENT));
-                page.navigate(url);
-                page.waitForLoadState(com.microsoft.playwright.options.LoadState.NETWORKIDLE);
+                page.navigate(url, new Page.NavigateOptions().setTimeout(timeoutMs));
+                page.waitForLoadState(com.microsoft.playwright.options.LoadState.NETWORKIDLE,
+                        new Page.WaitForLoadStateOptions().setTimeout(timeoutMs));
                 return Jsoup.parse(page.content(), url);
             }
         }
