@@ -7,9 +7,11 @@ import org.springframework.http.MediaType;
 import org.springframework.mock.web.MockMultipartFile;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
+import org.springframework.validation.beanvalidation.LocalValidatorFactoryBean;
 import org.springframework.web.server.ResponseStatusException;
 import com.jrawler.api.GlobalExceptionHandler;
 
+import java.io.IOException;
 import java.util.List;
 
 import static org.mockito.ArgumentMatchers.any;
@@ -37,8 +39,11 @@ class ResumeAdaptationControllerTest {
         vacancyTextExtractor = mock(VacancyTextExtractor.class);
         ResumeAdaptationController controller = new ResumeAdaptationController(
                 adaptationService, vacancyTextExtractor);
+        LocalValidatorFactoryBean validator = new LocalValidatorFactoryBean();
+        validator.afterPropertiesSet();
         mockMvc = MockMvcBuilders.standaloneSetup(controller)
                 .setControllerAdvice(new GlobalExceptionHandler())
+                .setValidator(validator)
                 .build();
     }
 
@@ -114,5 +119,40 @@ class ResumeAdaptationControllerTest {
                         .contentType(MediaType.APPLICATION_JSON)
                         .content("{\"acceptedIndexes\": []}"))
                 .andExpect(status().isGone());
+    }
+
+    @Test
+    void blankVacancyTextReturns400() throws Exception {
+        MockMultipartFile resume = new MockMultipartFile("resume", "cv.docx",
+                "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
+                new byte[]{1, 2, 3});
+
+        mockMvc.perform(multipart("/api/v1/resume-adaptation")
+                        .file(resume)
+                        .param("vacancyText", "   "))
+                .andExpect(status().isBadRequest());
+    }
+
+    @Test
+    void unreadableMultipartFileReturns400() throws Exception {
+        MockMultipartFile broken = new MockMultipartFile("resume", "cv.docx", "application/octet-stream", new byte[]{1}) {
+            @Override
+            public byte[] getBytes() throws IOException {
+                throw new IOException("disk error");
+            }
+        };
+
+        mockMvc.perform(multipart("/api/v1/resume-adaptation")
+                        .file(broken)
+                        .param("vacancyText", "We need Java"))
+                .andExpect(status().isBadRequest());
+    }
+
+    @Test
+    void blankUrlInFetchVacancyReturns400() throws Exception {
+        mockMvc.perform(post("/api/v1/resume-adaptation/fetch-vacancy")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content("{\"url\": \"\"}"))
+                .andExpect(status().isBadRequest());
     }
 }
