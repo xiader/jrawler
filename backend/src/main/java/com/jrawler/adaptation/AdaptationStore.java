@@ -1,8 +1,8 @@
 package com.jrawler.adaptation;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.RequiredArgsConstructor;
+import tools.jackson.core.JacksonException;
+import tools.jackson.databind.ObjectMapper;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Component;
 
@@ -29,7 +29,7 @@ public class AdaptationStore {
                 Base64.getEncoder().encodeToString(docxBytes), edits);
         try {
             redisTemplate.opsForValue().set(key(id), objectMapper.writeValueAsString(stored), TTL);
-        } catch (JsonProcessingException e) {
+        } catch (JacksonException e) {
             throw new IllegalStateException("Failed to serialize adaptation", e);
         }
         return id;
@@ -42,7 +42,7 @@ public class AdaptationStore {
         }
         try {
             return Optional.of(objectMapper.readValue(json, StoredAdaptation.class));
-        } catch (JsonProcessingException e) {
+        } catch (JacksonException e) {
             return Optional.empty();
         }
     }
