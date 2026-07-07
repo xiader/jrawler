@@ -57,7 +57,11 @@
             <scope>runtime</scope>
         </dependency>
 
-        <!-- Flyway -->
+        <!-- Flyway (Boot 4: auto-configuration lives in the spring-boot-flyway module) -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-flyway</artifactId>
+        </dependency>
         <dependency>
             <groupId>org.flywaydb</groupId>
             <artifactId>flyway-core</artifactId>
