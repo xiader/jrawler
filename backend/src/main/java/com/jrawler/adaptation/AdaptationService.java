@@ -41,7 +41,7 @@ public class AdaptationService {
         try {
             llm = claudeClient.adapt(vacancyText, paragraphs);
         } catch (Exception e) {
-            log.error("LLM adaptation call failed: {}", e.getMessage());
+            log.error("LLM adaptation call failed", e);
             throw new ResponseStatusException(HttpStatus.BAD_GATEWAY, "LLM service unavailable, try again");
         }
 

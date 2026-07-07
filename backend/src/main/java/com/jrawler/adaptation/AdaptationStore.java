@@ -1,6 +1,8 @@
 package com.jrawler.adaptation;
 
 import lombok.RequiredArgsConstructor;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import tools.jackson.core.JacksonException;
 import tools.jackson.databind.ObjectMapper;
 import org.springframework.data.redis.core.RedisTemplate;
@@ -15,6 +17,8 @@ import java.util.UUID;
 @Component
 @RequiredArgsConstructor
 public class AdaptationStore {
+
+    private static final Logger log = LoggerFactory.getLogger(AdaptationStore.class);
 
     private static final Duration TTL = Duration.ofHours(1);
 
@@ -43,6 +47,7 @@ public class AdaptationStore {
         try {
             return Optional.of(objectMapper.readValue(json, StoredAdaptation.class));
         } catch (JacksonException e) {
+            log.warn("Failed to deserialize adaptation {}", id, e);
             return Optional.empty();
         }
     }

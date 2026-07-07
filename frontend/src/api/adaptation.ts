@@ -25,9 +25,7 @@ export const createAdaptation = async (
   const form = new FormData();
   form.append('resume', resume);
   form.append('vacancyText', vacancyText);
-  const { data } = await api.post<AdaptationResponse>('/resume-adaptation', form, {
-    headers: { 'Content-Type': 'multipart/form-data' },
-  });
+  const { data } = await api.post<AdaptationResponse>('/resume-adaptation', form);
   return data;
 };
 
