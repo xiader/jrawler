@@ -6,6 +6,7 @@ import Companies from './pages/Companies';
 import Profiles from './pages/Profiles';
 import Dashboard from './pages/Dashboard';
 import Settings from './pages/Settings';
+import Adapt from './pages/Adapt';
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -28,6 +29,7 @@ export default function App() {
             <Route path="/companies" element={<Companies />} />
             <Route path="/profiles" element={<Profiles />} />
             <Route path="/settings" element={<Settings />} />
+            <Route path="/adapt" element={<Adapt />} />
           </Route>
         </Routes>
       </BrowserRouter>

@@ -8,6 +8,7 @@ const nav = [
   { to: '/dashboard', label: 'Dashboard' },
   { to: '/companies', label: 'Companies' },
   { to: '/profiles', label: 'Profiles' },
+  { to: '/adapt', label: 'Adapt CV' },
   { to: '/settings', label: 'Settings' },
 ];
 
