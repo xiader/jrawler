@@ -1,3 +1,4 @@
+import { isAxiosError } from 'axios';
 import api from './client';
 
 export interface AdaptationEdit {
@@ -30,11 +31,29 @@ export const createAdaptation = async (
   return data;
 };
 
+const parseProblemDetail = (text: string): string | undefined => {
+  try {
+    const problem = JSON.parse(text) as { detail?: string };
+    return problem.detail;
+  } catch {
+    return undefined;
+  }
+};
+
 export const downloadAdapted = async (id: string, acceptedIndexes: number[]): Promise<Blob> => {
-  const { data } = await api.post<Blob>(
-    `/resume-adaptation/${id}/download`,
-    { acceptedIndexes },
-    { responseType: 'blob' },
-  );
-  return data;
+  try {
+    const { data } = await api.post<Blob>(
+      `/resume-adaptation/${id}/download`,
+      { acceptedIndexes },
+      { responseType: 'blob' },
+    );
+    return data;
+  } catch (error) {
+    if (isAxiosError(error) && error.response?.data instanceof Blob) {
+      const text = await error.response.data.text();
+      const detail = parseProblemDetail(text);
+      if (detail) throw new Error(detail);
+    }
+    throw error;
+  }
 };
