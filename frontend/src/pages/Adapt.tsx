@@ -42,10 +42,10 @@ export default function Adapt() {
 
   return (
     <div className="max-w-3xl space-y-6">
-      <h1 className="text-xl font-semibold">Адаптация резюме</h1>
+      <h1 className="text-xl font-semibold">Resume Adaptation</h1>
 
       <div className="space-y-2">
-        <label className="text-sm text-gray-400">Ссылка на вакансию</label>
+        <label className="text-sm text-gray-400">Vacancy URL</label>
         <div className="flex gap-2">
           <input
             type="url"
@@ -59,7 +59,7 @@ export default function Adapt() {
             disabled={!url || fetchMutation.isPending}
             className="px-4 py-2 text-sm rounded bg-gray-800 hover:bg-gray-700 disabled:opacity-50 transition-colors"
           >
-            {fetchMutation.isPending ? 'Загружаем…' : 'Загрузить'}
+            {fetchMutation.isPending ? 'Fetching…' : 'Fetch'}
           </button>
         </div>
         {fetchMutation.isError && (
@@ -70,18 +70,18 @@ export default function Adapt() {
       </div>
 
       <div className="space-y-2">
-        <label className="text-sm text-gray-400">Текст вакансии</label>
+        <label className="text-sm text-gray-400">Vacancy text</label>
         <textarea
           value={vacancyText}
           onChange={e => setVacancyText(e.target.value)}
           rows={10}
-          placeholder="Вставь описание вакансии или загрузи по ссылке выше"
+          placeholder="Paste the vacancy description or fetch it from the URL above"
           className="w-full bg-gray-900 border border-gray-800 rounded px-3 py-2 text-sm focus:outline-none focus:border-blue-600"
         />
       </div>
 
       <div className="space-y-2">
-        <label className="text-sm text-gray-400">Резюме (.docx)</label>
+        <label className="text-sm text-gray-400">Resume (.docx)</label>
         <input
           type="file"
           accept=".docx"
@@ -96,7 +96,7 @@ export default function Adapt() {
           disabled={!file || !vacancyText.trim() || adaptMutation.isPending}
           className="px-6 py-2 rounded bg-blue-600 hover:bg-blue-500 disabled:bg-gray-700 disabled:text-gray-500 text-white font-medium transition-colors"
         >
-          {adaptMutation.isPending ? 'Адаптируем… (~30 сек)' : 'Адаптировать резюме'}
+          {adaptMutation.isPending ? 'Adapting… (~30 s)' : 'Adapt resume'}
         </button>
         {adaptMutation.isError && (
           <p className="text-sm text-red-400">{errorDetail(adaptMutation.error)}</p>

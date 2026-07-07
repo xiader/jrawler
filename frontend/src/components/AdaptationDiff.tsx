@@ -60,33 +60,33 @@ export default function AdaptationDiff({ adaptation, onReset }: Props) {
     <div className="space-y-6">
       <div className="flex items-center justify-between">
         <h2 className="text-lg font-semibold">
-          Правки <span className="text-gray-400 text-sm">принято {accepted.size} из {adaptation.edits.length}</span>
+          Edits <span className="text-gray-400 text-sm">accepted {accepted.size} of {adaptation.edits.length}</span>
         </h2>
         <div className="flex gap-2">
           <button
             onClick={onReset}
             className="px-4 py-1.5 text-sm rounded border border-gray-700 text-gray-300 hover:bg-gray-800 transition-colors"
           >
-            Начать заново
+            Start over
           </button>
           <button
             onClick={() => downloadMutation.mutate()}
             disabled={downloadMutation.isPending}
             className="px-4 py-1.5 text-sm rounded bg-blue-600 hover:bg-blue-500 disabled:bg-gray-700 disabled:text-gray-500 text-white font-medium transition-colors"
           >
-            {downloadMutation.isPending ? 'Готовим…' : 'Скачать docx'}
+            {downloadMutation.isPending ? 'Preparing…' : 'Download docx'}
           </button>
         </div>
       </div>
 
       {downloadMutation.isError && (
         <p className="text-sm text-red-400">
-          Не удалось скачать: {(downloadMutation.error as Error).message}. Возможно, сессия истекла — начни заново.
+          Download failed: {(downloadMutation.error as Error).message}. The session may have expired — start over.
         </p>
       )}
 
       {adaptation.edits.length === 0 && (
-        <p className="text-gray-400">LLM не предложил правок — резюме уже хорошо подходит под вакансию.</p>
+        <p className="text-gray-400">The LLM proposed no edits — the resume already fits this vacancy well.</p>
       )}
 
       <div className="space-y-4">
@@ -108,11 +108,11 @@ export default function AdaptationDiff({ adaptation, onReset }: Props) {
               />
               <div className="grid md:grid-cols-2 gap-4 flex-1">
                 <div>
-                  <div className="text-xs uppercase text-gray-500 mb-1">Было</div>
+                  <div className="text-xs uppercase text-gray-500 mb-1">Before</div>
                   <DiffText parts={diff.originalParts} changedClass="bg-red-900/60 text-red-200 rounded px-0.5" />
                 </div>
                 <div>
-                  <div className="text-xs uppercase text-gray-500 mb-1">Стало</div>
+                  <div className="text-xs uppercase text-gray-500 mb-1">After</div>
                   <DiffText parts={diff.proposedParts} changedClass="bg-green-900/60 text-green-200 rounded px-0.5" />
                 </div>
               </div>
@@ -123,7 +123,7 @@ export default function AdaptationDiff({ adaptation, onReset }: Props) {
 
       {adaptation.suggestions.length > 0 && (
         <div className="rounded-lg border border-gray-800 bg-gray-900 p-4">
-          <h3 className="text-sm font-semibold text-gray-300 mb-2">Подсказки — чего не хватает в резюме</h3>
+          <h3 className="text-sm font-semibold text-gray-300 mb-2">Suggestions — what the resume is missing</h3>
           <ul className="list-disc list-inside space-y-1 text-sm text-gray-400">
             {adaptation.suggestions.map((s, i) => (
               <li key={i}>{s}</li>

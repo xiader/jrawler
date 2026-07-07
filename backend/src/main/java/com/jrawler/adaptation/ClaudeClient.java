@@ -20,10 +20,10 @@ public class ClaudeClient {
             that are not already in the resume.
             - Only rewrite paragraphs that are genuinely worth strengthening for this vacancy. \
             Leave everything else untouched — do not return edits whose text is unchanged.
-            - Write rewritten paragraphs in the same language as the resume.
+            - Write rewritten paragraphs in English.
             - Separately, list vacancy requirements that the resume does not mention, as short suggestions \
             the candidate can act on ("The vacancy asks for X — add it if you actually have that experience"). \
-            Write suggestions in the resume's language.
+            Write suggestions in English.
             - Resume paragraphs are numbered with [N] markers; use those numbers as paragraphIndex.
             """;
 
