@@ -22,7 +22,7 @@ Flyway migrations run automatically on backend startup. `.env` is read by docker
 
 ## Stack
 
-- Backend: Java 21, Spring Boot 3.4.3, JPA (ddl-auto: validate — schema changes go through Flyway), PostgreSQL 18, Redis 8.6
+- Backend: Java 25, Spring Boot 4.1 (Jackson 3 — `tools.jackson.*`; Flyway auto-config via the `spring-boot-flyway` module), JPA (ddl-auto: validate — schema changes go through Flyway), PostgreSQL 18, Redis 8.6
 - Crawling: OkHttp 4.12, Rome 2.1 (RSS), Jsoup 1.18, Playwright 1.49
 - Frontend: React 19, TypeScript, Vite 7, Tailwind 4, TanStack Query 5, axios, react-router 7
 
@@ -41,7 +41,8 @@ Backend packages under `backend/src/main/java/com/jrawler/`:
 | `scheduler/` | Hourly cron crawl (`crawler.schedule-cron`, toggle via `CRAWLER_ENABLED`) |
 | `notification/` | Telegram bot (optional, env-driven) |
 | `source/` | Source entities; each adapter's `getSourceId()` must match a `sources.id` row |
-| `api/` | REST controllers under `/api/v1/` (profiles, sources, companies, vacancies, crawler) |
+| `adaptation/` | Resume adaptation: vacancy URL/text + `.docx` → Claude API (paragraph-indexed rewrites, structured output) → per-edit diff → adapted `.docx`. Ephemeral state in Redis (`adaptation:{uuid}`, TTL 1h). Config: `ANTHROPIC_API_KEY`, `ADAPTATION_MODEL` |
+| `api/` | REST controllers under `/api/v1/` (profiles, sources, companies, vacancies, crawler; feature controllers live in their feature packages) |
 
 Scoring: +30 must-keyword in title, +10 in description, +5 nice-to-have, +15 remote match, +10 location match; any exclude hit -> score 0.
 
