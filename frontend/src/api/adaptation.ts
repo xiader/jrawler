@@ -25,7 +25,12 @@ export const createAdaptation = async (
   const form = new FormData();
   form.append('resume', resume);
   form.append('vacancyText', vacancyText);
-  const { data } = await api.post<AdaptationResponse>('/resume-adaptation', form);
+  // The shared axios instance defaults Content-Type to application/json; an
+  // explicit undefined removes it so the browser sets multipart/form-data
+  // with the boundary itself.
+  const { data } = await api.post<AdaptationResponse>('/resume-adaptation', form, {
+    headers: { 'Content-Type': undefined },
+  });
   return data;
 };
 
