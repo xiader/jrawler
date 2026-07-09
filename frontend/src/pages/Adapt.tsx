@@ -7,6 +7,7 @@ import {
   type AdaptationResponse,
 } from '../api/adaptation';
 import AdaptationDiff from '../components/AdaptationDiff';
+import CandidateSkills from '../components/CandidateSkills';
 
 function errorDetail(error: unknown): string {
   if (isAxiosError(error) && error.response?.data?.detail) {
@@ -101,6 +102,10 @@ export default function Adapt() {
         {adaptMutation.isError && (
           <p className="text-sm text-red-400">{errorDetail(adaptMutation.error)}</p>
         )}
+      </div>
+
+      <div className="border-t border-gray-800 pt-6">
+        <CandidateSkills />
       </div>
     </div>
   );

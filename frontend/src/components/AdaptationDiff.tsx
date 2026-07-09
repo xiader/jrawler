@@ -1,7 +1,8 @@
 import { useMemo, useState } from 'react';
-import { useMutation } from '@tanstack/react-query';
+import { useMutation, useQueryClient } from '@tanstack/react-query';
 import type { AdaptationResponse } from '../api/adaptation';
 import { downloadAdapted } from '../api/adaptation';
+import { addSkill, SKILLS_QUERY_KEY } from '../api/skills';
 import { diffWords, type DiffPart } from '../lib/wordDiff';
 
 interface Props {
@@ -26,6 +27,16 @@ export default function AdaptationDiff({ adaptation, onReset }: Props) {
   const [accepted, setAccepted] = useState<Set<number>>(
     () => new Set(adaptation.edits.map(e => e.paragraphIndex)),
   );
+  const [savedKeywords, setSavedKeywords] = useState<Set<string>>(new Set());
+  const queryClient = useQueryClient();
+
+  const saveSkillMutation = useMutation({
+    mutationFn: (keyword: string) => addSkill(keyword),
+    onSuccess: (_skill, keyword) => {
+      setSavedKeywords(prev => new Set(prev).add(keyword));
+      queryClient.invalidateQueries({ queryKey: SKILLS_QUERY_KEY });
+    },
+  });
 
   const diffs = useMemo(
     () => adaptation.edits.map(e => ({ edit: e, diff: diffWords(e.original, e.proposed) })),
@@ -123,10 +134,31 @@ export default function AdaptationDiff({ adaptation, onReset }: Props) {
 
       {adaptation.suggestions.length > 0 && (
         <div className="rounded-lg border border-gray-800 bg-gray-900 p-4">
-          <h3 className="text-sm font-semibold text-gray-300 mb-2">Suggestions — what the resume is missing</h3>
-          <ul className="list-disc list-inside space-y-1 text-sm text-gray-400">
-            {adaptation.suggestions.map((s, i) => (
-              <li key={i}>{s}</li>
+          <h3 className="text-sm font-semibold text-gray-300 mb-1">Suggestions — what the resume is missing</h3>
+          <p className="text-xs text-gray-500 mb-3">
+            "I have this" saves the skill to your profile — future adaptations weave it in automatically.
+            Only mark skills you can back up in an interview.
+          </p>
+          <ul className="space-y-2 text-sm text-gray-400">
+            {adaptation.suggestions.map(s => (
+              <li key={s.keyword} className="flex items-center justify-between gap-3">
+                <span>
+                  <span className="text-gray-200 font-medium">{s.keyword}</span>
+                  {' — '}
+                  {s.text}
+                </span>
+                {savedKeywords.has(s.keyword) ? (
+                  <span className="shrink-0 text-xs text-green-400">Saved to skills</span>
+                ) : (
+                  <button
+                    onClick={() => saveSkillMutation.mutate(s.keyword)}
+                    disabled={saveSkillMutation.isPending}
+                    className="shrink-0 px-3 py-1 text-xs rounded border border-gray-700 text-gray-300 hover:bg-gray-800 disabled:opacity-50 transition-colors"
+                  >
+                    I have this
+                  </button>
+                )}
+              </li>
             ))}
           </ul>
         </div>

@@ -20,6 +20,7 @@ class AdaptationServiceTest {
     private final DocxService docxService = mock(DocxService.class);
     private final ClaudeClient claudeClient = mock(ClaudeClient.class);
     private final AdaptationStore store = mock(AdaptationStore.class);
+    private final CandidateSkillRepository skillRepository = mock(CandidateSkillRepository.class);
     private AdaptationService service;
 
     private final byte[] docx = {1, 2, 3};
@@ -30,32 +31,50 @@ class AdaptationServiceTest {
     @BeforeEach
     void setUp() {
         AdaptationProperties props = new AdaptationProperties("test-key", "claude-opus-4-8", 30);
-        service = new AdaptationService(props, docxService, claudeClient, store);
+        service = new AdaptationService(props, docxService, claudeClient, store, skillRepository);
         when(docxService.extractParagraphs(docx)).thenReturn(paragraphs);
+        when(skillRepository.findAll()).thenReturn(List.of());
         when(store.save(any(), anyList())).thenReturn("id-123");
     }
 
     @Test
     void keepsValidEditsAndDropsInvalidOnes() {
-        when(claudeClient.adapt(anyString(), anyList())).thenReturn(new LlmAdaptation(List.of(
+        when(claudeClient.adapt(anyString(), anyList(), anyList())).thenReturn(new LlmAdaptation(List.of(
                 new LlmAdaptation.LlmEdit(2, "Designed Kafka microservices"), // valid
                 new LlmAdaptation.LlmEdit(99, "index not in resume"),          // dropped: unknown index
                 new LlmAdaptation.LlmEdit(0, "   "),                            // dropped: blank
                 new LlmAdaptation.LlmEdit(0, "Ivan Ivanov")                     // dropped: no-op
-        ), List.of("Add Kafka experience if you have it")));
+        ), List.of(new LlmAdaptation.LlmSuggestion("Kafka", "Add Kafka experience if you have it"))));
 
         AdaptationService.AdaptationResponse response = service.createAdaptation(docx, "vacancy text");
 
         assertThat(response.adaptationId()).isEqualTo("id-123");
         assertThat(response.edits()).containsExactly(
                 new EditDto(2, "Built microservices", "Designed Kafka microservices"));
-        assertThat(response.suggestions()).containsExactly("Add Kafka experience if you have it");
+        assertThat(response.suggestions()).containsExactly(
+                new AdaptationService.SuggestionDto("Kafka", "Add Kafka experience if you have it"));
+    }
+
+    @Test
+    void dropsSuggestionsAlreadyCoveredByCandidateSkills() {
+        CandidateSkill quarkus = new CandidateSkill();
+        quarkus.setTerm("Quarkus");
+        when(skillRepository.findAll()).thenReturn(List.of(quarkus));
+        when(claudeClient.adapt(anyString(), anyList(), anyList())).thenReturn(new LlmAdaptation(List.of(),
+                List.of(new LlmAdaptation.LlmSuggestion("quarkus", "The vacancy asks for Quarkus"),
+                        new LlmAdaptation.LlmSuggestion("Kafka", "The vacancy asks for Kafka"),
+                        new LlmAdaptation.LlmSuggestion("  ", "blank keyword dropped"))));
+
+        AdaptationService.AdaptationResponse response = service.createAdaptation(docx, "vacancy text");
+
+        assertThat(response.suggestions()).containsExactly(
+                new AdaptationService.SuggestionDto("Kafka", "The vacancy asks for Kafka"));
     }
 
     @Test
     void returns503WhenApiKeyMissing() {
         AdaptationProperties noKey = new AdaptationProperties("", "claude-opus-4-8", 30);
-        AdaptationService unconfigured = new AdaptationService(noKey, docxService, claudeClient, store);
+        AdaptationService unconfigured = new AdaptationService(noKey, docxService, claudeClient, store, skillRepository);
 
         assertThatThrownBy(() -> unconfigured.createAdaptation(docx, "vacancy"))
                 .isInstanceOf(ResponseStatusException.class)
@@ -73,7 +92,7 @@ class AdaptationServiceTest {
 
     @Test
     void returns502WhenLlmFails() {
-        when(claudeClient.adapt(anyString(), anyList())).thenThrow(new RuntimeException("boom"));
+        when(claudeClient.adapt(anyString(), anyList(), anyList())).thenThrow(new RuntimeException("boom"));
 
         assertThatThrownBy(() -> service.createAdaptation(docx, "vacancy"))
                 .isInstanceOf(ResponseStatusException.class)

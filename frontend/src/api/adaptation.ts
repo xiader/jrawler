@@ -7,10 +7,15 @@ export interface AdaptationEdit {
   proposed: string;
 }
 
+export interface AdaptationSuggestion {
+  keyword: string;
+  text: string;
+}
+
 export interface AdaptationResponse {
   adaptationId: string;
   edits: AdaptationEdit[];
-  suggestions: string[];
+  suggestions: AdaptationSuggestion[];
 }
 
 export const fetchVacancyText = async (url: string): Promise<string> => {

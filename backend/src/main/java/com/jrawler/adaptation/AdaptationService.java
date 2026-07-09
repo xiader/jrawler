@@ -24,8 +24,10 @@ public class AdaptationService {
     private final DocxService docxService;
     private final ClaudeClient claudeClient;
     private final AdaptationStore store;
+    private final CandidateSkillRepository skillRepository;
 
-    public record AdaptationResponse(String adaptationId, List<EditDto> edits, List<String> suggestions) {}
+    public record SuggestionDto(String keyword, String text) {}
+    public record AdaptationResponse(String adaptationId, List<EditDto> edits, List<SuggestionDto> suggestions) {}
 
     public AdaptationResponse createAdaptation(byte[] docxBytes, String vacancyText) {
         if (!props.isConfigured()) {
@@ -37,9 +39,10 @@ public class AdaptationService {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "The resume contains no text");
         }
 
+        List<CandidateSkill> skills = skillRepository.findAll();
         LlmAdaptation llm;
         try {
-            llm = claudeClient.adapt(vacancyText, paragraphs);
+            llm = claudeClient.adapt(vacancyText, paragraphs, skills);
         } catch (Exception e) {
             log.error("LLM adaptation call failed", e);
             throw new ResponseStatusException(HttpStatus.BAD_GATEWAY, "LLM service unavailable, try again");
@@ -55,7 +58,15 @@ public class AdaptationService {
                         originalByIndex.get(e.paragraphIndex()), e.newText().strip()))
                 .toList();
 
-        List<String> suggestions = llm.suggestions() == null ? List.of() : llm.suggestions();
+        // Safety net: the prompt already excludes known skills from suggestions, but filter anyway.
+        Set<String> knownTerms = skills.stream()
+                .map(s -> s.getTerm().toLowerCase())
+                .collect(Collectors.toSet());
+        List<SuggestionDto> suggestions = llm.suggestions() == null ? List.of() : llm.suggestions().stream()
+                .filter(s -> s.keyword() != null && !s.keyword().isBlank())
+                .filter(s -> !knownTerms.contains(s.keyword().strip().toLowerCase()))
+                .map(s -> new SuggestionDto(s.keyword().strip(), s.text()))
+                .toList();
         String id = store.save(docxBytes, edits);
         log.info("Adaptation {} created: {} edits, {} suggestions", id, edits.size(), suggestions.size());
         return new AdaptationResponse(id, edits, suggestions);

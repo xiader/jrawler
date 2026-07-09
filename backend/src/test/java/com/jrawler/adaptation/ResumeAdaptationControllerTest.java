@@ -63,7 +63,7 @@ class ResumeAdaptationControllerTest {
         when(adaptationService.createAdaptation(any(), anyString()))
                 .thenReturn(new AdaptationService.AdaptationResponse("id-123",
                         List.of(new EditDto(2, "old", "new")),
-                        List.of("Add Kafka")));
+                        List.of(new AdaptationService.SuggestionDto("Kafka", "Add Kafka"))));
 
         MockMultipartFile resume = new MockMultipartFile("resume", "cv.docx",
                 "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
@@ -77,7 +77,8 @@ class ResumeAdaptationControllerTest {
                 .andExpect(jsonPath("$.edits[0].paragraphIndex").value(2))
                 .andExpect(jsonPath("$.edits[0].original").value("old"))
                 .andExpect(jsonPath("$.edits[0].proposed").value("new"))
-                .andExpect(jsonPath("$.suggestions[0]").value("Add Kafka"));
+                .andExpect(jsonPath("$.suggestions[0].keyword").value("Kafka"))
+                .andExpect(jsonPath("$.suggestions[0].text").value("Add Kafka"));
     }
 
     @Test
